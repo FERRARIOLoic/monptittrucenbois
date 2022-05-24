@@ -16,12 +16,44 @@
 </head>
 
 <body>
-    <header class="container-fluid">
-        <nav class="navbar bg-light">
-            <a class="navbar-brand" href="index.html">
-                <h1><img src="public/assets/img/icons/logo.png" alt="" width="30" height="24"
-                        class="d-inline-block align-text-top">Mon P'tit Truc En Bois</h1>
-            </a>
+    <header class="container-fluid shadow navbarImgBackground fixed-top">
+        <!-- Navbar responsive -->
+        <nav class="navbar navbar-expand-sm navbar-light">
+            <div class="container-fluid">
+                <div class="row align-items-end col-12 col-md-6">
+                    <div class="col-10">
+                        <h3>
+                            <a href="index.html">
+                                <img class="navbarImgLogo" src="public/assets/img/icons/logo.png"
+                                    alt="Mon P'tit Truc En Bois">
+                                Mon P'tit Truc En Bois
+                            </a>
+                        </h3>
+                    </div>
+                    <div class="col-2">
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                    </div>
+                </div>
+                <div class="collapse navbar-collapse col-3 col-md-6 " id="navbarNavAltMarkup" id="fixBtn">
+                    <div class="col-12 col-md-5 py-2">
+                        <a href="chantournage.html"><strong>Chantournage et pyrogravure</strong></a>
+                    </div>
+                    <div class="col-12 col-md-3 py-2">
+                        <a href="tournage.html"><strong>Tournage sur bois</strong></a>
+                    </div>
+                    <div class="col-12 col-md-2 py-2">
+                        <a href="Contact.html"><strong>Contacts</strong></a>
+                    </div>
+                    <div class=" col-12 col-md-1 py-2 text-end">
+                        <img id="modalSearch" type="button" class="searchImg" data-bs-toggle="modal"
+                            data-bs-target="#modalCart" class="networkImg" src="public/assets/img/icons/search.png">
+                    </div>
+                </div>
+            </div>
         </nav>
     </header>
 
@@ -40,7 +72,7 @@
             </div>
         </div>
 
-        <div class="row boxContact shadow">
+        <div class="row boxContact">
 
 
             <!------------- CATEGORY --------->
@@ -327,9 +359,7 @@
 
     <footer>
     </footer>
-    <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js'
-        integrity='sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM' crossorigin='anonymous'>
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src='public/assets/js/script.js'></script>
 </body>
 
