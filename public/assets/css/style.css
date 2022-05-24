@@ -20,19 +20,24 @@ body{
     color:#637589;
 }
 
+.navbarText{
 
-.navbar{
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
+}
+.navbarImg{
+    background-image: url('../img/icons/backgroundWood.jpg');
+    background-position: center center;
+    /* background-attachment: fixed; */
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 a{ 
     color:#637589;
+    text-decoration:none;
 }
 
 .titlePage{
+    margin-top:70px;
     height:100px;
     font-family: 'Roboto', sans-serif;
     color:#637589;
