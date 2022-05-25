@@ -23,14 +23,8 @@
 
     <main class="container-fluid">
         <div class="row titlePage">
-            <div class="col-12 text-center align-self-center">
-                <h1>TITRE PAGE</h1>
-            </div>
-        </div>
-
-        <div class="row descriptionPage">
-            <div class="col-12 text-center align-self-center fs-4 pb-5">
-                DESCRIPTION PAGE
+            <div class="col-12 text-center align-self-center mb-5">
+                <h1>Profil</h1>
             </div>
         </div>
 
@@ -40,33 +34,221 @@
                 <!------------- BOX --------->
                 <div class="row titlePage boxContact">
                     <div class="col-12 text-center align-self-center fs-3 py-3">
-                        <a href="chantournage.html">
-                            <h2>Profil</h2>
-                        </a>
+                        <h3>Informations personnelles</h3>
                     </div>
                     <div class="col-12 border-2 border-secondary border-top py-3">
 
                         <div class="row">
-                            <div class="col-12 py-2">DESCRIPTION BOX 1</div>
-                            <div class="col-12 py-2">DESCRIPTION BOX 2</div>
-                            <div class="col-12 py-2">DESCRIPTION BOX 3</div>
-                            <div class="col-12 py-2">DESCRIPTION BOX 4</div>
+
+                            <!------------- CATEGORY --------->
+                            <div class="col-12">
+                                <div class="row boxCategory">
+                                    <div class="col-12 col-md-4">
+                                        <strong>Vous êtes...</strong>
+                                    </div>
+                                    <div class="col-6 col-md-4">
+                                        <input id="particulier" type="radio" name="category" value="particulier">
+                                        <label for="particulier">Particulier</label>
+                                    </div>
+                                    <div class="col-6 col-md-4">
+                                        <input id="professionnel" type="radio" name="category" value="professionnel">
+                                        <label for="professionnel">Professionnel</label>
+                                    </div>
+                                </div>
+                            </div>
+                
+                
+                            <!------------- GENDER --------->
+                            <div class="col-12">
+                                <div class="row boxCategory">
+                                    <div class="col-12 col-md-4">
+                                        <strong>Civilité</strong>
+                                    </div>
+                                    <div class="col-6 col-md-4">
+                                        <input id="miss" type="radio" name="gender" value="Madame">
+                                        <label for="miss">Madame</label>
+                                    </div>
+                                    <div class="col-6 col-md-4">
+                                        <input id="mister" type="radio" name="gender" value="Monsieur">
+                                        <label for="mister">Monsieur</label>
+                                    </div>
+                                </div>
+                            </div>
+                
+                            <div class="row boxBlank"></div>
+                
+                            <!------------- LASTNAME --------->
+                            <div class="col-12 col-md-6">
+                                <div class="row">
+                                    <div class="col-12 ">
+                                        <strong><label for="lastname">Nom</label></strong>
+                                    </div>
+                                </div>
+                                <div class="row boxInput">
+                                    <div class="col-12 col-md-10">
+                                        <input class="inputText" id="lastname" type="text" name="lastname" value="" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                
+                
+                            <!------------- FIRSTNAME --------->
+                            <div class="col-12 col-md-6">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <strong><label for="firstname">Prénom</label></strong>
+                                    </div>
+                                </div>
+                                <div class="row boxInput">
+                                    <div class="col-12 col-md-10">
+                                        <input class="inputText" id="firstname" type="text" name="firstname" value="" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                
+                
+                            <!------------- EMAIL --------->
+                            <div class="col-12 col-md-6">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <strong><label for="email">Adresse Email</label></strong>
+                                    </div>
+                                </div>
+                                <div class="row boxInput">
+                                    <div class="col-12 col-md-10">
+                                        <input class="inputText" id="email" type="text" name="email" value="" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                
+                
+                            <!------------- PHONE --------->
+                            <div class="col-12 col-md-6">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <strong><label for="phoneNumber">Téléphone</label></strong>
+                                    </div>
+                                </div>
+                                <div class="row boxInput">
+                                    <div class="col-12 col-md-10">
+                                        <input class="inputText" id="phoneNumber" type="tel" name="phoneNumber" value="" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                
+                
+                            <!------------- BIRTHDAY --------->
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <strong><label for="birthday">Date de naissance</label></strong>
+                                    </div>
+                                </div>
+                                <div class="row boxInput">
+                                    <div class="col-12 col-md-3">
+                                        <input class="inputText" id="birthday" type="date" name="birthday" value="" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                
+                            <div class="row boxBlank"></div>
+                
+                            <!------------- ADRESS --------->
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <strong><label for="adress">Adresse postale</label></strong>
+                                    </div>
+                                </div>
+                                <div class="row boxInput">
+                                    <div class="col-12">
+                                        <input class="inputText" id="adress" type="text" name="adress" value="" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                
+                
+                            <!------------- ADRESS MORE --------->
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <strong><label for="adressMore">Complément d'adresse</label></strong>
+                                    </div>
+                                </div>
+                                <div class="row boxInput">
+                                    <div class="col-12">
+                                        <input class="inputText" id="adressMore" type="text" name="adressMore" value="" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                
+                
+                            <!------------- POSTAL CODE --------->
+                            <div class="col-12 col-md-5">
+                                <div class="row">
+                                    <div class="col-12 ">
+                                        <strong><label for="postalCode">Code Postal</label></strong>
+                                    </div>
+                                </div>
+                                <div class="row boxInput">
+                                    <div class="col-12 col-md-8">
+                                        <input class="inputText" id="postalCode" type="number" name="postalCode" value=""
+                                            placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                
+                
+                            <!------------- CITY --------->
+                            <div class="col-12 col-md-7">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <strong><label for="city">Ville</label></strong>
+                                    </div>
+                                </div>
+                                <div class="row boxInput">
+                                    <div class="col-12">
+                                        <input class="inputText" id="city" type="text" name="city" value="" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                            <!------------- CONTACT HOW --------->
+                            <div class="col-12">
+                                <div class="row boxCategory">
+                                    <div class="col-12">
+                                        <strong>Vous acceptez d'être contacté par...</strong>
+                                    </div>
+                                    <div class="col-6 col-md-3">
+                                        <input id="email" type="radio" name="contactHow" value="email">
+                                        <label for="email">Email</label>
+                                    </div>
+                                    <div class="col-6 col-md-3">
+                                        <input id="phone" type="radio" name="contactHow" value="phone">
+                                        <label for="phone">Téléphone</label>
+                                    </div>
+                                    <div class="col-6 col-md-3">
+                                        <input id="letter" type="radio" name="contactHow" value="letter">
+                                        <label for="letter">Courrier postal</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!------------- BOX TOURNAGE SUR BOIS --------->
+            <!------------- BOX PRODUITS FAVORIS --------->
             <div class="col-12 col-md-6">
                 <div class="row titlePage boxContact">
                     <div class="col-12 text-center align-self-center fs-3 py-3">
-                        <h2>TITRE BOX 2</h2>
+                        <h3>Mes produits favoris</h3>
                     </div>
                     <div class="col-12 border-2 border-secondary border-top py-3">
 
                         <div class="row">
-                            <div class="col-12 py-2">DESCRIPTION BOX 1</div>
-                            <div class="col-12 py-2">DESCRIPTION BOX 2</div>
+                            <div class="col-12 py-2">Produit 1</div>
+                            <div class="col-12 py-2">Produit 2</div>
                         </div>
                     </div>
                 </div>
