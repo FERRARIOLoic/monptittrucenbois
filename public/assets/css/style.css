@@ -88,6 +88,15 @@ a:hover {
         background-color: #d0a86d10;
     }
 
+    .boxConnect {
+        margin: 10px 5px 5px 5px;
+        padding: 10px;
+        width:70%;
+        border-radius: 10px;
+        background-color: #c7964d10;
+        justify-content: center;
+    }
+
     .boxCategory {
         margin: 5px 0px 10px 0px;
     }
@@ -141,6 +150,17 @@ a:hover {
         padding: 10px;
         border-radius: 10px;
         background-color: #c7964d10;
+    }
+
+    .boxConnect {
+        margin: 10px 5px 5px 5px;
+        padding: 10px;
+        width:70%;
+        border-radius: 10px;
+        background-color: #c7964d10;
+        justify-content: center;
+        text-align:right;
+        align-items: center;
     }
 
     .boxCategory {
