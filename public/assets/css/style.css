@@ -23,10 +23,14 @@ header {
     position: sticky;
     top: 0px;
 }
-
-.navbarImgLogo {
-    width: 300%;
+.navbar{
+    display: flex;
+    flex-wrap: inherit;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
 }
+
 
 .phoneImg {
     width: 5%;
@@ -81,6 +85,9 @@ a:hover {
 /*------------- SMALL SCREEN ---------*/
 @media screen and (max-width:576px) {
 
+    .navbarImgLogo {
+        width: 10%;
+    }
     .titleSite {
         font-size: 15px;
     }
@@ -140,14 +147,17 @@ a:hover {
     }
 
     .menuImg {
-        width: 80%;
+        width: 50%;
     }
 
     .searchImg {
-        width: 500%;
+        width: 300%;
     }
 
     .profileImg {
+        width: 300%;
+    }
+    .productNew {
         width: 500%;
     }
 }
@@ -157,6 +167,9 @@ a:hover {
 /*------------- BIG SCREEN ---------*/
 @media screen and (min-width:576px) {
 
+    .navbarImgLogo {
+        width: 15%;
+    }
     .titleSite {
         font-size: 25px;
     }
@@ -217,17 +230,12 @@ a:hover {
         height: 50px;
     }
 
-    .menuCol {
-        visibility: collapse;
-    }
-
-
     .searchImg {
-        width: 250%;
+        width: 35%;
     }
 
     .profileImg {
-        width: 250%;
+        width: 35%;
     }
 }
 
