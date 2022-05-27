@@ -20,7 +20,7 @@ function headerInclude() {
                     }
                     /* Remove the attribute, and call this function once more: */
                     elmnt.removeAttribute("header_include");
-                    includeHTML();
+                    headerInclude();
                 }
             }
             xhttp.open("GET", file, true);
@@ -53,7 +53,7 @@ function modalInclude() {
                     }
                     /* Remove the attribute, and call this function once more: */
                     elmnt.removeAttribute("modal_include");
-                    includeHTML();
+                    modalInclude();
                 }
             }
             xhttp.open("GET", file, true);
@@ -219,11 +219,59 @@ let connectVueConnexionModal = () => {
     `;
 }
 
+let cmdExpandDetails = () => {
+    cmdDetails.innerHTML = `
+    
+    <div class="row border-1 border-top">
+    <div class="col-8 text-center"><strong>Article</strong></div>
+    <div class="col-2 text-center"><strong>Qtté</strong></div>
+    <div class="col-2 text-center"><strong>Prix</strong></div>
+</div>
+<div class="row">
+    <div class="col-8">Bol</div>
+    <div class="col-2 text-end">1</div>
+    <div class="col-2 text-end">20</div>
+</div>
+<div class="row">
+    <div class="col-8">Boite à dents</div>
+    <div class="col-2 text-end">2</div>
+    <div class="col-2 text-end">30</div>
+</div>
+<div class="row">
+    <div class="col-8">Rond de serviettes</div>
+    <div class="col-2 text-end">4</div>
+    <div class="col-2 text-end">40</div>
+</div>
+<div class="row border-1 border-top">
+    <div class="col-8"><strong>7 articles</strong></div>
+    <div class="col-4 text-end"><strong>90€</strong></div>
+</div>
+<div class="row">
+    <div class="col-6">
+        <button class="btn btn-secondary mt-2 mb-3" type="submit">Préparation</button>
+    </div>
+    <div class="col-6 text-end">
+        <button class="btn btn-secondary mt-2 mb-3" type="submit">payement</button>
+    </div>
+</div>
+    `;
+}
+
+
+
+
+
 
 
 /*------------- BUTTONS ADD EVENT LISTENER ---------*/
 
-btnInscription.addEventListener('click', connectVueInscription);
-btnConnexion.addEventListener('click', connectVueConnexion);
-btnInscriptionModal.addEventListener('click', connectVueInscriptionModal);
-btnConnexionModal.addEventListener('click', connectVueConnexionModal);
+// btnInscription.addEventListener('click', connectVueInscription);
+// btnConnexion.addEventListener('click', connectVueConnexion);
+
+
+cmdExpand.addEventListener('click', cmdExpandDetails);
+
+
+
+// btnInscriptionModal.addEventListener('click', connectVueInscriptionModal);
+// btnConnexionModal.addEventListener('click', connectVueConnexionModal);
