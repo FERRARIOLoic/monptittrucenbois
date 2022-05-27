@@ -81,6 +81,9 @@ a:hover {
 /*------------- SMALL SCREEN ---------*/
 @media screen and (max-width:576px) {
 
+    .titleSite {
+        font-size: 15px;
+    }
 
     .boxContact {
         margin: 10px 5px 5px 5px;
@@ -154,6 +157,10 @@ a:hover {
 /*------------- BIG SCREEN ---------*/
 @media screen and (min-width:576px) {
 
+    .titleSite {
+        font-size: 25px;
+    }
+
     .boxContact {
         margin: 10px 5px 5px 5px;
         padding: 10px;
@@ -211,11 +218,9 @@ a:hover {
     }
 
     .menuCol {
-        display:none;
+        visibility: collapse;
     }
-    .menuImg {
-        display:none;
-    }
+
 
     .searchImg {
         width: 250%;
