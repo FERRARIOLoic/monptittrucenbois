@@ -20,12 +20,12 @@ body {
 }
 
 header {
-    position:sticky;
-    top:0px;
+    position: sticky;
+    top: 0px;
 }
 
 .navbarImgLogo {
-    width: 8%;
+    width: 300%;
 }
 
 .phoneImg {
@@ -66,12 +66,13 @@ a:hover {
     color: #637589;
     text-shadow: #637589;
 }
-.productImg{
-    width:100%;
+
+.productImg {
+    width: 100%;
     border-radius: 10px;
 }
 
-.boxWhite{
+.boxWhite {
     background-color: White;
 }
 
@@ -91,7 +92,7 @@ a:hover {
     .boxConnect {
         margin: 10px 5px 5px 5px;
         padding: 10px;
-        width:70%;
+        width: 70%;
         border-radius: 10px;
         background-color: #c7964d10;
         justify-content: center;
@@ -134,13 +135,15 @@ a:hover {
     .boxBlank {
         height: 10px;
     }
+
     .menuImg {
-        width:80%;
+        width: 80%;
     }
 
     .searchImg {
-        width:400%;
+        width: 500%;
     }
+
     .profileImg {
         width: 500%;
     }
@@ -161,11 +164,11 @@ a:hover {
     .boxConnect {
         margin: 10px 5px 5px 5px;
         padding: 10px;
-        width:70%;
+        width: 70%;
         border-radius: 10px;
         background-color: #c7964d10;
         justify-content: center;
-        text-align:right;
+        text-align: right;
         align-items: center;
     }
 
@@ -207,17 +210,25 @@ a:hover {
         height: 50px;
     }
 
-    .searchImg {
-        width: 80%;
+    .menuCol {
+        display:none;
     }
-    .profileImg {
-        height:50%;
+    .menuImg {
+        display:none;
     }
 
-    .boxProductVue {
-        justify-content: space-around;
-        /* background-color: blue; */
+    .searchImg {
+        width: 250%;
     }
+
+    .profileImg {
+        width: 250%;
+    }
+}
+
+.boxProductVue {
+    justify-content: space-around;
+    /* background-color: blue; */
 }
 
 .copyright {
