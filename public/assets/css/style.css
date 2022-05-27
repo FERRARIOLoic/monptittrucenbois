@@ -134,9 +134,15 @@ a:hover {
     .boxBlank {
         height: 10px;
     }
+    .menuImg {
+        width:80%;
+    }
 
     .searchImg {
-        width: 10%;
+        width:400%;
+    }
+    .profileImg {
+        width: 500%;
     }
 }
 
@@ -202,7 +208,10 @@ a:hover {
     }
 
     .searchImg {
-        width: 30%;
+        width: 80%;
+    }
+    .profileImg {
+        height:50%;
     }
 
     .boxProductVue {

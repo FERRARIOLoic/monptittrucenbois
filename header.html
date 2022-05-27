@@ -1,21 +1,36 @@
 <!-- Navbar responsive -->
 <nav class="navbar navbar-expand-sm navbar-light">
     <div class="container-fluid">
-        <div class="row align-items-end col-12 col-md-4">
-            <div class="col-10">
-                <h3>
-                    <a href="index.html">
-                        <img class="navbarImgLogo" src="public/assets/img/icons/logo.png" alt="Mon P'tit Truc En Bois">
-                        Mon P'tit Truc En Bois
-                    </a>
-                </h3>
-            </div>
-            <div class="col-2">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+        <div class="row align-items-end col-12 col-md-4 text-center">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-2 order-md-2">
+                        <img src="public/assets/img/icons/menuHamburger.svg" class="menuImg" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <span class=""></span>
+                        </img>
+                    </div>
+                    <div class="col-8">
+                        <h3>
+                            <a href="index.html">
+                                <h4>
+                                    <img class="navbarImgLogo" src="public/assets/img/icons/logo.png"
+                                        alt="Mon P'tit Truc En Bois">
+                                    Mon P'tit Truc En Bois</h4>
+                            </a>
+                        </h3>
+                    </div>
+                    <div class=" col-1 col-md-1 py-2 text-end">
+                        <img id="btnModalLogin" type="button" class="profileImg" data-bs-toggle="modal"
+                            data-bs-target="#modalLogin" class="userImg" src="public/assets/img/icons/user.svg"
+                            alt="Se connecter" title="Se connecter">
+                    </div>
+                    <div class=" col-1 col-md-1 py-2 text-end">
+                        <img id="btnModalSearch" type="button" class="searchImg" data-bs-toggle="modal"
+                            data-bs-target="#modalSearch" class="networkImg" src="public/assets/img/icons/search.png">
+                    </div>
+                </div>
             </div>
         </div>
         <div class="collapse navbar-collapse col-3 col-md-2 " id="navbarNavAltMarkup" id="fixBtn">
@@ -32,12 +47,8 @@
                 <a href="contact.html"><strong>Contacts</strong></a>
             </div>
             <div class=" col-12 col-md-1 py-2 text-end">
-                <img id="btnModalSearch" type="button" class="searchImg" data-bs-toggle="modal" data-bs-target="#modalSearch"
-                    class="networkImg" src="public/assets/img/icons/search.png">
-            </div>
-            <div class=" col-12 col-md-1 py-2 text-end">
-                <img id="btnModalLogin" type="button" class="searchImg" data-bs-toggle="modal" data-bs-target="#modalLogin"
-                    class="userImg" src="public/assets/img/icons/user.svg" alt="Se connecter" title="Se connecter">
+                <img id="btnModalSearch" type="button" class="searchImg" data-bs-toggle="modal"
+                    data-bs-target="#modalSearch" class="networkImg" src="public/assets/img/icons/search.png">
             </div>
         </div>
     </div>
