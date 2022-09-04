@@ -2,16 +2,13 @@
     .navbarImgLogo {
         width: 10%;
     }
+    .navbar-collapse{
+        flex-grow:0;
+    }
     .titleSite {
         font-size: 15px;
     }
 
-    .boxContact {
-        margin: 10px 5px 5px 5px;
-        padding: 10px;
-        border-radius: 10px;
-        background-color: #d0a86d10;
-    }
 
     .boxConnect {
         margin: 10px 5px 5px 5px;
@@ -30,13 +27,6 @@
         margin: 0px -10px 15px -10px;
     }
 
-    .inputText {
-        border-radius: 10px;
-        border: 0px;
-        height: 30px;
-        width: 100%;
-        box-shadow: inset 0 3px 2px #EBE6E6;
-    }
 
     textarea {
         border-radius: 10px;
@@ -46,30 +36,20 @@
         box-shadow: inset 0 3px 2px #EBE6E6;
     }
 
-    .btnValid {
-        margin: 15px 0px 0px 0px;
-        width: 80%;
-        height: 40px;
-        border: 0px;
-        border-radius: 10px;
-        background-color: #66330010;
-        color: #637589;
-    }
-
     .boxBlank {
         height: 10px;
     }
 
     .menuImg {
-        width: 50%;
+        width: 70%;
     }
 
     .searchImg {
-        width: 500%;
+        width: 350%;
     }
 
     .profileImg {
-        width: 500%;
+        width: 350%;
     }
     .productNew {
         width: 500%;

@@ -16,13 +16,15 @@ html {
 
 body {
     font-family: 'Roboto', sans-serif;
-    color: #1a4372;
+    color: #EA9999;
+    background-image: url('../img/icons/background_wood.jpg');
+    background-position: center center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* background-color: #1D0902; */
 }
 
-header {
-    position: sticky;
-    top: 0px;
-}
 
 .navbar {
     display: flex;
@@ -32,6 +34,76 @@ header {
     flex-direction: column;
 }
 
+.navbarImgBackground {
+    background-color: #77623d;
+}
+
+.navbarScrollHide {
+    animation: animHideNavbar 1s ease 0s 1 normal forwards;
+}
+
+@keyframes animHideNavbar {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-250px);
+    }
+}
+
+.navbarScrollShow {
+    animation: animShowNavbar 0.3s ease 0s 1 normal forwards;
+}
+
+@keyframes animShowNavbar {
+    0% {
+        opacity: 0;
+        transform: translateY(-250px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.nav-link,
+.progress-bar {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+h4 {
+    /* text-shadow: 1px 1px 1px #402013; */
+}
+h4:hover {
+    text-shadow: none;
+}
+
+.boxContact {
+    background-color: #ffeacb;
+    /* box-shadow: 0 0 2px 0 rgba(31, 38, 135, 0.37); */
+    /* backdrop-filter: blur(5px); */
+    /* -webkit-backdrop-filter: blur(5px); */
+    border-radius: 10px;
+    border: none;
+    position: relative;
+    border-bottom: 1px solid #EA9999
+}
+
+.boxContact:hover {
+    background-color: #ffeacb;
+}
+
+.boxContactTitle {
+    font-size: 20px;
+    font-weight: bold;
+    color: #EA9999;
+    text-shadow: #EA9999;
+}
 
 .phoneImg {
     width: 5%;
@@ -41,16 +113,9 @@ header {
     width: 15%;
 }
 
-.navbarImgBackground {
-    background-image: url('../img/icons/backgroundWood.jpg');
-    background-position: center center;
-    /* background-attachment: fixed; */
-    background-repeat: no-repeat;
-    background-size: cover;
-}
 
 a {
-    color: #1a4372;
+    color: #EA9999;
     text-decoration: none;
 }
 
@@ -59,22 +124,48 @@ a:hover {
 }
 
 .titlePage {
-    margin-top: 70px;
+    margin-top: 100px;
     font-family: 'Roboto', sans-serif;
-    color: #1a4372;
-    text-shadow: #1a4372;
+    color: #EA9999;
+    text-shadow: #EA9999;
 }
 
 .descriptionPage {
-    margin-top: 50px;
+    margin-top: 20px;
     font-family: 'Roboto', sans-serif;
-    color: #1a4372;
-    text-shadow: #1a4372;
+    color: #EA9999;
+    text-shadow: #EA9999;
 }
 
 .productImg {
     width: 100%;
-    border-radius: 10px;
+    border-radius: 10px 10px 0px 0px;
+    box-shadow: rgba(33, 35, 38, 0.5) 0px 10px 10px -10px;
+    padding: 0 0 0 0;
+}
+
+.productImgWorking {
+    height: 250px;
+    width: 100%;
+    border-radius: 10px 10px 0px 0px;
+    box-shadow: rgba(33, 35, 38, 0.5) 0px 10px 10px -10px;
+    padding: 0 0 0 0;
+    object-fit: cover;
+    object-position: center center;
+}
+
+.productImgLeft {
+    width: 50%;
+    border-radius: 10px 0px 0px 10px;
+    box-shadow: rgba(33, 35, 38, 0.5) 10px 0px 10px -10px;
+    padding: 0 0 0 0;
+}
+
+.productImgRight {
+    width: 50%;
+    border-radius: 10px 0px 0px 10px;
+    box-shadow: rgba(33, 35, 38, 0.5) 10px 0px 10px -10px;
+    padding: 0 0 0 0;
 }
 
 .boxWhite {
@@ -87,7 +178,7 @@ a:hover {
 }
 
 .cmdDetails {
-    border:0px;
+    border: 0px;
     border-radius: 0px 0px 10px 10px;
     background-color: white;
     box-shadow: inset 0 3px 2px #EBE6E6;
@@ -102,4 +193,43 @@ a:hover {
     display: flex;
     justify-content: start;
     align-items: center;
+}
+
+.inputText {
+    border-radius: 10px;
+    border: 0px;
+    height: 30px;
+    width: 100%;
+    box-shadow: inset 0 3px 2px #EBE6E6;
+    padding: 5px 0px 5px 10px;
+}
+
+.defImg {
+    max-width: 100%;
+    max-height: 450px;
+}
+
+.imgPreview {
+    border-radius: 10px;
+}
+
+.bigifyTextSelected {
+    font-size: 20px;
+    font-weight: bold;
+    color: #EA9999;
+    text-shadow: #ffd7d7;
+}
+.backgroundSelected {
+    background-color: #ffd7d7;
+}
+
+.btnValid {
+    margin: 15px 0px 0px 0px;
+    width: 80%;
+    height: 40px;
+    border: 0px;
+    border-radius: 10px;
+    background-color: #FFE70090;
+    color:#EA9999;
+    box-shadow: inset 0 3px 2px #66330010;
 }

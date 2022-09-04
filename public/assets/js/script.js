@@ -1,277 +1,140 @@
-/*------------- INCLUDE HEADER ---------*/
-function headerInclude() {
-    var z, i, elmnt, file, xhttp;
-    /* Loop through a collection of all HTML elements: */
-    z = document.getElementsByTagName("*");
-    for (i = 0; i < z.length; i++) {
-        elmnt = z[i];
-        /*search for elements with a certain atrribute:*/
-        file = elmnt.getAttribute("header_include");
-        if (file) {
-            /* Make an HTTP request using the attribute value as the file name: */
-            xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-                if (this.readyState == 4) {
-                    if (this.status == 200) {
-                        elmnt.innerHTML = this.responseText;
-                    }
-                    if (this.status == 404) {
-                        elmnt.innerHTML = "Page not found.";
-                    }
-                    /* Remove the attribute, and call this function once more: */
-                    elmnt.removeAttribute("header_include");
-                    headerInclude();
-                }
-            }
-            xhttp.open("GET", file, true);
-            xhttp.send();
-            /* Exit the function: */
-            return;
-        }
+
+
+//------------ HIDE SHOW NAVBAR ---------//
+var prevScrollpos = window.pageYOffset;
+window.onscroll = function () {
+    var currentScrollPos = window.pageYOffset;
+    if (prevScrollpos > currentScrollPos) {
+        document.getElementById("navbar").classList.add('navbarScrollShow');
+        document.getElementById("navbar").classList.remove('navbarScrollHide');
+    } else {
+        document.getElementById("navbar").classList.add('navbarScrollHide');
+        document.getElementById("navbar").classList.remove('navbarScrollShow');
+        document.getElementById("navbarSupportedContent").classList.remove('show');
     }
+    prevScrollpos = currentScrollPos;
 }
 
-/*------------- INCLUDE FOOTER ---------*/
-function modalInclude() {
-    var z, i, elmnt, file, xhttp;
-    /* Loop through a collection of all HTML elements: */
-    z = document.getElementsByTagName("*");
-    for (i = 0; i < z.length; i++) {
-        elmnt = z[i];
-        /*search for elements with a certain atrribute:*/
-        file = elmnt.getAttribute("modal_include");
-        if (file) {
-            /* Make an HTTP request using the attribute value as the file name: */
-            xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-                if (this.readyState == 4) {
-                    if (this.status == 200) {
-                        elmnt.innerHTML = this.responseText;
-                    }
-                    if (this.status == 404) {
-                        elmnt.innerHTML = "Page not found.";
-                    }
-                    /* Remove the attribute, and call this function once more: */
-                    elmnt.removeAttribute("modal_include");
-                    modalInclude();
-                }
-            }
-            xhttp.open("GET", file, true);
-            xhttp.send();
-            /* Exit the function: */
-            return;
-        }
+
+//------------- SHOW HIDE BOX ---------//
+function toggle_text(id) {
+    var span = document.getElementById(id);
+    if (span.style.display == "none") {
+        span.style.display = "inline";
+    } else {
+        span.style.display = "none";
     }
 }
 
 
-/*------------- CONNECT VUE ---------*/
 
-let connectVueInscription = () => {
-    connectVue.innerHTML = `
+//------------- INSCRIPTION ---------//
+btnInscriptionModal.addEventListener('click', () => {
+    btnConnexionModal.classList.remove('bigifyTextSelected');
+    btnInscriptionModal.classList.add('bigifyTextSelected');
+    connectVueModal.innerHTML = `
+        <div id="cartVueModal">
+            <div class="row pt-3">
+                <div class="col-12 px-4 pt-2">
+                    Identifiant
+                </div>
+                <div class="col-12 px-4 pb-2">
+                    <input type="text" name="username" class="inputText">
+                </div>
+            </div>
+            <div class="row pt-3">
+                <div class="col-12 px-4 pt-2">
+                    Mot de passe
+                </div>
+                <div class="col-12 px-4">
+                    <input type="text" name="password" class="inputText">
+                </div>
+            </div>
+            <div class="row pt-3">
+                <div class="col-12 px-4">
+                    Confirmer le mot de passe
+                </div>
+                <div class="col-12 px-4 pb-2">
+                    <input type="text" name="passwordConfirm" class="inputText">
+                </div>
+            </div>
+        </div>
+        <div id="cartFooterVue" class="border-1 border-top p-3 mt-5">
+            <div class="row">
+                <div class="col-12 text-end order-1">
+                    <button type="submit" class="btn btn-secondary">Valider l'inscription</button>
+                </div>
+            </div>
+        </div>`;
+});
+
+//------------- CONNEXION ---------//
+btnConnexionModal.addEventListener('click', () => {
+    btnConnexionModal.classList.add('bigifyTextSelected');
+    btnInscriptionModal.classList.remove('bigifyTextSelected');
+    connectVueModal.innerHTML = `
     <div id="cartVueModal">
         <div class="row pt-3">
-            <div class="col-12 col-md-5 px-4 py-2">
+            <div class="col-12 px-4 pt-2">
                 Identifiant
             </div>
-            <div class="col-12 col-md-7 px-4 py-2">
-                <input type="text" class="inputText">
+            <div class="col-12 px-4 pb-2">
+                <input type="text" name="username" class="inputText">
             </div>
         </div>
         <div class="row pt-3">
-            <div class="col-12 col-md-5 px-4 py-2">
-                Adresse email
-            </div>
-            <div class="col-12 col-md-7 px-4 py-2">
-                <input type="email" class="inputText">
-            </div>
-        </div>
-        <div class="row pt-3">
-            <div class="col-12 col-md-5 px-4 py-1 pt-2">
+            <div class="col-12 px-4 pt-2">
                 Mot de passe
             </div>
-            <div class="col-12 col-md-7 px-4 py-1">
-                <input type="text" class="inputText">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12 col-md-5 px-4 py-1">
-                Confirmer le Mot de passe
-            </div>
-            <div class="col-12 col-md-7 px-4 py-1">
-                <input type="text" class="inputText">
+            <div class="col-12 px-4 pb-2">
+                <input type="password" name="password" class="inputText">
             </div>
         </div>
     </div>
-    <div id="cartFooterVue" class="border-1 border-top p-3">
-        <div class="row">
-            <div class="col-12 text-end order-1">
-                <button type="submit" class="btn btn-secondary">Créer un compte</button>
-            </div>
-        </div>
-    </div>
-    `;
-}
-let connectVueConnexion = () => {
-    connectVue.innerHTML = `
-    <div id="cartVueModal">
-        <div class="row pt-3">
-            <div class="col-12 col-md-5 px-4 py-2">
-                Identifiant
-            </div>
-            <div class="col-12 col-md-7 px-4 py-2">
-                <input type="text" class="inputText">
-            </div>
-        </div>
-        <div class="row pt-3">
-            <div class="col-12 col-md-5 px-4 py-2">
-                Mot de passe
-            </div>
-            <div class="col-12 col-md-7 px-4 py-2">
-                <input type="text" class="inputText">
-            </div>
-        </div>
-    </div>
-    <div id="cartFooterVue" class="border-1 border-top p-3">
+    <div id="cartFooterVue" class="border-1 border-top p-3 mt-5">
         <div class="row">
             <div class="col-12 text-end order-1">
                 <button type="submit" class="btn btn-secondary">Se connecter</button>
             </div>
         </div>
+    </div>`;
+});
+
+//------------- BUTTON PRODUCT INFO ---------//
+btnProductInfo.addEventListener('click', () => {
+    console.log('btnProductInfo');
+    productInfoVue.innerHTML = `
+    <div class="row boxContact boxProductVue mx-md-5">
+    <div class="col-12 text-center align-self-center fs-3 py-3">
+        <h2>Boite</h2>
     </div>
-    `;
-}
-
-
-let connectVueInscriptionModal = () => {
-    console.log('toto');
-    connectVueModal.innerHTML = `
-    <div id="cartVueModal">
-        <div class="row pt-3">
-            <div class="col-12 col-md-5 px-4 py-2">
-                Identifiant
-            </div>
-            <div class="col-12 col-md-7 px-4 py-2">
-                <input type="text" class="inputText">
-            </div>
-        </div>
-        <div class="row pt-3">
-            <div class="col-12 col-md-5 px-4 py-2">
-                Adresse email
-            </div>
-            <div class="col-12 col-md-7 px-4 py-2">
-                <input type="email" class="inputText">
-            </div>
-        </div>
-        <div class="row pt-3">
-            <div class="col-12 col-md-5 px-4 py-1 pt-2">
-                Mot de passe
-            </div>
-            <div class="col-12 col-md-7 px-4 py-1">
-                <input type="text" class="inputText">
+    <div class="col-12 py-3 boxProductVue text-center">
+        <strong>10cm de hauteur, Motif pyrogravé, verni, réalisé en deux modèles</strong>
+    </div>
+    <div class="col-12 col-md-5 border-2 border-secondary border-top py-3 boxProductVue">
+        <div class="row">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-12 py-2 text-center"><strong>Modèle rond - 40€</strong></div>
+                </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-12 col-md-5 px-4 py-1">
-                Confirmer le Mot de passe
-            </div>
-            <div class="col-12 col-md-7 px-4 py-1">
-                <input type="text" class="inputText">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-6 py-2">
+                        <img class="productImg" src="../public/assets/img/products/box/boxBig_01.jpg">
+                    </div>
+                    <div class="col-6 py-2 align-self-center">Nuage de papillons</div>
+                </div>
             </div>
         </div>
-    </div>
-    <div id="cartFooterVue" class="border-1 border-top p-3">
         <div class="row">
-            <div class="col-12 text-end order-1">
-                <button type="submit" class="btn btn-secondary">Créer un compte</button>
+            <div class="col-6 py-2">
+                <img class="productImg" src="../public/assets/img/products/box/boxBig_02.jpg">
             </div>
+            <div class="col-6 py-2 align-self-center">Papillon</div>
         </div>
-    </div>
-    `;
-}
-let connectVueConnexionModal = () => {
-    connectVueModal.innerHTML = `
-    <div id="cartVueModal">
-        <div class="row pt-3">
-            <div class="col-12 col-md-5 px-4 py-2">
-                Identifiant
-            </div>
-            <div class="col-12 col-md-7 px-4 py-2">
-                <input type="text" class="inputText">
-            </div>
-        </div>
-        <div class="row pt-3">
-            <div class="col-12 col-md-5 px-4 py-2">
-                Mot de passe
-            </div>
-            <div class="col-12 col-md-7 px-4 py-2">
-                <input type="text" class="inputText">
-            </div>
-        </div>
-    </div>
-    <div id="cartFooterVue" class="border-1 border-top p-3">
-        <div class="row">
-            <div class="col-12 text-end order-1">
-                <button type="submit" class="btn btn-secondary">Se connecter</button>
-            </div>
-        </div>
-    </div>
-    `;
-}
+    </div>`;
+});
 
-let cmdExpandDetails = () => {
-    cmdDetails.innerHTML = `
-    
-    <div class="row border-1 border-top">
-    <div class="col-8 text-center"><strong>Article</strong></div>
-    <div class="col-2 text-center"><strong>Qtté</strong></div>
-    <div class="col-2 text-center"><strong>Prix</strong></div>
-</div>
-<div class="row">
-    <div class="col-8">Bol</div>
-    <div class="col-2 text-end">1</div>
-    <div class="col-2 text-end">20</div>
-</div>
-<div class="row">
-    <div class="col-8">Boite à dents</div>
-    <div class="col-2 text-end">2</div>
-    <div class="col-2 text-end">30</div>
-</div>
-<div class="row">
-    <div class="col-8">Rond de serviettes</div>
-    <div class="col-2 text-end">4</div>
-    <div class="col-2 text-end">40</div>
-</div>
-<div class="row border-1 border-top">
-    <div class="col-8"><strong>7 articles</strong></div>
-    <div class="col-4 text-end"><strong>90€</strong></div>
-</div>
-<div class="row">
-    <div class="col-6">
-        <button class="btn btn-secondary mt-2 mb-3" type="submit">Préparation</button>
-    </div>
-    <div class="col-6 text-end">
-        <button class="btn btn-secondary mt-2 mb-3" type="submit">payement</button>
-    </div>
-</div>
-    `;
-}
-
-
-
-
-
-
-
-/*------------- BUTTONS ADD EVENT LISTENER ---------*/
-
-// btnInscription.addEventListener('click', connectVueInscription);
-// btnConnexion.addEventListener('click', connectVueConnexion);
-
-
-cmdExpand.addEventListener('click', cmdExpandDetails);
-
-
-
-// btnInscriptionModal.addEventListener('click', connectVueInscriptionModal);
-// btnConnexionModal.addEventListener('click', connectVueConnexionModal);
