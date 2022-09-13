@@ -2,6 +2,7 @@
 
 $pageTitle = 'Accueil';
 
+
 //------------- LINKS ---------//
 require_once(__DIR__ . '/linksHeader.php');
 

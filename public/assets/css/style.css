@@ -15,6 +15,9 @@ html {
 }
 
 body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
     font-family: 'Roboto', sans-serif;
     color: #EA9999;
     background-image: url('../img/icons/background_wood.jpg');
@@ -25,6 +28,9 @@ body {
     /* background-color: #1D0902; */
 }
 
+main {
+    flex: auto;
+}
 
 .navbar {
     display: flex;
@@ -79,6 +85,7 @@ body {
 h4 {
     /* text-shadow: 1px 1px 1px #402013; */
 }
+
 h4:hover {
     text-shadow: none;
 }
@@ -96,6 +103,15 @@ h4:hover {
 
 .boxContact:hover {
     background-color: #ffeacb;
+}
+
+.boxConnect {
+    margin-top: 30px;
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 10px;
 }
 
 .boxContactTitle {
@@ -219,6 +235,7 @@ a:hover {
     color: #EA9999;
     text-shadow: #ffd7d7;
 }
+
 .backgroundSelected {
     background-color: #ffd7d7;
 }
@@ -230,6 +247,6 @@ a:hover {
     border: 0px;
     border-radius: 10px;
     background-color: #FFE70090;
-    color:#EA9999;
+    color: #EA9999;
     box-shadow: inset 0 3px 2px #66330010;
 }

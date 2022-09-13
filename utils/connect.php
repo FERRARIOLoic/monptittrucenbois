@@ -1,23 +1,31 @@
 <?php
 
-require_once(__DIR__ . '/../config/config.php');
+//------------- CONNECTION DATABASE ---------//
+define('DB_HOST', 'localhost');
+define('DB_NAME', 'monptittrucenbois');
+define('DB_USER', 'loic');
+define('DB_PASS', 'mpteb2022!');
 
-function db_connect()
+class Database
 {
 
-    $dsn = 'mysql:host=' . DB_HOST . ';dbname=monptittrucenbois';
-    $option = [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_PERSISTENT => true
-    ];
-    $pdo = null;
+    public static function DBconnect(): PDO
+    {
+        $dsn = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8';
+        $option = [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_PERSISTENT => true,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ
+        ];
+        $pdo = null;
 
-    try {
-        $pdo = new PDO($dsn, DB_USER, DB_PASS, $option);
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    } catch (PDOException $ex) {
-        echo 'Connection failed: ' . $ex->getMessage();
-        die();
+        try {
+            $pdo = new PDO($dsn, DB_USER, DB_PASS, $option);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch (PDOException $ex) {
+            echo 'Connection failed: ' . $ex->getMessage();
+            die();
+        }
+        return $pdo;
     }
-    return $pdo;
 }

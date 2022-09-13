@@ -13,15 +13,14 @@
 
     <div class="row py-4">
         <?php
-        $productsCategories = $pdo->query("SELECT * FROM products_categories ORDER BY category");
-        foreach ($productsCategories as $infoCategory) { ?>
+        foreach ($categories_list as $infoCategory) { ?>
             <div class=" col-12 col-md px-4 py-3 p-md-5">
                 <!------------- BOX CATEGORY --------->
                 <div class="row boxContact">
-                    <img src="../public/assets/img/icons/<?= $infoCategory['image'] ?>" alt="<?= $infoCategory['category'] ?>" class="productImg">
+                    <img src="../public/assets/img/icons/<?= $infoCategory->categories ?>.jpg" alt="<?= $infoCategory->categories ?>" class="productImg">
                     <div class="col-12  text-center align-self-center py-3">
-                        <a href="<?= $infoCategory['url'] ?>" class="stretched-link">
-                            <h4><?= $infoCategory['category'] ?></h4>
+                        <a href="produits.html?category_id=<?= $infoCategory->id_product_category; ?>" class="stretched-link">
+                            <h4><?= $infoCategory->categories ?></h4>
                         </a>
                     </div>
                 </div>

@@ -8,22 +8,23 @@ Options +FollowSymlinks
 # Activation du module de réécriture d'URL :
 RewriteEngine on
 
+# Passage en https :
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+
 #--------------------------------------------------
 # Règles de réécriture d'URL :
 #--------------------------------------------------
 
 # Article avec numéro de page :
-RewriteRule "accueil.html" "controllers/home_controller.php" 
-RewriteRule "parametres.html" "controllers/settings_controller.php" 
-RewriteRule "contact.html" "controllers/contact_controller.php" 
-RewriteRule "actualites.html" "controllers/news_controller.php" 
-RewriteRule "arts-de-la-table.html" "controllers/artsTable_controller.php" 
-RewriteRule "decoration.html" "controllers/decoration_controller.php" 
-RewriteRule "bureautique.html" "controllers/office_controller.php" 
-RewriteRule "jouets.html" "controllers/games_controller.php" 
-RewriteRule "profil.html" "controllers/user_controller.php" 
-RewriteRule "informations.html" "controllers/workingInfo_controller.php" 
-RewriteRule "administrateur.html" "controllers/admin_controller.php" 
-RewriteRule "liste_utilisateurs.html" "controllers/user-controller.php" 
+RewriteRule ^accueil.html$ controllers/home_controller.php [L] 
+RewriteRule ^parametres.html$ controllers/settings_controller.php [L] 
+RewriteRule ^contact.html$ controllers/contact_controller.php [L] 
+RewriteRule ^actualites.html$ controllers/news_controller.php [L] 
+RewriteRule ^produits.html$ controllers/products_category_controller.php [L] 
+RewriteRule ^profil.html$ controllers/user_controller.php [L] 
+RewriteRule ^informations.html$ controllers/workingInfo_controller.php [L] 
+RewriteRule ^administrateur.html$ controllers/admin_controller.php [L] 
+RewriteRule ^liste_utilisateurs.html$ controllers/user_controller.php [L] 
+RewriteRule ^creer_utilisateur.html$ controllers/user_add_controller.php [L] 
 
 ErrorDocument 404 /controllers/error-controller.php

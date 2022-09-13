@@ -22,10 +22,10 @@
             <div id="cartVueModal">
                 <div class="row mt-2">
                     <?php
-                    if(!empty($_SESSION['username'])){
+                    if(!empty($username)){
                         ?>
                         <div class="col-12 text-center align-self-center">
-                            <h4>Bonjour <?= $_SESSION['username'] ?></h4>
+                            <h4>Bonjour <?= $username ?></h4>
                         </div>
                         <div class="col-12 text-center align-self-center">
                             <a href="../controllers/logout.php" class="stretched-link">
@@ -47,10 +47,10 @@
                             <div id="cartVueModal">
                                 <div class="row pt-3">
                                     <div class="col-12 px-4 pt-2">
-                                        Identifiant
+                                        Adresse mail
                                     </div>
                                     <div class="col-12 px-4 pb-2">
-                                        <input type="text" class="inputText">
+                                        <input type="text" class="inputText" name="mail">
                                     </div>
                                 </div>
                                 <div class="row pt-3">
@@ -58,7 +58,7 @@
                                         Mot de passe
                                     </div>
                                     <div class="col-12 px-4 pb-2">
-                                        <input type="password" class="inputText">
+                                        <input type="password" class="inputText" name="password">
                                     </div>
                                 </div>
                             </div>

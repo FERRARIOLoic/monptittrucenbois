@@ -33,13 +33,14 @@ btnInscriptionModal.addEventListener('click', () => {
     btnConnexionModal.classList.remove('bigifyTextSelected');
     btnInscriptionModal.classList.add('bigifyTextSelected');
     connectVueModal.innerHTML = `
+    <form action="creer_utilisateur.html" method="post">
         <div id="cartVueModal">
             <div class="row pt-3">
                 <div class="col-12 px-4 pt-2">
-                    Identifiant
+                    Adresse mail
                 </div>
                 <div class="col-12 px-4 pb-2">
-                    <input type="text" name="username" class="inputText">
+                    <input type="text" name="mail" class="inputText">
                 </div>
             </div>
             <div class="row pt-3">
@@ -47,7 +48,7 @@ btnInscriptionModal.addEventListener('click', () => {
                     Mot de passe
                 </div>
                 <div class="col-12 px-4">
-                    <input type="text" name="password" class="inputText">
+                    <input type="password" name="password" class="inputText">
                 </div>
             </div>
             <div class="row pt-3">
@@ -55,7 +56,7 @@ btnInscriptionModal.addEventListener('click', () => {
                     Confirmer le mot de passe
                 </div>
                 <div class="col-12 px-4 pb-2">
-                    <input type="text" name="passwordConfirm" class="inputText">
+                    <input type="password" name="passwordConfirm" class="inputText">
                 </div>
             </div>
         </div>
@@ -65,7 +66,8 @@ btnInscriptionModal.addEventListener('click', () => {
                     <button type="submit" class="btn btn-secondary">Valider l'inscription</button>
                 </div>
             </div>
-        </div>`;
+        </div>
+        </form>`;
 });
 
 //------------- CONNEXION ---------//
@@ -76,7 +78,7 @@ btnConnexionModal.addEventListener('click', () => {
     <div id="cartVueModal">
         <div class="row pt-3">
             <div class="col-12 px-4 pt-2">
-                Identifiant
+                Adresse mail
             </div>
             <div class="col-12 px-4 pb-2">
                 <input type="text" name="username" class="inputText">

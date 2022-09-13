@@ -1,11 +1,17 @@
 <?php 
+session_start();
+
+
+$user_admin = $_SESSION['users_admin']??0;
+$username = $_SESSION['username']??'';
 
 //------------- DATABASE CONNECT ---------//
-require(__DIR__.'/../utils/connect.php');
-require(__DIR__.'/../models/mpteb.php');
 
 //------------- LOGIC ---------//
-require_once(__DIR__ . '/../config/config.php');
+require_once(__DIR__ . '/../models/products.php');
+
+
+$categories_list = Product::getCategory();
 require_once(__DIR__ . '/../config/regex.php');
 
 

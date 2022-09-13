@@ -1,4 +1,3 @@
-
 <!------------- NAVBAR --------->
 <header id="site-header">
     <nav id="navbar" class="fixed-top navbar navbar-expand-lg navbar-light shadow navbarImgBackground">
@@ -22,8 +21,10 @@
                         </div>
                         <div class=" col-6 col-md-6 order-md-2 text-end ">
                             <?php
-                            if ($_SESSION['users_status'] == '0') { ?>
+                            if ($user_admin == 1 and isset($_SESSION['firstname'])) { ?>
                                 <a href="administrateur.html"><img id="btnModalLogin" type="button" class="profileImg" src="../public/assets/img/icons/admin.svg" alt="Accéder au menu administrateur" title="Accéder au menu administrateur"></a>
+                            <?php } elseif ($user_admin == 0 and isset($_SESSION['firstname'])) { ?>
+                                <a href="profil.html"><img class="profileImg" src="../public/assets/img/icons/admin.svg" alt="Accéder au profil" title="Accéder au profil"></a>
                             <?php } else { ?>
                                 <img id="btnModalLogin" type="button" class="profileImg" data-bs-toggle="modal" data-bs-target="#modalLogin" src="../public/assets/img/icons/user.svg" alt="Se connecter" title="Se connecter">
                             <?php } ?>
@@ -35,9 +36,12 @@
                         <a href="actualites.html"><strong>Actualités</strong></a>
                     </div>
                     <?php
-                    foreach ($productsCategories as $category) : ?>
+                    foreach ($categories_list as $category) :
+                        // var_dump($categories_list);
+                        // die;
+                    ?>
                         <div class="col-12 col-md-2 py-2">
-                            <a href="<?= $category['url'] ?>"><strong><?= $category['category'] ?></strong></a>
+                            <a href="produits.html?category_id=<?= $category->id_product_category; ?>"><strong><?= $category->categories ?></strong></a>
                         </div>
                     <?php endforeach; ?>
                     <div class="col-12 col-md-2 py-2">
