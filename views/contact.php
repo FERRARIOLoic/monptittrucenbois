@@ -47,120 +47,66 @@
                 <div class="row boxBlank"></div>
                 <!------------- LASTNAME --------->
                 <div class="col-12 col-md-6">
-                    <div class="row">
-                        <div class="col-12 ">
-                            <strong><label for="lastname">Nom</label></strong>
-                        </div>
-                    </div>
-                    <div class="row boxInput">
-                        <div class="col-12 col-md-8">
-                            <input class="inputText" id="lastname" type="text" name="lastname" value="" placeholder="">
-                        </div>
+                    <div class="form-floating">
+                        <input type="text" autocomplete="lastname" value="<?= $_SESSION['user']->users_lastname ?? '' ?>" class="form-control <?= isset($errors['user']->users_lastname) ? 'is-invalid' : '' ?>" id="lastname" name="lastname" required placeholder="lastname" />
+                        <label for="lastname" class="form-label">Nom*</label>
                     </div>
                 </div>
                 <!------------- FIRSTNAME --------->
                 <div class="col-12 col-md-6">
-                    <div class="row">
-                        <div class="col-12">
-                            <strong><label for="firstname">Prénom</label></strong>
-                        </div>
-                    </div>
-                    <div class="row boxInput">
-                        <div class="col-12 col-md-8">
-                            <input class="inputText" id="firstname" type="text" name="firstname" value="" placeholder="">
-                        </div>
+                    <div class="form-floating">
+                        <input type="text" autocomplete="firstname" value="<?= $_SESSION['user']->users_firstname ?? '' ?>" class="form-control <?= isset($errors['users']->users_firstname) ? 'is-invalid' : '' ?>" id="firstname" name="firstname" required placeholder="firstname" />
+                        <label for="firstname" class="form-label">Prénom*</label>
                     </div>
                 </div>
                 <!------------- EMAIL --------->
                 <div class="col-12 col-md-4">
-                    <div class="row">
-                        <div class="col-12">
-                            <strong><label for="email">Adresse Email</label></strong>
-                        </div>
-                    </div>
-                    <div class="row boxInput">
-                        <div class="col-12 col-md-10">
-                            <input class="inputText" id="email" type="text" name="email" value="" placeholder="">
-                        </div>
+                    <div class="form-floating">
+                        <input type="email" autocomplete="email" value="<?= $_SESSION['user']->users_email ?? '' ?>" class="form-control <?= isset($errors['user']->users_email) ? 'is-invalid' : '' ?>" id="email" name="email" required placeholder="email" />
+                        <label for="email" class="form-label">Adresse mail*</label>
                     </div>
                 </div>
                 <!------------- PHONE --------->
                 <div class="col-12 col-md-4">
-                    <div class="row">
-                        <div class="col-12">
-                            <strong><label for="phoneNumber">Téléphone</label></strong>
-                        </div>
-                    </div>
-                    <div class="row boxInput">
-                        <div class="col-12 col-md-8">
-                            <input class="inputText" id="phoneNumber" type="tel" name="phoneNumber" value="" placeholder="">
-                        </div>
+                    <div class="form-floating">
+                        <input type="phone" autocomplete="phone" value="<?= $_SESSION['user']->users_phone_number ?? '' ?>" class="form-control <?= isset($errors['user']->users_phone_number) ? 'is-invalid' : '' ?>" id="phone" name="phone" required placeholder="phone" />
+                        <label for="phone" class="form-label">Téléphone*</label>
                     </div>
                 </div>
                 <!------------- BIRTHDAY --------->
                 <div class="col-12 col-md-4">
-                    <div class="row">
-                        <div class="col-12">
-                            <strong><label for="birthday">Date de naissance</label></strong>
-                        </div>
-                    </div>
-                    <div class="row boxInput">
-                        <div class="col-12 col-md-8">
-                            <input class="inputText" id="birthday" type="date" name="birthday" value="" placeholder="">
-                        </div>
+                    <div class="form-floating">
+                        <input type="date" autocomplete="birthdate" value="<?= $_SESSION['user']->users_birthdate ?? '' ?>" class="form-control <?= isset($errors['user']->users_birthdate) ? 'is-invalid' : '' ?>" id="birthdate" name="birthdate" required placeholder="birthdate" />
+                        <label for="birthdate" class="form-label">Date de naissance*</label>
                     </div>
                 </div>
                 <div class="row boxBlank"></div>
                 <!------------- ADRESS --------->
                 <div class="col-12 col-md-6">
-                    <div class="row">
-                        <div class="col-12">
-                            <strong><label for="adress">Adresse postale</label></strong>
-                        </div>
-                    </div>
-                    <div class="row boxInput">
-                        <div class="col-12 col-md-10">
-                            <input class="inputText" id="adress" type="text" name="adress" value="" placeholder="">
-                        </div>
+                    <div class="form-floating">
+                        <input type="text" autocomplete="address" value="<?= $_SESSION['user']->users_address ?? '' ?>" class="form-control <?= isset($errors['address']) ? 'is-invalid' : '' ?>" id="address" name="address" required placeholder="<?= $address ; ?>" />
+                        <label for="address" class="form-label">Adresse postale*</label>
                     </div>
                 </div>
                 <!------------- ADRESS MORE --------->
                 <div class="col-12 col-md-6">
-                    <div class="row">
-                        <div class="col-12">
-                            <strong><label for="adressMore">Complément d'adresse</label></strong>
-                        </div>
-                    </div>
-                    <div class="row boxInput">
-                        <div class="col-12 col-md-10">
-                            <input class="inputText" id="adressMore" type="text" name="adressMore" value="" placeholder="">
-                        </div>
+                    <div class="form-floating">
+                        <input type="text" autocomplete="address_more" value="<?= $address_more ?? '' ?>" class="form-control <?= isset($errors['address_more']) ? 'is-invalid' : '' ?>" id="address_more" name="address_more" required placeholder="<?= $address_more ; ?>" />
+                        <label for="address_more" class="form-label">Complément d'adresse</label>
                     </div>
                 </div>
                 <!------------- POSTAL CODE --------->
                 <div class="col-12 col-md-6">
-                    <div class="row">
-                        <div class="col-12 ">
-                            <strong><label for="postalCode">Code Postal</label></strong>
-                        </div>
-                    </div>
-                    <div class="row boxInput">
-                        <div class="col-12 col-md-6">
-                            <input class="inputText" id="postalCode" type="number" name="postalCode" value="" placeholder="">
-                        </div>
+                    <div class="form-floating">
+                        <input type="number" autocomplete="postal_code" value="<?= $postal_code ?? '' ?>" class="form-control <?= isset($errors['postal_code']) ? 'is-invalid' : '' ?>" id="postal_code" name="postal_code" required placeholder="<?= $postal_code ; ?>" />
+                        <label for="postal_code" class="form-label">Code postal*</label>
                     </div>
                 </div>
                 <!------------- CITY --------->
                 <div class="col-12 col-md-6">
-                    <div class="row">
-                        <div class="col-12">
-                            <strong><label for="city">Ville</label></strong>
-                        </div>
-                    </div>
-                    <div class="row boxInput">
-                        <div class="col-12 col-md-6">
-                            <input class="inputText" id="city" type="text" name="city" value="" placeholder="">
-                        </div>
+                    <div class="form-floating">
+                        <input type="text" autocomplete="city" value="<?= $city ?? '' ?>" class="form-control <?= isset($errors['city']) ? 'is-invalid' : '' ?>" id="city" name="city" required placeholder="<?= $city ; ?>" />
+                        <label for="city" class="form-label">Ville*</label>
                     </div>
                 </div>
                 <div class="row boxBlank"></div>

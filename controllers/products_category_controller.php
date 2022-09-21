@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 require_once(__DIR__.'/../models/products.php');
 
@@ -18,10 +19,10 @@ $products_list_category = Product::getAll($category_id);
 
 
 //------------- LINKS ---------//
-require_once(__DIR__ . '/linksHeader.php');
+require_once(__DIR__ . '/Header.php');
 
 //------------- VIEWS ---------//
 include(__DIR__ . '/../views/products_category.php');
 
 //------------- LINKS ---------//
-require_once(__DIR__ . '/linksFooter.php');
+require_once(__DIR__ . '/Footer.php');

@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__ . '/../config/regex.php');
+require_once(__DIR__ . '/../helpers/regex.php');
 
 
 class JWT

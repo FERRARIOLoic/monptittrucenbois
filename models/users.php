@@ -12,7 +12,7 @@ class User
     private string $firstname;
     private string $birthdate;
     private string $phone;
-    private string $mail;
+    private string $email;
     private string $password;
     private $pdo;
     private string $search;
@@ -52,9 +52,9 @@ class User
     {
         $this->phone = $phone;
     }
-    public function setEmail(string $mail): void
+    public function setEmail(string $email): void
     {
-        $this->mail = $mail;
+        $this->email = $email;
     }
     public function setPassword(string $password): void
     {
@@ -96,7 +96,7 @@ class User
     }
     public function getEmail(): string
     {
-        return $this->mail;
+        return $this->email;
     }
     public function getPassword(): string
     {
@@ -105,24 +105,49 @@ class User
 
 
     //------------- SAVE CREATE PATIENT ---------//
-    public function save()
-    {
-        User::checkEmail($this->mail);
-        try {
-            $sql = "INSERT INTO `users` (`users_email`,`users_password`,`users_type`,`users_status`) VALUES (:mail,:password_user,1,2)";
-            $sth = $this->pdo->prepare($sql);
-            $sth->bindValue(':mail', $this->mail, PDO::PARAM_STR);
-            $sth->bindValue(':password_user', $this->password, PDO::PARAM_STR);
-            $result = $sth->execute();
 
-            if (!$result) {
-                throw new PDOException();
-            }
-            return true;
-        } catch (PDOException $e) {
-            return $e->getMessage();
+
+    public function save(): bool
+    {
+
+        try {
+            // On créé la requête avec des marqueurs nominatifs
+            $sql = 'INSERT INTO `users` (`users_email`, `users_password`) 
+                VALUES (:email, :password);';
+
+            // On prépare la requête
+            $sth = $this->pdo->prepare($sql);
+
+            //Affectation des valeurs aux marqueurs nominatifs
+            $sth->bindValue(':email', $this->getEmail(), PDO::PARAM_STR);
+            $sth->bindValue(':password', $this->getPassword(), PDO::PARAM_STR);
+            // On retourne directement true si la requête s'est bien exécutée ou false dans le cas contraire
+            return $sth->execute();
+        } catch (PDOException $ex) {
+            //var_dump($ex);
+            // On retourne false si une exception est levée
+            return false;
         }
     }
+
+    //check if email exists for user creation
+    public static function isMailExists(string $email): bool
+    {
+        try {
+            $sql = 'SELECT * FROM `users` WHERE `users_email` = :email';
+
+            $sth = Database::DBconnect()->prepare($sql);
+            $sth->bindValue(':email', $email, PDO::PARAM_STR);
+            $sth->execute();
+
+            return empty($sth->fetch()) ? false : true;
+        } catch (\PDOException $ex) {
+            //var_dump($ex);
+            return false;
+        }
+    }
+
+
 
     //------------- CHECK EMAIL EXIST ---------//
     public static function checkEmail(string $email): int
@@ -143,13 +168,14 @@ class User
         }
     }
 
-    public static function validated(string $mail): bool
+    //validate user from email
+    public static function validated(string $email): bool
     {
         try {
             $pdo = Database::DBconnect();
-            $sql = "UPDATE `users` SET `validated_at`=CURRENT_TIMESTAMP WHERE `mail`=:mail";
+            $sql = "UPDATE `users` SET `validated_at`=CURRENT_TIMESTAMP WHERE `email`=:email";
             $sth = $pdo->prepare($sql);
-            $sth->bindValue(':mail', $mail, PDO::PARAM_STR);
+            $sth->bindValue(':email', $email, PDO::PARAM_STR);
             $result = $sth->execute();
 
             if (!$result) {
@@ -174,7 +200,7 @@ class User
             $sth->bindValue(':firstname', $this->firstname, PDO::PARAM_STR);
             $sth->bindValue(':birthdate', $this->birthdate, PDO::PARAM_STR);
             $sth->bindValue(':phone', $this->phone, PDO::PARAM_INT);
-            $sth->bindValue(':mail', $this->mail, PDO::PARAM_STR);
+            $sth->bindValue(':email', $this->email, PDO::PARAM_STR);
             $result = $sth->execute();
 
             if (!$result) {
@@ -219,15 +245,45 @@ class User
         }
     }
 
+    //------------- GET BY EMAIL ---------//
+    public static function getByEmail(string $email): object|bool
+    {
+        try {
+            // On stocke une instance de la classe PDO dans une variable
+            $pdo = Database::DBconnect();
 
-    //------------- GET ALL USERS ---------//
-    public static function getInfoID(string $mail)
+            // On créé la requête avec des marqueurs nominatifs
+            $sql = 'SELECT * FROM `users` WHERE `users_email` = :email;';
+
+            // On prépare la requête
+            $sth = $pdo->prepare($sql);
+
+            //Affectation des valeurs aux marqueurs nominatifs
+            $sth->bindValue(':email', $email, PDO::PARAM_STR);
+
+            if (!$sth->execute()) {
+                return false;
+            } else {
+                $user = $sth->fetch();
+                if (empty($user)) {
+                    return false;
+                }
+            }
+            return $user;
+        } catch (\PDOException $ex) {
+            return false;
+        }
+    }
+
+
+    //------------- GET BY ID ---------//
+    public static function getInfoID(string $email)
     {
         try {
             $pdo = Database::DBconnect();
-            $sql = "SELECT * FROM `users` WHERE `users_email`=:mail";
+            $sql = "SELECT * FROM `users` WHERE `users_email`=:email";
             $sth = $pdo->prepare($sql);
-            $sth->bindValue(':mail', $mail, PDO::PARAM_STR);
+            $sth->bindValue(':email', $email, PDO::PARAM_STR);
             if ($sth->execute()) {
                 $users_info = $sth->fetch();
                 return $users_info;

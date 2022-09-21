@@ -185,6 +185,40 @@ class Product
     }
 
 
+    
+    //------------- GET ALL products ---------//
+    // public static function getCategory(int $category_id = 0)
+    // {
+    //     try {
+    //         $pdo = Database::DBconnect();
+    //         $sql = "SELECT * FROM `products_categories`";
+    //         if ($category_id != 0) {
+    //             $sql .= " WHERE `id_product_category`=:category_id";
+    //         }
+    //         $sql .= " ORDER BY `categories`";
+    //         $sth = $pdo->prepare($sql);
+
+    //         if ($category_id != 0) {
+    //             $sth->bindValue(':category_id', $category_id, PDO::PARAM_INT);
+    //         }
+    //         if ($sth->execute()) {
+    //             if ($category_id != 0) {
+
+    //                 $all_categories = $sth->fetch();
+    //             } else {
+    //                 $all_categories = $sth->fetchAll();
+    //             }
+    //             return $all_categories;
+    //         } else {
+    //             return false;
+    //         }
+    //     } catch (PDOException $ex) {
+    //         return false;
+    //     }
+    // }
+
+    
+
     //------------- DELETE PATIENT ---------//
     public static function delete(int $product_id)
     {

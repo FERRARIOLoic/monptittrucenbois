@@ -12,7 +12,7 @@
     <div class="row py-4 text-center">
         <div class="col-12">
             <a href="accueil.html">
-                <button class="btn">
+                <button class="btn btnValid">
                     Retour à l'accueil
                 </button>
             </a>

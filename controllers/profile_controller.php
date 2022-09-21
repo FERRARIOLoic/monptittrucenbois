@@ -1,15 +1,19 @@
 <?php
+session_start();
 
 require_once(__DIR__.'/../models/errors.php');
 require_once(__DIR__.'/../models/users.php');
 
+//récupération des informations de produit
+require_once(__DIR__.'/../models/products.php');
+
 $pageTitle = 'Profil utilisateur';
 
 require_once(__DIR__ . '/../models/users.php');
-$user_id = intval(filter_input(INPUT_GET, 'user_id', FILTER_SANITIZE_NUMBER_INT));
 $error = intval(filter_input(INPUT_GET, 'error', FILTER_SANITIZE_NUMBER_INT));
 
-$user_info = User::getAll($user_id);
+$user_info = User::getAll($_SESSION['user']->users_id);
+// var_dump($user_info);die;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -130,17 +134,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 //------------- LINKS ---------//
-require_once(__DIR__ . '/linksHeader.php');
+require_once(__DIR__ . '/Header.php');
+require_once(__DIR__ . '/../views/templates/navbar.php');
 
 //------------- VIEWS ---------//
-if (isset($_SESSION['firstname'])) {
-    include(__DIR__ . '/../views/userProfile.php');
-} else {
+// if (isset($_SESSION['validated'])) {
+    include(__DIR__ . '/../views/profile.php');
+// } else {
 
-    $errorText = ErrorText::getByID($error);
-    // var_dump($errorText); die;
-    include(__DIR__ . '/../views/userConnexion.php');
-}
+//     $errorText = ErrorText::getByID($error);
+//     // var_dump($errorText); die;
+//     include(__DIR__ . '/../views/user_connexion.php');
+// }
 
 //------------- LINKS ---------//
-require_once(__DIR__ . '/linksFooter.php');
+require_once(__DIR__ . '/Footer.php');

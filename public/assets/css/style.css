@@ -76,11 +76,25 @@ main {
     }
 }
 
+.form-floating {
+    padding: 15px;
+}
+
+.form-label {
+    padding-left: 20px;
+}
+
 .nav-link,
 .progress-bar {
     text-decoration: none;
-    color: #ffffff;
+    color: #663300;
 }
+
+.nav-link:hover {
+    text-shadow: 0 5px 5px rgb(255, 250, 234, 0.5);
+    color: #EA9999;
+}
+
 
 h4 {
     /* text-shadow: 1px 1px 1px #402013; */
@@ -91,18 +105,16 @@ h4:hover {
 }
 
 .boxContact {
-    background-color: #ffeacb;
-    /* box-shadow: 0 0 2px 0 rgba(31, 38, 135, 0.37); */
-    /* backdrop-filter: blur(5px); */
-    /* -webkit-backdrop-filter: blur(5px); */
+    background: rgba(255, 255, 255, 0.4);
+    /* box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 ); */
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     border-radius: 10px;
-    border: none;
-    position: relative;
-    border-bottom: 1px solid #EA9999
+    color: #663300;
 }
 
 .boxContact:hover {
-    background-color: #ffeacb;
+    box-shadow: 0 8px 32px 0 rgb(255, 250, 234, 0.2);
 }
 
 .boxConnect {
@@ -131,12 +143,12 @@ h4:hover {
 
 
 a {
-    color: #EA9999;
+    color: #663300;
     text-decoration: none;
 }
 
 a:hover {
-    color: #663300;
+    color: #EA9999;
 }
 
 .titlePage {
@@ -230,10 +242,11 @@ a:hover {
 }
 
 .bigifyTextSelected {
-    font-size: 20px;
+    font-size: 25px;
     font-weight: bold;
     color: #EA9999;
     text-shadow: #ffd7d7;
+
 }
 
 .backgroundSelected {
@@ -241,12 +254,12 @@ a:hover {
 }
 
 .btnValid {
-    margin: 15px 0px 0px 0px;
-    width: 80%;
-    height: 40px;
-    border: 0px;
+    background: rgba(255, 255, 255, 0.4);
+    /* box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 ); */
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     border-radius: 10px;
-    background-color: #FFE70090;
-    color: #EA9999;
-    box-shadow: inset 0 3px 2px #66330010;
+    color: #663300;
+    font-size: 22px;
+    width:300px;
 }

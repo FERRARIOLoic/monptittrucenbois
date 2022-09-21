@@ -3,8 +3,8 @@
 //------------- CONNECTION DATABASE ---------//
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'monptittrucenbois');
-define('DB_USER', 'loic');
-define('DB_PASS', 'mpteb2022!');
+define('DB_USER', 'monptittrucenbois');
+define('DB_PASS', 'MonPtitTrucEnBois');
 
 class Database
 {

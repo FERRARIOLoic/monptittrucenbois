@@ -16,13 +16,32 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-8"></div>
-        <div class="col-md-4">
-
-            <div class="row px-2">
+        <div class="col-12 col-md-4">
+            <div class="row px-5">
                 <div class="col-12">
                     <form action='' method='post' class="row boxContact">
-                        <div class="col-12 boxContactTitle text-center">Modifier mon profil</div>
+                        <div class="col-12 boxContactTitle text-center">Mes commandes en cours
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <div class="row px-5">
+                <div class="col-12">
+                    <form action='' method='post' class="row boxContact">
+                        <div class="col-12 boxContactTitle text-center">Mes anciennes commandes
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-4">
+
+            <div class="row px-5">
+                <div class="col-12">
+                    <form action='' method='post' class="row boxContact">
+                        <div class="col-12 boxContactTitle text-center">Mes informations de profil</div>
                         <!------------- CATEGORY --------->
                         <div class="col-12 pt-4">
                             <div class="row boxCategory">
@@ -30,11 +49,11 @@
                                     <strong>Vous êtes...</strong>
                                 </div>
                                 <div class="col-6">
-                                    <input id="particulier" type="radio" name="category" value="particulier" <?= ($user_info->users_type == 1) ? 'checked' : ''; ?>>
+                                    <input id="particulier" type="radio" name="category" value="particulier" <?= ($user_info->users_category == 1) ? 'checked' : ''; ?>>
                                     <label for="particulier">Particulier</label>
                                 </div>
                                 <div class="col-6">
-                                    <input id="professionnel" type="radio" name="category" value="professionnel" <?= ($user_info->users_type == 2) ? 'checked' : ''; ?>>
+                                    <input id="professionnel" type="radio" name="category" value="professionnel" <?= ($user_info->users_category == 2) ? 'checked' : ''; ?>>
                                     <label for="professionnel">Professionnel</label>
                                 </div>
                             </div>
@@ -158,7 +177,7 @@
                         <div class="col-12">
                             <div class="row py-2">
                                 <div class="col-12 boxBtn text-center">
-                                    <button type="submit" class="btnValid "><strong>Enregistrer les modifications</strong></button>
+                                    <button type="submit" class="btnValid text-black"><strong>Enregistrer les modifications</strong></button>
                                 </div>
                             </div>
                         </div>

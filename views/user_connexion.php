@@ -130,7 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 //------------- LINKS ---------//
-require_once(__DIR__ . '/linksHeader.php');
+require_once(__DIR__ . '/templates/header.php');
 
 //------------- VIEWS ---------//
 if (isset($_SESSION['firstname'])) {
@@ -139,8 +139,8 @@ if (isset($_SESSION['firstname'])) {
 
     $errorText = ErrorText::getByID($error);
     // var_dump($errorText); die;
-    include(__DIR__ . '/../views/userConnexion.php');
+    include(__DIR__ . '/../views/user_connexion.php');
 }
 
 //------------- LINKS ---------//
-require_once(__DIR__ . '/linksFooter.php');
+require_once(__DIR__ . '/footer.php');
