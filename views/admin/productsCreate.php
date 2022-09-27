@@ -1,16 +1,3 @@
-<?php
-
-$productName = "Boite à dents";
-$productDescription = "Une boite à dents";
-$productWood = "Chêne";
-$productWeight = "1kg";
-$productPrice = "10";
-$productImage = "../public/assets/img/products/toothBox/toothBox_1_02.jpg";
-
-?>
-
-
-
 <main class="container-fluid">
     <div class="row titlePage">
         <div class="col-12 text-center align-self-center">
@@ -20,30 +7,25 @@ $productImage = "../public/assets/img/products/toothBox/toothBox_1_02.jpg";
 
 
     <div class="row mt-5">
-        <form class="col-12 offset-md-1 col-md-10" action="" method="post" enctype="multipart/form-data">
+        <?php
+        if (isset($_POST['id_product'])) { ?>
+            <form class="col-12 offset-md-1 col-md-10" action="administrateur.html?display=productsModify" method="post" enctype="multipart/form-data">
+                <input type='hidden' name='id_product' value='<?= $id_product ?>'>
+        <?php } else { ?>
+            <form class="col-12 offset-md-1 col-md-10" action="" method="post" enctype="multipart/form-data">
+        <?php } ?>
             <div class="row">
                 <div class="col-12 col-md-6">
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group my-2">
                                 <label for="name">Catégorie</label>
-                                <select class="form-control" name="category">
+                                <select class="form-select" name="id_category">
+                                    <option value="">Sélectionner une catégorie</option>
+                                    <option value=""></option>
                                     <?php
-                                    $productsListCategories = $pdo->query("SELECT * FROM products_categories ORDER BY category");
                                     foreach ($productsListCategories as $categories) : ?>
-                                        <option value="<?= $categories['id_product_category']; ?>"><?= $categories['category']; ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="form-group my-2">
-                                <label for="name">Type de produit</label>
-                                <select class="form-control" name="category">
-                                    <?php
-                                    $productsListTypes = $pdo->query("SELECT * FROM products_types ORDER BY product_type");
-                                    foreach ($productsListTypes as $productsType) : ?>
-                                        <option value="<?= $productsType['id_product_type']; ?>"><?= $productsType['product_type']; ?></option>
+                                        <option value="<?= $categories->id_category; ?>" <?= ($categoryInfo??'' == $categories->id_category) ? 'selected' : '' ?>><?= $categories->categories; ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
@@ -51,37 +33,38 @@ $productImage = "../public/assets/img/products/toothBox/toothBox_1_02.jpg";
                         <div class="col-6">
                             <div class="form-group my-2">
                                 <label for="name">Nom du produit</label>
-                                <input type="text" class="form-control" id="name" name="name" placeholder="Nom du produit" value="<?= $productName; ?>">
+                                <input type="text" class="form-control" id="name" name="product_name" placeholder="Nom du produit" value="<?= $ProductInfo->products_name ?? '' ?>">
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group my-2">
-                                <label for="description">Fabriqué en bois de</label>
-                                    <select class="form-control" name="wood">
-                                        <?php
-                                        $woodsList = $pdo->query("SELECT * FROM woods ORDER BY woods_name");
-                                        foreach ($woodsList as $woods) : ?>
-                                            <option value="<?= $woods['id_wood']; ?>"><?= $woods['woods_name']; ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
+                                <label for="description">Bois utilisé</label>
+                                <select class="form-select" name="id_wood" placeholder="Sélectionner un bois">
+                                    <option value="">Sélectionner un bois</option>
+                                    <option value=""></option>
+                                    <?php
+                                    foreach ($woodList as $woodType) : ?>
+                                        <option value="<?= $woodType->id_wood; ?>" <?= ($woodInfo??'' == $woodType->id_wood) ? 'selected' : '' ?>><?= $woodType->woods_name; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group my-2">
                                 <label for="description">Description du produit</label>
-                                <textarea class="form-control" id="description" name="description" rows="3" placeholder="Description du produit"><?= $productDescription; ?></textarea>
+                                <textarea class="form-control" id="description" name="description" rows="3" placeholder="Description du produit"><?= $ProductInfo->products_description ?? '' ?></textarea>
                             </div>
                         </div>
                         <div class="col-12 col-md-6">
                             <div class="form-group my-2">
-                                <label for="weight">Poids</label>
-                                <input type="text" class="form-control" id="weight" name="weight" placeholder="Poids" value="<?= $productWeight; ?>">
+                                <label for="weight">Poids (en grammes)</label>
+                                <input type="text" class="form-control" id="weight" name="weight" placeholder="Poids" value="<?= $ProductInfo->products_weight ?? '' ?>">
                             </div>
                         </div>
                         <div class="col-12 col-md-6">
                             <div class="form-group my-2">
                                 <label for="price">Prix</label>
-                                <input type="text" class="form-control" id="price" name="price" placeholder="Prix du produit" value="<?= $productPrice . ' €'; ?>">
+                                <input type="text" class="form-control" id="price" name="price" placeholder="Prix du produit" value="<?= $ProductInfo->products_price ?? '' ? ($ProductInfo->products_price . ' €') : ''; ?>">
                             </div>
                         </div>
                     </div>
@@ -95,7 +78,7 @@ $productImage = "../public/assets/img/products/toothBox/toothBox_1_02.jpg";
                         </div>
                         <div class="col-12">
                             <div class="form-group">
-                                <img src="<?= $productImage; ?>" alt="<?= $productName; ?>" class="img-fluid imgPreview">
+                                <!--<img src="<?= $ProductInfo->products_image; ?>" alt="<?= $productName; ?>" class="img-fluid imgPreview">-->
                             </div>
                         </div>
                         <div class="col-12">
@@ -105,8 +88,13 @@ $productImage = "../public/assets/img/products/toothBox/toothBox_1_02.jpg";
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-md-6">
-                    <button type="submit" class="btn btnValid my-2"><strong>Enregistrer le produit</strong></button>
+                <div class="col-12 col-md-6 text-center">
+                    <?php
+                    if (isset($_POST['id_product'])) { ?>
+                        <button type="submit" class="btn btnValid my-2"><strong>Enregistrer les modifications</strong></button>
+                    <?php } else { ?>
+                        <button type="submit" class="btn btnValid my-2"><strong>Enregistrer le produit</strong></button>
+                    <?php } ?>
                 </div>
             </div>
         </form>

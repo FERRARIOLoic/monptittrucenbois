@@ -19,7 +19,7 @@
                 <div class="row boxContact">
                     <img src="../public/assets/img/icons/<?= $infoCategory->categories ?>.jpg" alt="<?= $infoCategory->categories ?>" class="productImg">
                     <div class="col-12  text-center align-self-center py-3">
-                        <a href="produits.html?category_id=<?= $infoCategory->id_product_category; ?>" class="stretched-link">
+                        <a href="produits.html?category_id=<?= $infoCategory->id_category; ?>" class="stretched-link">
                             <h4><?= $infoCategory->categories ?></h4>
                         </a>
                     </div>

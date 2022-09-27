@@ -6,10 +6,10 @@
     </div>
 
     <div class="row descriptionPage text-center">
-        <div class="col-6 py-2">Réalisés en bois compressés (contre-plaqué)</div>
-        <div class="col-6 py-2">Pour l'intérieur ou pour l'extérieur</div>
-        <div class="col-6 py-2">Différentes épaisseurs</div>
-        <div class="col-6 py-2">Personnalisables</div>
+        <div class="col-6 py-2"><?= $page_title_get->text1; ?></div>
+        <div class="col-6 py-2"><?= $page_title_get->text2; ?></div>
+        <div class="col-6 py-2"><?= $page_title_get->text3; ?></div>
+        <div class="col-6 py-2"><?= $page_title_get->text4; ?></div>
     </div>
 
     <div class="row">

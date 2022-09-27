@@ -6,11 +6,12 @@ class Product
 {
 
     private int $product_id;
-    private string $lastname;
-    private string $firstname;
-    private string $birthdate;
-    private string $phone;
-    private string $mail;
+    private int $id_category;
+    private string $product_name;
+    private int $id_wood;
+    private string $product_description;
+    private int $product_weight;
+    private int $product_price;
     private $pdo;
     private string $search;
 
@@ -25,27 +26,31 @@ class Product
     {
         $this->product_id = $product_id;
     }
-    public function setLastname(string $lastname): void
+    public function setIdCategory(int $id_category): void
     {
-        $this->lastname = $lastname;
+        $this->id_category = $id_category;
     }
-    public function setFirstname(string $firstname): void
+    public function setProductName(string $product_name): void
     {
-        $this->firstname = $firstname;
+        $this->product_name = $product_name;
     }
-    public function setBirthdate(string $birthdate): void
+    public function setIdWood(int $id_wood): void
     {
-        $this->birthdate = $birthdate;
+        $this->id_wood = $id_wood;
     }
-    public function setPhone(string $phone): void
+    public function setDescription(string $product_description): void
     {
-        $this->phone = $phone;
+        $this->product_description = $product_description;
     }
-    public function setEmail(string $mail): void
+    public function setWeight(int $product_weight): void
     {
-        $this->mail = $mail;
+        $this->product_weight = $product_weight;
     }
-    public function setSearch(int $search): void
+    public function setPrice(int $product_price): void
+    {
+        $this->product_price = $product_price;
+    }
+    public function setSearch(string $search): void
     {
         $this->search = $search;
     }
@@ -55,49 +60,78 @@ class Product
     {
         return $this->product_id;
     }
-    public function getLastname(): string
+    public function getIdCategory(): int
     {
-        return $this->lastname;
+        return $this->id_category;
     }
-    public function getFirstname(): string
+    public function getProductName(): string
     {
-        return $this->firstname;
+        return $this->product_name;
     }
-    public function getBirthdate(): string
+    public function getIdWood(): int
     {
-        return $this->birthdate;
+        return $this->id_wood;
     }
-    public function getPhone(): string
+    public function getDescription(): string
     {
-        return $this->phone;
+        return $this->product_description;
     }
-    public function getEmail(): string
+    public function getWeight(): int
     {
-        return $this->mail;
+        return $this->product_weight;
+    }
+    public function getPrice(): int
+    {
+        return $this->product_price;
     }
 
 
-    //------------- SAVE CREATE PATIENT ---------//
+    //------------- SAVE PRODUCT ---------//
     public function save()
     {
-        User::checkEmail($this->mail);
-        try {
-            $sql = "INSERT INTO `products` (`lastname`, `firstname`, `birthdate`, `phone`, `mail`) 
-                                    VALUES (:lastname, :firstname, :birthdate, :phone, :mail)";
-            $sth = $this->pdo->prepare($sql);
-            $sth->bindValue(':lastname', $this->lastname, PDO::PARAM_STR);
-            $sth->bindValue(':firstname', $this->firstname, PDO::PARAM_STR);
-            $sth->bindValue(':birthdate', $this->birthdate, PDO::PARAM_STR);
-            $sth->bindValue(':phone', $this->phone, PDO::PARAM_INT);
-            $sth->bindValue(':mail', $this->mail, PDO::PARAM_STR);
-            $result = $sth->execute();
+        $productNew = Product::isProductExist($this->product_name);
+        // var_dump($productNew);die;
+        if ($productNew == 0) {
+            try {
+                $sql = "INSERT INTO `products` (`products_name`,`products_description`,`products_price`,`products_weight`,`id_category`,`id_wood`)
+                                    VALUES (:product_name, :product_description, :product_price, :product_weight, :id_category, :id_wood)";
+                $sth = $this->pdo->prepare($sql);
+                $sth->bindValue(':id_category', $this->id_category, PDO::PARAM_INT);
+                $sth->bindValue(':product_name', $this->product_name, PDO::PARAM_STR);
+                $sth->bindValue(':id_wood', $this->id_wood, PDO::PARAM_INT);
+                $sth->bindValue(':product_description', $this->product_description, PDO::PARAM_STR);
+                $sth->bindValue(':product_weight', $this->product_weight, PDO::PARAM_INT);
+                $sth->bindValue(':product_price', $this->product_price, PDO::PARAM_INT);
+                $result = $sth->execute();
 
-            if (!$result) {
-                throw new PDOException();
+                if (!$result) {
+                    throw new PDOException();
+                }
+                return true;
+            } catch (PDOException $e) {
+                return false;
             }
-            return true;
-        } catch (PDOException $e) {
+        } else {
             return false;
+        }
+    }
+
+    //------------- CHECK PRODUCT EXIST ---------//
+    public static function isProductExist(string $product_name): int
+    {
+        try {
+            $pdo = Database::DBconnect();
+            $sql = "SELECT `products_name` FROM `products` WHERE `products_name`=:product_name";
+            $sth = $pdo->prepare($sql);
+            $sth->bindValue(':product_name', $product_name, PDO::PARAM_STR);
+            if ($sth->execute()) {
+                $checkedEwood_name = $sth->fetch();
+                return $checkedEwood_name ? 1 : 0;
+            } else {
+                return 2;
+            }
+        } catch (PDOException $e) {
+            return 2;
         }
     }
 
@@ -105,25 +139,35 @@ class Product
     //------------- UPDATE PATIENT DATA ---------//
     public function update(): int
     {
-        try {
-            $sql = "UPDATE `products` SET `lastname`=:lastname, `firstname`=:firstname, `birthdate`=:birthdate, `phone`=:phone, `mail`=:mail WHERE `id`=:product_id";
-            $sth = $this->pdo->prepare($sql);
-            $sth->bindValue(':product_id', $this->product_id, PDO::PARAM_INT);
-            $sth->bindValue(':lastname', $this->lastname, PDO::PARAM_STR);
-            $sth->bindValue(':firstname', $this->firstname, PDO::PARAM_STR);
-            $sth->bindValue(':birthdate', $this->birthdate, PDO::PARAM_STR);
-            $sth->bindValue(':phone', $this->phone, PDO::PARAM_INT);
-            $sth->bindValue(':mail', $this->mail, PDO::PARAM_STR);
-            $result = $sth->execute();
+        $productNew = Product::isProductExist($this->product_name);
+        // var_dump($productNew);die;
+        if ($productNew == 1) {
+            try {
+                $sql = "UPDATE `products` SET 
+                `products_name`=:product_name,
+                `products_description`=:product_description,
+                `products_price`=:product_price,
+                `products_weight`=:product_weight,
+                `id_category`=:id_category,
+                `id_wood`=:id_wood WHERE `id_product`=:product_id";
+                $sth = $this->pdo->prepare($sql);
+                $sth->bindValue(':id_category', $this->id_category, PDO::PARAM_INT);
+                $sth->bindValue(':product_name', $this->product_name, PDO::PARAM_STR);
+                $sth->bindValue(':id_wood', $this->id_wood, PDO::PARAM_INT);
+                $sth->bindValue(':product_description', $this->product_description, PDO::PARAM_STR);
+                $sth->bindValue(':product_weight', $this->product_weight, PDO::PARAM_INT);
+                $sth->bindValue(':product_price', $this->product_price, PDO::PARAM_INT);
+                $sth->bindValue(':product_id', $this->product_id, PDO::PARAM_INT);
+                $result = $sth->execute();
 
-            if (!$result) {
-                throw new PDOException();
-            } else {
-                $resultView = "Les modifications ont été enregistrées";
-                return $resultView;
+                if (!$result) {
+                    throw new PDOException();
+                }
+                return true;
+            } catch (PDOException $e) {
+                return false;
             }
-            return true;
-        } catch (PDOException $e) {
+        } else {
             return false;
         }
     }
@@ -134,15 +178,8 @@ class Product
     {
         try {
             $pdo = Database::DBconnect();
-            $sql = "SELECT * FROM `products`";
-            if ($category_id != 0) {
-                $sql .= " WHERE id_product_category = :category_id";
-            }
-            $sql .= " ORDER BY `products_name`";
+            $sql = "SELECT * FROM `products` ORDER BY `products_name`";
             $sth = $pdo->prepare($sql);
-            if ($category_id != 0) {
-                $sth->bindValue(':category_id', $category_id, PDO::PARAM_INT);
-            }
             if ($sth->execute()) {
                 $products_list = $sth->fetchAll();
                 return $products_list;
@@ -154,28 +191,29 @@ class Product
         }
     }
     //------------- GET ALL products ---------//
-    public static function getCategory(int $category_id = 0)
+    public static function getProduct(int $id_product = 0)
     {
         try {
             $pdo = Database::DBconnect();
-            $sql = "SELECT * FROM `products_categories`";
-            if ($category_id != 0) {
-                $sql .= " WHERE `id_product_category`=:category_id";
+            $sql = "SELECT * FROM `products`";
+            if ($id_product != 0) {
+                $sql .= " WHERE `id_product`=:id_product";
             }
-            $sql .= " ORDER BY `categories`";
+            $sql .= " ORDER BY `products_name`";
             $sth = $pdo->prepare($sql);
 
-            if ($category_id != 0) {
-                $sth->bindValue(':category_id', $category_id, PDO::PARAM_INT);
+            if ($id_product != 0) {
+                $sth->bindValue(':id_product', $id_product, PDO::PARAM_INT);
             }
             if ($sth->execute()) {
-                if ($category_id != 0) {
+                if ($id_product != 0) {
 
-                    $all_categories = $sth->fetch();
+                    $ProductInfo = $sth->fetch();
+                    return $ProductInfo;
                 } else {
-                    $all_categories = $sth->fetchAll();
+                    $ProductsList = $sth->fetchAll();
+                    return $ProductsList;
                 }
-                return $all_categories;
             } else {
                 return false;
             }
@@ -185,39 +223,59 @@ class Product
     }
 
 
-    
-    //------------- GET ALL products ---------//
-    // public static function getCategory(int $category_id = 0)
-    // {
-    //     try {
-    //         $pdo = Database::DBconnect();
-    //         $sql = "SELECT * FROM `products_categories`";
-    //         if ($category_id != 0) {
-    //             $sql .= " WHERE `id_product_category`=:category_id";
-    //         }
-    //         $sql .= " ORDER BY `categories`";
-    //         $sth = $pdo->prepare($sql);
 
-    //         if ($category_id != 0) {
-    //             $sth->bindValue(':category_id', $category_id, PDO::PARAM_INT);
-    //         }
-    //         if ($sth->execute()) {
-    //             if ($category_id != 0) {
+    //------------- GET WOOD ---------//
+    public static function getWood(int $wood_id = 0)
+    {
+        try {
+            $pdo = Database::DBconnect();
+            $sql = "SELECT * FROM `woods`";
+            if ($wood_id != 0) {
+                $sql .= " WHERE `id_wood`=:wood_id";
+            }
+            $sql .= " ORDER BY `woods_name`";
+            $sth = $pdo->prepare($sql);
 
-    //                 $all_categories = $sth->fetch();
-    //             } else {
-    //                 $all_categories = $sth->fetchAll();
-    //             }
-    //             return $all_categories;
-    //         } else {
-    //             return false;
-    //         }
-    //     } catch (PDOException $ex) {
-    //         return false;
-    //     }
-    // }
+            if ($wood_id != 0) {
+                $sth->bindValue(':wood_id', $wood_id, PDO::PARAM_INT);
+            }
+            if ($sth->execute()) {
+                if ($wood_id != 0) {
 
-    
+                    $wood_list = $sth->fetch();
+                } else {
+                    $wood_list = $sth->fetchAll();
+                }
+                return $wood_list;
+            } else {
+                return false;
+            }
+        } catch (PDOException $ex) {
+            return false;
+        }
+    }
+
+
+    //------------- GET WOOD ---------//
+    public static function getCategory(int $category_id)
+    {
+        try {
+            $pdo = Database::DBconnect();
+            $sql = "SELECT * FROM `products` WHERE `id_category`=:category_id ORDER BY `products_name`";
+            $sth = $pdo->prepare($sql);
+                $sth->bindValue(':category_id', $category_id, PDO::PARAM_INT);
+            if ($sth->execute()) {
+                    $wood_list = $sth->fetchAll();
+                return $wood_list;
+            } else {
+                return false;
+            }
+        } catch (PDOException $ex) {
+            return false;
+        }
+    }
+
+
 
     //------------- DELETE PATIENT ---------//
     public static function delete(int $product_id)

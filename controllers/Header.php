@@ -4,9 +4,10 @@
 
 //------------- LOGIC ---------//
 require_once(__DIR__ . '/../models/products.php');
+require_once(__DIR__ . '/../models/categories.php');
 
 
-$categories_list = Product::getCategory();
+$categories_list = Category::getCategory();
 require_once(__DIR__ . '/../helpers/regex.php');
 
 

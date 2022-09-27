@@ -14,10 +14,10 @@
                                             `products`.`products_price`,
                                             `products`.`products_height`,
                                             `products`.`products_weight`,
-                                            `products_categories`.`category`,
+                                            `categories`.`category`,
                                             `woods`.`woods_name`
                                             FROM `products` 
-                                                INNER JOIN `products_categories` ON `products`.`id_product_category` = `products_categories`.`id_product_category`
+                                                INNER JOIN `categories` ON `products`.`id_category` = `categories`.`id_category`
                                                 INNER JOIN `woods` ON `products`.`id_wood` = `woods`.`id_wood`
                                                 ORDER BY `products_name`");
         foreach ($productsListAll as $value) : 

@@ -10,7 +10,7 @@ class User
     private int $gender;
     private string $lastname;
     private string $firstname;
-    private string $birthdate;
+    private ?string $birthdate;
     private string $phone;
     private string $email;
     private string $password;
@@ -28,11 +28,11 @@ class User
     {
         $this->user_id = $user_id;
     }
-    public function setCategory(string $category): void
+    public function setCategory(int $category): void
     {
         $this->category = $category;
     }
-    public function setGender(string $gender): void
+    public function setGender(int $gender): void
     {
         $this->gender = $gender;
     }
@@ -44,9 +44,11 @@ class User
     {
         $this->firstname = $firstname;
     }
-    public function setBirthdate(string $birthdate): void
+    public function setBirthdate(?string $birthdate): void
     {
-        $this->birthdate = $birthdate;
+        $this->birthdate = !empty($birthdate)?$birthdate:NULL;
+        // var_dump($this->birthdate);die;
+
     }
     public function setPhone(string $phone): void
     {
@@ -70,11 +72,11 @@ class User
     {
         return $this->user_id;
     }
-    public function getCategory(): string
+    public function getCategory(): int
     {
         return $this->category;
     }
-    public function getGender(): string
+    public function getGender(): int
     {
         return $this->gender;
     }
@@ -189,27 +191,34 @@ class User
     }
 
     //------------- UPDATE PATIENT DATA ---------//
-    public function update(): int
+    public function update()
     {
         try {
-            $sql = "UPDATE `users` SET `users_gender`=:gender, `users_lastname`=:lastname, `users_firstname`=:firstname, `users_email`=:mail, `users_phone`=:phone, `users_birthdate`=:birthdate, `users_type`=:category WHERE `id`=:user_id";
+            $sql = "UPDATE `users` 
+            SET `users_category`=:category, 
+            `users_gender`=:gender, 
+            `users_lastname`=:lastname, 
+            `users_firstname`=:firstname, 
+            `users_email`=:email, 
+            `users_phone`=:phone, 
+            `users_birthdate`=:birthdate
+            WHERE `users_id`=:user_id";
             $sth = $this->pdo->prepare($sql);
-            $sth->bindValue(':category', $this->category, PDO::PARAM_STR);
-            $sth->bindValue(':gender', $this->gender, PDO::PARAM_STR);
+            $sth->bindValue(':category', $this->category, PDO::PARAM_INT);
+            $sth->bindValue(':gender', $this->gender, PDO::PARAM_INT);
             $sth->bindValue(':lastname', $this->lastname, PDO::PARAM_STR);
             $sth->bindValue(':firstname', $this->firstname, PDO::PARAM_STR);
-            $sth->bindValue(':birthdate', $this->birthdate, PDO::PARAM_STR);
-            $sth->bindValue(':phone', $this->phone, PDO::PARAM_INT);
             $sth->bindValue(':email', $this->email, PDO::PARAM_STR);
+            $sth->bindValue(':phone', $this->phone, PDO::PARAM_STR);
+            $sth->bindValue(':birthdate', $this->birthdate, PDO::PARAM_STR);
+            $sth->bindValue(':user_id', $this->user_id, PDO::PARAM_INT);
             $result = $sth->execute();
 
             if (!$result) {
                 throw new PDOException();
             } else {
-                $resultView = "Les modifications ont été enregistrées";
-                return $resultView;
+                return true;
             }
-            return true;
         } catch (PDOException $e) {
             return false;
         }

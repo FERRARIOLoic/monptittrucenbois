@@ -19,7 +19,7 @@
 // // die;
 
 // // ------------- PRODUCT CATEGORIES TABLE ---------//
-// $productsCategories = $pdo->query("SELECT * FROM products_categories ORDER BY category");
+// $productsCategories = $pdo->query("SELECT * FROM categories ORDER BY category");
 
 // //------------- PRODUCTS TABLE ---------//
-// $productsCategory = $pdo->query("SELECT * FROM `products` WHERE id_product_category = 3 ORDER BY products_name");
+// $productsCategory = $pdo->query("SELECT * FROM `products` WHERE id_category = 3 ORDER BY products_name");

@@ -1,35 +1,45 @@
 <?php
 session_start();
+//------------- REGEX ---------//
+require_once(__DIR__ . '/../helpers/regex.php');
 
-require_once(__DIR__.'/../models/errors.php');
-require_once(__DIR__.'/../models/users.php');
+require_once(__DIR__ . '/../models/errors.php');
+require_once(__DIR__ . '/../models/users.php');
+require_once(__DIR__ . '/../models/addresses.php');
 
 //récupération des informations de produit
-require_once(__DIR__.'/../models/products.php');
+require_once(__DIR__ . '/../models/products.php');
 
 $pageTitle = 'Profil utilisateur';
 
 require_once(__DIR__ . '/../models/users.php');
-$error = intval(filter_input(INPUT_GET, 'error', FILTER_SANITIZE_NUMBER_INT));
+// $error = intval(filter_input(INPUT_GET, 'error', FILTER_SANITIZE_NUMBER_INT));
 
 $user_info = User::getAll($_SESSION['user']->users_id);
-// var_dump($user_info);die;
+// var_dump($user_info->users_id);die;
+$address_info = Address::getAddress($_SESSION['user']->users_id);
+var_dump($address_info);die;
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+$action_profile = filter_input(INPUT_POST, 'action_profile', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+
+//!------------- PROFILE INFO ---------//
+if ($_SERVER['REQUEST_METHOD'] == 'POST' AND $action_profile=='profile_info') {
 
     //------------- CATEGORY ---------//
-    $category = trim(filter_input(INPUT_GET, 'category', FILTER_SANITIZE_FULL_SPECIAL_CHARS, FILTER_FLAG_NO_ENCODE_QUOTES));
+    $category = filter_input(INPUT_POST, 'category', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    // var_dump($category);die;
     if (!empty($category)) {
         $testCategory = filter_var($category, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => REGEX_NAME)));
         if (!$testCategory) {
-            $error["category"] = "Le type de client n'est pas au bon format !!";
+            $error['category'] = "Le type de client n'est pas au bon format !!";
         }
     } else {
         $error["category"] = "Vous devez sélectionner un type !!";
     }
 
     //------------- GENDER ---------//
-    $gender = trim(filter_input(INPUT_GET, 'gender', FILTER_SANITIZE_FULL_SPECIAL_CHARS, FILTER_FLAG_NO_ENCODE_QUOTES));
+    $gender = filter_input(INPUT_POST, 'gender', FILTER_SANITIZE_FULL_SPECIAL_CHARS, FILTER_FLAG_NO_ENCODE_QUOTES);
     if (!empty($gender)) {
         $testGender = filter_var($gender, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => REGEX_NAME)));
         if (!$testGender) {
@@ -40,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     //------------- LASTNAME ---------//
-    $lastname = trim(filter_input(INPUT_GET, 'lastname', FILTER_SANITIZE_FULL_SPECIAL_CHARS, FILTER_FLAG_NO_ENCODE_QUOTES));
+    $lastname = filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_FULL_SPECIAL_CHARS, FILTER_FLAG_NO_ENCODE_QUOTES);
     if (!empty($lastname)) {
         $testLastname = filter_var($lastname, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => REGEX_NAME)));
         if (!$testLastname) {
@@ -55,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     //------------- FIRSTNAME ---------//
-    $firstname = trim(filter_input(INPUT_GET, 'firstname', FILTER_SANITIZE_SPECIAL_CHARS));
+    $firstname = filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_SPECIAL_CHARS);
     if (!empty($firstname)) {
         $testFirstname = filter_var($firstname, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => REGEX_NAME)));
         if (!$testFirstname) {
@@ -70,7 +80,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     //------------- BIRTHDATE ---------//
-    $birthdate = filter_input(INPUT_GET, 'birthdate', FILTER_SANITIZE_NUMBER_INT);
+    $birthdate = filter_input(INPUT_POST, 'birthdate', FILTER_SANITIZE_NUMBER_INT);
+    // var_dump($birthdate);die;
     if (!empty($birthdate)) {
         $testBirthdate = filter_var($birthdate, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => REGEX_DATE)));
         if (!$testBirthdate) {
@@ -81,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     //------------- PHONE ---------//
-    $phone = filter_input(INPUT_GET, 'phone', FILTER_SANITIZE_NUMBER_INT);
+    $phone = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_SPECIAL_CHARS);
     if (!empty($phone)) {
         $testPhone = filter_var($phone, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => REGEX_PHONE)));
         if (!$testPhone) {
@@ -92,58 +103,123 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     //------------- MAIL ---------//
-    $mail = trim(filter_input(INPUT_GET, 'mail', FILTER_SANITIZE_EMAIL));
-    if (!empty($mail)) {
-        $testEmail = filter_var($mail, FILTER_VALIDATE_EMAIL);
+    $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+    // var_dump($email);die;
+    if (!empty($email)) {
+        $testEmail = filter_var($email, FILTER_VALIDATE_EMAIL);
         if (!$testEmail) {
-            $error["mail"] = "L'adresse email n'est pas au bon format !!";
+            $error["email"] = "L'adresse email n'est pas au bon format !!";
         }
     } else {
-        $error["mail"] = "L'adresse mail est obligatoire !!";
+        $error["email"] = "L'adresse email est obligatoire !!";
     }
 
     //------------- ADD DATA ---------//
-    $patientNew = new User();
-    $patientNew->setID($patient_id);
-    $patientNew->setCategory($category);
-    $patientNew->setGender($gender);
-    $patientNew->setLastname($lastname);
-    $patientNew->setFirstname($firstname);
-    $patientNew->setBirthdate($birthdate);
-    $patientNew->setPhone($phone);
-    $patientNew->setEmail($mail);
+    $User = new User();
+    $User->setID($user_info->users_id);
+    $User->setCategory($category);
+    $User->setGender($gender);
+    $User->setLastname($lastname);
+    $User->setFirstname($firstname);
+    $User->setBirthdate($birthdate);
+    $User->setPhone($phone);
+    $User->setEmail($email);
 
+    $resultUpdate = $User->update();
+    // var_dump($resultUpdate);die;
+    if ($resultUpdate == true) {
 
-
-    $checkedEmail = $patient->checkEmail($mail);
-    if ($checkedEmail == true) {
-        $resultView = "Erreur, l'adresse mail existe déjà";
+        $resultView = "Modifications enregistrées";
     } else {
-        $resultUpdate = $patient->update();
-        if ($resultUpdate == true) {
-
-            $payload = array('email' => $mail, 'expire' => time() + 3600);
-            $jwt = JWT::generate($payload);
-            $subject = "Validation de l'inscription";
-            $message = 'Merci de valider votre compte en cliquant sur <a href="' . $_SERVER['HTTP_ORIGIN'] . '/controllers/validate_user_add_controller.php?token=' . $jwt . '">ce lien</a>';
-            mail($mail, $subject, $message);
-            $resultView = "Modifications enregistrées";
-        } else {
-            $resultView = "Erreur lors de l'enregistrement des données";
-        }
+        $resultView = "Erreur lors de l'enregistrement des données";
     }
 }
+
+//!------------- ADRESS ---------//
+if ($_SERVER['REQUEST_METHOD'] == 'POST' AND $action_profile=='address') {
+    
+    //------------- ADRESS ---------//
+    $address = filter_input(INPUT_POST, 'address', FILTER_SANITIZE_SPECIAL_CHARS);
+    if (!empty($address)) {
+        $testPhone = filter_var($address, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => REGEX_NAME)));
+        if (!$testPhone) {
+            $error["address"] = "L'adresse n'est pas au bon format!!";
+        }
+    } else {
+        $error["address"] = "Vous devez entrer une adresse !!";
+    }
+
+    
+    //------------- ADDRESS MORE ---------//
+    $address_more = filter_input(INPUT_POST, 'address_more', FILTER_SANITIZE_SPECIAL_CHARS);
+    if (!empty($address_more)) {
+        $testPhone = filter_var($address_more, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => REGEX_NAME)));
+        if (!$testPhone) {
+            $error["address_more"] = "Le complément d'adresse n'est pas au bon format!!";
+        }
+    } else {
+        $error["address_more"] = "Vous devez entrer un complément d'adresse !!";
+    }
+
+    
+    //------------- POSTAL CODE ---------//
+    $postal_code = filter_input(INPUT_POST, 'postal_code', FILTER_SANITIZE_SPECIAL_CHARS);
+    if (!empty($postal_code)) {
+        $testPhone = filter_var($postal_code, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => REGEX_NAME)));
+        if (!$testPhone) {
+            $error["postal_code"] = "Le code postal n'est pas au bon format!!";
+        }
+    } else {
+        $error["postal_code"] = "Vous devez entrer un code postal !!";
+    }
+
+    
+    //------------- CITY ---------//
+    $city = filter_input(INPUT_POST, 'city', FILTER_SANITIZE_SPECIAL_CHARS);
+    if (!empty($city)) {
+        $testPhone = filter_var($city, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => REGEX_NAME)));
+        if (!$testPhone) {
+            $error["city"] = "La ville n'est pas au bon format!!";
+        }
+    } else {
+        $error["city"] = "Vous devez entrer une ville !!";
+    }
+
+    // //------------- ADD DATA ---------//
+    // $User = new User();
+    // $User->setID($user_info->users_id);
+    // $User->setCategory($category);
+    // $User->setGender($gender);
+    // $User->setLastname($lastname);
+    // $User->setFirstname($firstname);
+    // $User->setBirthdate($birthdate);
+    // $User->setPhone($phone);
+    // $User->setEmail($email);
+
+    // $resultUpdate = $User->update();
+    // // var_dump($resultUpdate);die;
+    // if ($resultUpdate == true) {
+
+    //     $resultView = "Modifications enregistrées";
+    // } else {
+    //     $resultView = "Erreur lors de l'enregistrement des données";
+    // }
+
+
+}
+
+
+
 //------------- LINKS ---------//
 require_once(__DIR__ . '/Header.php');
 require_once(__DIR__ . '/../views/templates/navbar.php');
 
 //------------- VIEWS ---------//
 // if (isset($_SESSION['validated'])) {
-    include(__DIR__ . '/../views/profile.php');
+include(__DIR__ . '/../views/profile.php');
 // } else {
 
 //     $errorText = ErrorText::getByID($error);
-//     // var_dump($errorText); die;
 //     include(__DIR__ . '/../views/user_connexion.php');
 // }
 

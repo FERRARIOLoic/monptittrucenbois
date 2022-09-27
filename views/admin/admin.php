@@ -97,7 +97,10 @@
                         <div class="offset-1 col-10 py-2"><a href="administrateur.html?display=productsModify">Modifier un produit</a></div>
                     </div>
                     <div class="row">
-                        <div class="offset-1 col-10 py-2"><a href="administrateur.html?display=dataModify">Modifier les catégories</a></div>
+                        <div class="offset-1 col-10 py-2"><a href="administrateur.html?display=dataModify">Modifier les informations</a></div>
+                    </div>
+                    <div class="row">
+                        <div class="offset-1 col-10 py-2"><a href="administrateur.html?display=categoryCreateModify">Modifier les catégories</a></div>
                     </div>
                 </span>
             </div>
