@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $errors['global'] = 'Problème de login';
     } else {
         // Si la colonne validate_at est à NULL c'est que l'utilisateur n'a pas encore validé son compte
-        if(is_null($user->validated_at)){
+        if(is_null($user->users_validated_at)){
             $errors['global'] = 'Votre compte n\'est pas encore validé';
         } else {
             $_SESSION['user'] = $user;

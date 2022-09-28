@@ -49,7 +49,7 @@
                         // var_dump($categories_list); die;
                     ?>
                         <div class="col-12 col-md-2 py-2">
-                            <a class="nav-link" href="produits.html?category_id=<?= $category->id_category; ?>"><strong><?= $category->categories ?></strong></a>
+                            <a class="nav-link" href="produits.html?category_id=<?= $category->id_category; ?>"><strong><?= $category->categories_name ?></strong></a>
                         </div>
                     <?php endforeach; ?>
                     <div class="col-12 col-md-2 py-2">

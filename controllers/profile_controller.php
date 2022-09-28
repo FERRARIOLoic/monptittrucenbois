@@ -12,13 +12,12 @@ require_once(__DIR__ . '/../models/products.php');
 
 $pageTitle = 'Profil utilisateur';
 
-require_once(__DIR__ . '/../models/users.php');
 // $error = intval(filter_input(INPUT_GET, 'error', FILTER_SANITIZE_NUMBER_INT));
 
-$user_info = User::getAll($_SESSION['user']->users_id);
-// var_dump($user_info->users_id);die;
-$address_info = Address::getAddress($_SESSION['user']->users_id);
-var_dump($address_info);die;
+$user_info = User::getAll($_SESSION['user']->id_user);
+$address_first = Address::getAddressInfo($_SESSION['user']->id_user,1);
+// var_dump($address_first);die;
+$address_others = Address::getAddressInfo($_SESSION['user']->id_user);
 
 $action_profile = filter_input(INPUT_POST, 'action_profile', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
@@ -116,7 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' AND $action_profile=='profile_info') {
 
     //------------- ADD DATA ---------//
     $User = new User();
-    $User->setID($user_info->users_id);
+    $User->setID($_SESSION['user']->id_user);
     $User->setCategory($category);
     $User->setGender($gender);
     $User->setLastname($lastname);
@@ -151,15 +150,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' AND $action_profile=='address') {
 
     
     //------------- ADDRESS MORE ---------//
-    $address_more = filter_input(INPUT_POST, 'address_more', FILTER_SANITIZE_SPECIAL_CHARS);
-    if (!empty($address_more)) {
-        $testPhone = filter_var($address_more, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => REGEX_NAME)));
-        if (!$testPhone) {
-            $error["address_more"] = "Le complément d'adresse n'est pas au bon format!!";
-        }
-    } else {
-        $error["address_more"] = "Vous devez entrer un complément d'adresse !!";
-    }
+    $address_more = filter_input(INPUT_POST, 'address_more', FILTER_SANITIZE_SPECIAL_CHARS)??'';
+    
 
     
     //------------- POSTAL CODE ---------//
@@ -185,25 +177,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' AND $action_profile=='address') {
         $error["city"] = "Vous devez entrer une ville !!";
     }
 
-    // //------------- ADD DATA ---------//
-    // $User = new User();
-    // $User->setID($user_info->users_id);
-    // $User->setCategory($category);
-    // $User->setGender($gender);
-    // $User->setLastname($lastname);
-    // $User->setFirstname($firstname);
-    // $User->setBirthdate($birthdate);
-    // $User->setPhone($phone);
-    // $User->setEmail($email);
+    //------------- ADD DATA ---------//
+    $User = new Address();
+    $User->setID($_SESSION['user']->id_user);
+    $User->setUserId($_SESSION['user']->id_user);
+    $User->setAddress($address);
+    $User->setAddressMore($address_more);
+    $User->setPostalCode($postal_code);
+    $User->setCity($city);
 
-    // $resultUpdate = $User->update();
-    // // var_dump($resultUpdate);die;
-    // if ($resultUpdate == true) {
+    $resultUpdate = $User->update();
+    // var_dump($resultUpdate);die;
+    if ($resultUpdate == true) {
 
-    //     $resultView = "Modifications enregistrées";
-    // } else {
-    //     $resultView = "Erreur lors de l'enregistrement des données";
-    // }
+        $resultView = "Modifications enregistrées";
+    } else {
+        $resultView = "Erreur lors de l'enregistrement des données";
+    }
 
 
 }

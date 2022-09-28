@@ -46,7 +46,7 @@ class User
     }
     public function setBirthdate(?string $birthdate): void
     {
-        $this->birthdate = !empty($birthdate)?$birthdate:NULL;
+        $this->birthdate = !empty($birthdate) ? $birthdate : NULL;
         // var_dump($this->birthdate);die;
 
     }
@@ -111,24 +111,19 @@ class User
 
     public function save(): bool
     {
-
-        try {
-            // On créé la requête avec des marqueurs nominatifs
-            $sql = 'INSERT INTO `users` (`users_email`, `users_password`) 
-                VALUES (:email, :password);';
-
-            // On prépare la requête
-            $sth = $this->pdo->prepare($sql);
-
-            //Affectation des valeurs aux marqueurs nominatifs
-            $sth->bindValue(':email', $this->getEmail(), PDO::PARAM_STR);
-            $sth->bindValue(':password', $this->getPassword(), PDO::PARAM_STR);
-            // On retourne directement true si la requête s'est bien exécutée ou false dans le cas contraire
-            return $sth->execute();
-        } catch (PDOException $ex) {
-            //var_dump($ex);
-            // On retourne false si une exception est levée
-            return false;
+        $user_new = User::isMailExists($this->getEmail());
+        if ($user_new != 1) {
+            try {
+                $sql = 'INSERT INTO `users` (`users_email`, `users_password`) VALUES (:email, :password)';
+                $sth = $this->pdo->prepare($sql);
+                $sth->bindValue(':email', $this->getEmail(), PDO::PARAM_STR);
+                $sth->bindValue(':password', $this->getPassword(), PDO::PARAM_STR);
+                return $sth->execute();
+            } catch (PDOException $ex) {
+                var_dump('error');
+                die;
+                return false;
+            }
         }
     }
 
@@ -190,19 +185,20 @@ class User
         }
     }
 
-    //------------- UPDATE PATIENT DATA ---------//
+    //------------- UPDATE USER DATA ---------//
     public function update()
     {
         try {
+            var_dump($this->category);die;
             $sql = "UPDATE `users` 
-            SET `users_category`=:category, 
+            SET `users_type`=:category, 
             `users_gender`=:gender, 
             `users_lastname`=:lastname, 
             `users_firstname`=:firstname, 
             `users_email`=:email, 
             `users_phone`=:phone, 
             `users_birthdate`=:birthdate
-            WHERE `users_id`=:user_id";
+            WHERE `user_id`=:user_id";
             $sth = $this->pdo->prepare($sql);
             $sth->bindValue(':category', $this->category, PDO::PARAM_INT);
             $sth->bindValue(':gender', $this->gender, PDO::PARAM_INT);
@@ -232,7 +228,7 @@ class User
             $pdo = Database::DBconnect();
             $sql = "SELECT * FROM `users`";
             if ($user_id != 0) {
-                $sql .= " WHERE `users_id`=:user_id";
+                $sql .= " WHERE `user_id`=:user_id";
             }
             $sql .= " ORDER BY `users_lastname`";
             $sth = $pdo->prepare($sql);

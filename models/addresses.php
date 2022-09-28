@@ -8,6 +8,7 @@ class Address
 
     private int $user_id;
     private int $address_id;
+    private int $address_type;
     private string $address;
     private string $address_more;
     private string $postal_code;
@@ -30,19 +31,23 @@ class Address
     {
         $this->address_id = $address_id;
     }
-    public function setCategoryName(string $address): void
+    public function setAddressType(int $address_type): void
+    {
+        $this->address_type = $address_type;
+    }
+    public function setAddress(string $address): void
     {
         $this->address = $address;
     }
-    public function setText1(string $address_more): void
+    public function setAddressMore(?string $address_more): void
     {
-        $this->address_more = $address_more;
+        $this->address_more = !empty($address_more) ? $address_more : '';
     }
-    public function setText2(string $postal_code): void
+    public function setPostalCode(string $postal_code): void
     {
         $this->postal_code = $postal_code;
     }
-    public function setText3(string $city): void
+    public function setCity(string $city): void
     {
         $this->city = $city;
     }
@@ -60,19 +65,23 @@ class Address
     {
         return $this->address_id;
     }
-    public function getCategoryName(): string
+    public function getAddressType(): int
+    {
+        return $this->address_type;
+    }
+    public function getAddress(): string
     {
         return $this->address;
     }
-    public function getText1(): string
+    public function getAddressMore(): string
     {
         return $this->address_more;
     }
-    public function getText2(): string
+    public function getPostalCode(): string
     {
         return $this->postal_code;
     }
-    public function getText3(): string
+    public function getCity(): string
     {
         return $this->city;
     }
@@ -124,24 +133,42 @@ class Address
     }
 
     //------------- UPDATE CATEGORY DATA ---------//
-    public function update()
+    public function update(int $address_id = 0)
     {
-        // var_dump($id_wood);die;
+        // var_dump($this->user_id);die;
         $pdo = Database::DBconnect();
         try {
-            $sql = "UPDATE `categories` 
-            SET `categories`=:address,
-            `address_more`=:address_more,
-            `postal_code`=:postal_code,
-            `city`=:city
-            WHERE `address_id`=:address_id";
-            
+            if ($address_id == 0) {
+                $sql = "INSERT INTO `addresses` (`addresses_address`,`addresses_address_more`,`addresses_postal_code`,`addresses_city`,`addresses_type`,`id_user`)
+                VALUES (:address,:address_more,:postal_code,:city,:addresses_type,:user_id);";
+            }
+            if ($address_id != 0) {
+                $sql = "UPDATE `addresses` 
+                SET `addresses_address`=:address,
+                `addresses_address_more`=:address_more,
+                `addresses_postal_code`=:postal_code,
+                `addresses_city`=:city,
+                `id_user`=:user_id WHERE `id_address`=:address_id";
+            }
+
+            $address_new = Address::isCategoryExist($this->address);
+
             $sth = $pdo->prepare($sql);
-            $sth->bindValue(':address_id', $this->address_id, PDO::PARAM_INT);
             $sth->bindValue(':address', $this->address, PDO::PARAM_STR);
             $sth->bindValue(':address_more', $this->address_more, PDO::PARAM_STR);
             $sth->bindValue(':postal_code', $this->postal_code, PDO::PARAM_STR);
             $sth->bindValue(':city', $this->city, PDO::PARAM_STR);
+            $sth->bindValue(':user_id', $this->user_id, PDO::PARAM_STR);
+            if($address_new>0)
+            {
+                $sth->bindValue(':addresses_type', '0', PDO::PARAM_STR);
+            }
+            else{
+                $sth->bindValue(':addresses_type', '1', PDO::PARAM_STR);
+            }
+            if ($address_id != 0) {
+                $sth->bindValue(':address_id', $this->address_id, PDO::PARAM_INT);
+            }
             $result = $sth->execute();
 
             if (!$result) {
@@ -150,26 +177,29 @@ class Address
                 return true;
             }
         } catch (PDOException $e) {
+            var_dump($e);
+            die;
             return false;
         }
     }
 
 
     //------------- GET CATEGORY ---------//
-    public static function getAddress(int $user_id = 0)
+    public static function getAddressInfo(int $user_id = 0, int $address_type = 0)
     {
-        // var_dump($user_id);die;
+        // var_dump($address_type);die;
         try {
             $pdo = Database::DBconnect();
             $sql = "SELECT * FROM `addresses`";
             if ($user_id != 0) {
-                $sql .= " WHERE `addresses_user_id` = :user_id";
+                $sql .= " WHERE (`id_user` = :user_id AND `addresses_type` = :address_type)";
             }
             $sql .= " ORDER BY `addresses_address`";
             $sth = $pdo->prepare($sql);
 
             if ($user_id != 0) {
                 $sth->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+                $sth->bindValue(':address_type', $address_type, PDO::PARAM_INT);
             }
             if ($sth->execute()) {
                 if ($user_id != 0) {
@@ -178,11 +208,13 @@ class Address
                 } else {
                     $wood_list = $sth->fetchAll();
                 }
+                // var_dump($wood_list);die;
                 return $wood_list;
             } else {
                 return false;
             }
-        } catch (PDOException $ex) {
+        } catch (PDOException $e) {
+            var_dump($e);die;
             return false;
         }
     }

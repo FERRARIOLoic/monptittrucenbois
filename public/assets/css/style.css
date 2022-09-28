@@ -310,3 +310,17 @@ a:hover {
     color: green;
     font-size: 20px;
 }
+
+.boxMenuAdmin {
+    min-height:100vh;
+    background-color:#663300;
+    border-radius:0px 10px 10px 0px;
+}
+.boxMenuAdminSub {
+    background: rgba(255, 255, 255, 0.4);
+    /* box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 ); */
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 0px 10px 10px 0px;
+    color: #663300;
+}

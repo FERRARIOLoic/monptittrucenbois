@@ -9,14 +9,14 @@ $category_id = intval(filter_input(INPUT_GET,'category_id',FILTER_SANITIZE_NUMBE
 
 
 $page_title_get = Category::getCategory($category_id);
-// var_dump($products_list_category);die;
-$pageTitle = $page_title_get->categories;
+$pageTitle = $page_title_get->categories_name;
 
 //------------- PRODUCTS ALL LIST ---------//
 $products_list = Product::getAll();
 
 //------------- PRODUCTS CATEGORY LIST ---------//
 $products_list_category = Product::getCategory($category_id);
+// var_dump($products_list_category);die;
 
 
 //------------- LINKS ---------//

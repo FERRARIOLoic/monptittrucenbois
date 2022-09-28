@@ -5,7 +5,6 @@ require_once(__DIR__.'/../models/users.php');
 
 $pageTitle = 'Profil utilisateur';
 
-require_once(__DIR__ . '/../models/users.php');
 $user_id = intval(filter_input(INPUT_GET, 'user_id', FILTER_SANITIZE_NUMBER_INT));
 $error = intval(filter_input(INPUT_GET, 'error', FILTER_SANITIZE_NUMBER_INT));
 

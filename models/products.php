@@ -178,7 +178,11 @@ class Product
     {
         try {
             $pdo = Database::DBconnect();
-            $sql = "SELECT * FROM `products` ORDER BY `products_name`";
+            $sql = "SELECT `products_name`,
+            `products_description`,
+            `products_price`,
+            `products_weight`
+            FROM `products` ORDER BY `products_name`";
             $sth = $pdo->prepare($sql);
             if ($sth->execute()) {
                 $products_list = $sth->fetchAll();
@@ -193,9 +197,14 @@ class Product
     //------------- GET ALL products ---------//
     public static function getProduct(int $id_product = 0)
     {
+        var_dump('id inserted',$id_product);
+        $pdo = Database::DBconnect();
         try {
-            $pdo = Database::DBconnect();
-            $sql = "SELECT * FROM `products`";
+            $sql = "SELECT `products_name`,
+            `products_description`,
+            `products_price`,
+            `products_weight`
+            FROM `products`";
             if ($id_product != 0) {
                 $sql .= " WHERE `id_product`=:id_product";
             }
@@ -217,7 +226,8 @@ class Product
             } else {
                 return false;
             }
-        } catch (PDOException $ex) {
+        } catch (PDOException $e) {
+            // var_dump($e);die;
             return false;
         }
     }
@@ -261,11 +271,22 @@ class Product
     {
         try {
             $pdo = Database::DBconnect();
-            $sql = "SELECT * FROM `products` WHERE `id_category`=:category_id ORDER BY `products_name`";
+            $sql = "SELECT `products`.`id_product`,
+            `products`.`products_name`,
+            `products`.`products_description`,
+            `products`.`products_price`,
+            `products`.`products_weight`,
+            `woods`.`woods_name`
+            FROM `products`
+            INNER JOIN `woods` ON `products`.`id_category`=`woods`.`id_wood`";
+            if ($category_id != 0) {
+                $sql .= " WHERE `products`.`id_category`=:category_id";
+            }
+            $sql .= " ORDER BY `products`.`products_name`";
             $sth = $pdo->prepare($sql);
-                $sth->bindValue(':category_id', $category_id, PDO::PARAM_INT);
+            $sth->bindValue(':category_id', $category_id, PDO::PARAM_INT);
             if ($sth->execute()) {
-                    $wood_list = $sth->fetchAll();
+                $wood_list = $sth->fetchAll();
                 return $wood_list;
             } else {
                 return false;

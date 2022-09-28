@@ -2,17 +2,21 @@
 // var_dump($_SERVER['REQUEST_URI']);die;
 session_start();
 
+require_once(__DIR__ . '/../models/addresses.php');
 require_once(__DIR__ . '/../models/users.php');
 require_once(__DIR__ . '/../models/woods.php');
+require_once(__DIR__ . '/../models/products.php');
 require_once(__DIR__ . '/../models/categories.php');
 require_once(__DIR__ . '/../models/carriers.php');
+require_once(__DIR__ . '/../helpers/regex.php');
+
+include(__DIR__ . '/../views/templates/header.php');
 
 $pageTitle = 'Page administrateur';
 $admin_view = $_GET['display'] ?? '';
 
 
 //------------- LINKS ---------//
-require_once(__DIR__ . '/Header.php');
 
 //------------- DATA ---------//
 $users_list = User::getAll();
@@ -27,9 +31,10 @@ $ProductsList = Product::getProduct();
 
 //!------------- ADMIN VIEW ---------//
 
-//!------------- New USERS ---------//
+//!------------- USERS NEW ---------//
 
-//!------------- Users ---------//
+//!------------- USERS LIST ---------//
+
 
 //!------------- ORDER NEW ---------//
 
@@ -49,38 +54,9 @@ $ProductsList = Product::getProduct();
 
 //?------------- ADD NEW CATEGORY ---------//
 if ($_SERVER['REQUEST_METHOD'] == 'POST' and $admin_view == "categoryCreateModify" and empty($_POST['id_category'])) {
-    $category_info = Category::getCategory($id_category);
-    // var_dump($category_info);die;
-    
-        //------------- ADD DATA ---------//
-        $category = new Category();
-        $category->setCategoryName($category_name);
-        $category->setText1($text1);
-        $category->setText2($text2);
-        $category->setText3($text3);
-        $category->setText4($text4);
-        $resultNewCategory = $category->save();
-}
-
-//?------------- UPDATE CATEGORY ---------//
-if ($_SERVER['REQUEST_METHOD'] == 'POST' and $admin_view =="categoryCreateModify" and isset($_POST['id_category'])) {
-    
-    //------------- ID_CATEGORY ---------//
-    $id_category = intval(filter_input(INPUT_POST, 'id_category', FILTER_SANITIZE_NUMBER_INT));
-    if (!empty($id_category)) {
-        $test_id_category = filter_var($id_category, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => REGEX_INT)));
-        if (!$test_id_category) {
-            $error["id_category"] = "Erreur de format !!";
-        }
-    } else {
-        $error["id_category"] = "Sélectionner une catégorie!!";
-    }
-
-    $category_info = Category::getCategory($id_category);
-    
 
     //------------- NAME CATEGORY ---------//
-    $category_name = filter_input(INPUT_POST, 'categories', FILTER_SANITIZE_SPECIAL_CHARS)??$category_info->categories;
+    $category_name = filter_input(INPUT_POST, 'categories', FILTER_SANITIZE_SPECIAL_CHARS);
     if (!empty($category_name)) {
         $test_name = filter_var($category_name, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => REGEX_NAME)));
         if (!$test_name) {
@@ -93,78 +69,56 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and $admin_view =="categoryCreateModify
     } else {
         $error["category_name"] = "Sélectionner un nom !!";
     }
-    // var_dump($category_name);die;
 
-    //------------- TEXT 1 ---------//
-    $text1 = filter_input(INPUT_POST, 'text1', FILTER_SANITIZE_SPECIAL_CHARS)??$category_info->text1;
-    if (!empty($text1)) {
-        $test_name = filter_var($text1, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => REGEX_NAME)));
-        if (!$test_name) {
-            $error["text1"] = "Erreur de format !!";
-        } else {
-            if (strlen($text1) <= 1 || strlen($text1) >= 70) {
-                $error["text1"] = "La longueur du texte n'est pas bonne";
-            }
+    //------------- ADD DATA ---------//
+    $category = new Category();
+    $category->setCategoryName($category_name);
+    $resultNewCategory = $category->save();
+}
+
+//?------------- UPDATE CATEGORY ---------//
+if ($_SERVER['REQUEST_METHOD'] == 'POST' and $admin_view == "categoryCreateModify" and isset($_POST['id_category'])) {
+
+    $action_category = filter_input(INPUT_POST, 'action_category', FILTER_SANITIZE_SPECIAL_CHARS) ?? '';
+    //------------- ID_CATEGORY ---------//
+    $id_category = intval(filter_input(INPUT_POST, 'id_category', FILTER_SANITIZE_NUMBER_INT));
+    if (!empty($id_category)) {
+        $test_id_category = filter_var($id_category, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => REGEX_INT)));
+        if (!$test_id_category) {
+            $error["id_category"] = "Erreur de format !!";
         }
     } else {
-        $error["text1"] = "Sélectionner un texte !!";
+        $error["id_category"] = "Sélectionner une catégorie!!";
     }
 
-    //------------- TEXT 2 ---------//
-    $text2 = filter_input(INPUT_POST, 'text2', FILTER_SANITIZE_SPECIAL_CHARS)??$category_info->text2;
-    if (!empty($text2)) {
-        $test_name = filter_var($text2, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => REGEX_NAME)));
-        if (!$test_name) {
-            $error["text2"] = "Erreur de format !!";
-        } else {
-            if (strlen($text2) <= 1 || strlen($text2) >= 70) {
-                $error["text2"] = "La longueur du texte n'est pas bonne";
-            }
-        }
+    if ($action_category == "delete") {
+        $category_info = Category::delete($id_category);
     } else {
-        $error["text2"] = "Sélectionner un texte !!";
-    }
 
-    //------------- TEXT 3 ---------//
-    $text3 = filter_input(INPUT_POST, 'text3', FILTER_SANITIZE_SPECIAL_CHARS)??$category_info->text3;
-    if (!empty($text3)) {
-        $test_name = filter_var($text3, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => REGEX_NAME)));
-        if (!$test_name) {
-            $error["text3"] = "Erreur de format !!";
-        } else {
-            if (strlen($text3) <= 1 || strlen($text3) >= 70) {
-                $error["text3"] = "La longueur du texte n'est pas bonne";
-            }
-        }
-    } else {
-        $error["text3"] = "Sélectionner un texte !!";
-    }
+        $category_info = Category::getCategory($id_category);
 
-    //------------- TEXT 4 ---------//
-    $text4 = filter_input(INPUT_POST, 'text4', FILTER_SANITIZE_SPECIAL_CHARS)??$category_info->text4;
-    if (!empty($text4)) {
-        $test_name = filter_var($text4, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => REGEX_NAME)));
-        if (!$test_name) {
-            $error["text4"] = "Erreur de format !!";
-        } else {
-            if (strlen($text4) <= 1 || strlen($text4) >= 70) {
-                $error["text4"] = "La longueur du texte n'est pas bonne";
+
+
+        //------------- NAME CATEGORY ---------//
+        $category_name = filter_input(INPUT_POST, 'categories', FILTER_SANITIZE_SPECIAL_CHARS) ?? $category_info->categories_name;
+        if (!empty($category_name)) {
+            $test_name = filter_var($category_name, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => REGEX_NAME)));
+            if (!$test_name) {
+                $error["category_name"] = "Erreur de format !!";
+            } else {
+                if (strlen($category_name) <= 1 || strlen($category_name) >= 70) {
+                    $error["category_name"] = "La longueur du nom n'est pas bonne";
+                }
             }
+        } else {
+            $error["category_name"] = "Sélectionner un nom !!";
         }
-    } else {
-        $error["text4"] = "Sélectionner un texte !!";
-    }
-    
+        // var_dump($category_name);die;
+
         //------------- ADD DATA ---------//
-        $category = new Category();
-        $category->setID($id_category);
-        $category->setCategoryName($category_name);
-        $category->setText1($text1);
-        $category->setText2($text2);
-        $category->setText3($text3);
-        $category->setText4($text4);
-        $resultUpdateCategory = $category->update();
+        $resultUpdateCategory = Category::update($id_category, $category_name);
         // var_dump($id_category);die;
+    }
 }
 
 
@@ -279,6 +233,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and $admin_view == "productsCreate" and
     $id_product = intval(filter_input(INPUT_POST, 'id_product', FILTER_SANITIZE_NUMBER_INT));
 
     $ProductInfo = Product::getProduct($id_product);
+    var_dump('data send',$ProductInfo);die;
+
     $categoryInfo = (Category::getCategory($ProductInfo->id_category))->id_category;
     $woodInfo = (Wood::getWood($ProductInfo->id_wood))->id_wood;
 }
@@ -421,10 +377,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and $admin_view == "dataModify" and iss
     // var_dump($action_category);die;
 
     $category_name = filter_input(INPUT_POST, 'category_name', FILTER_SANITIZE_SPECIAL_CHARS) ?? '';
-    $text1 = filter_input(INPUT_POST, 'text1', FILTER_SANITIZE_SPECIAL_CHARS) ?? '';
-    $text2 = filter_input(INPUT_POST, 'text2', FILTER_SANITIZE_SPECIAL_CHARS) ?? '';
-    $text3 = filter_input(INPUT_POST, 'text3', FILTER_SANITIZE_SPECIAL_CHARS) ?? '';
-    $text4 = filter_input(INPUT_POST, 'text4', FILTER_SANITIZE_SPECIAL_CHARS) ?? '';
     // var_dump($category_name);die;
     if (isset($id_category) and isset($category_name) and $action_category == "modify") {
         $resultCategory = Category::update($id_category, $category_name);
@@ -440,10 +392,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and $admin_view == "dataModify" and iss
         //------------- ADD DATA ---------//
         $category = new Category();
         $category->setCategoryName($category_name);
-        $category->setText1($text1);
-        $category->setText2($text2);
-        $category->setText3($text3);
-        $category->setText4($text4);
         $resultNewCategory = $category->save();
     }
     // unset($id_category);
@@ -502,9 +450,9 @@ if ($_SESSION['user']->users_admin == '1') {
     }
 
     //------------- Users ---------//
-    elseif ($admin_view == "users") {
+    elseif ($admin_view == "usersList") {
         $pageTitle = "Utilisateurs";
-        include(__DIR__ . '/../views/admin/users.php');
+        include(__DIR__ . '/../views/admin/usersList.php');
     }
 
     //------------- ORDER NEW ---------//
@@ -563,7 +511,7 @@ if ($_SESSION['user']->users_admin == '1') {
     //------------- PRODUCTS ---------//
     elseif ($admin_view == "products") {
         $pageTitle = "Liste des produits";
-        include(__DIR__ . '/../views/admin/products.php');
+        include(__DIR__ . '/../views/admin/productsList.php');
     }
 
     //------------- PRODUCT MODIFY ---------//

@@ -7,10 +7,6 @@ class Category
 
     private int $id_category;
     private string $category_name;
-    private string $text1;
-    private string $text2;
-    private string $text3;
-    private string $text4;
     private $pdo;
     private string $search;
 
@@ -29,22 +25,6 @@ class Category
     {
         $this->category_name = $category_name;
     }
-    public function setText1(string $text1): void
-    {
-        $this->text1 = $text1;
-    }
-    public function setText2(string $text2): void
-    {
-        $this->text2 = $text2;
-    }
-    public function setText3(string $text3): void
-    {
-        $this->text3 = $text3;
-    }
-    public function setText4(string $text4): void
-    {
-        $this->text4 = $text4;
-    }
     public function setSearch(string $search): void
     {
         $this->search = $search;
@@ -59,45 +39,28 @@ class Category
     {
         return $this->category_name;
     }
-    public function getText1(): string
-    {
-        return $this->text1;
-    }
-    public function getText2(): string
-    {
-        return $this->text2;
-    }
-    public function getText3(): string
-    {
-        return $this->text3;
-    }
-    public function getText4(): string
-    {
-        return $this->text4;
-    }
 
 
     //------------- SAVE CREATE CATEGORY ---------//
     public function save(): int
     {
-        $pdo = Database::DBconnect();
-        Category::isCategoryExist($this->category_name);
-        try {
-            $sql = "INSERT INTO `categories` (`categories`,`text1`,`text2`,`text3`,`text4`) 
-            VALUES (:category_name,:text1,:text2,:text3,:text4)";
-            $sth = $pdo->prepare($sql);
-            $sth->bindValue(':category_name', $this->category_name, PDO::PARAM_STR);
-            $sth->bindValue(':text1', $this->text1, PDO::PARAM_STR);
-            $sth->bindValue(':text2', $this->text2, PDO::PARAM_STR);
-            $sth->bindValue(':text3', $this->text3, PDO::PARAM_STR);
-            $sth->bindValue(':text4', $this->text4, PDO::PARAM_STR);
-            $result = $sth->execute();
+        $category_new = Category::isCategoryExist($this->category_name);
+        if ($category_new == 0) {
+            try {
+                $sql = "INSERT INTO `categories` (`categories_name`) 
+            VALUES (:category_name)";
+                $sth = $this->pdo->prepare($sql);
+                $sth->bindValue(':category_name', $this->category_name, PDO::PARAM_STR);
+                $result = $sth->execute();
 
-            if (!$result) {
-                throw new PDOException();
+                if (!$result) {
+                    throw new PDOException();
+                }
+                return true;
+            } catch (PDOException $e) {
+                return false;
             }
-            return true;
-        } catch (PDOException $e) {
+        } else {
             return false;
         }
     }
@@ -108,7 +71,7 @@ class Category
         // var_dump($category_name); die;
         try {
             $pdo = Database::DBconnect();
-            $sql = "SELECT `categories` FROM `categories` WHERE `categories`=:category_name";
+            $sql = "SELECT `categories_name` FROM `categories` WHERE `categories_name`=:category_name";
             $sth = $pdo->prepare($sql);
             $sth->bindValue(':category_name', $category_name, PDO::PARAM_STR);
             if ($sth->execute()) {
@@ -123,26 +86,17 @@ class Category
     }
 
     //------------- UPDATE CATEGORY DATA ---------//
-    public function update()
+    public static function update(int $id_category, string $category_name)
     {
-        // var_dump($id_wood);die;
         $pdo = Database::DBconnect();
         try {
             $sql = "UPDATE `categories` 
-            SET `categories`=:category_name,
-            `text1`=:text1,
-            `text2`=:text2,
-            `text3`=:text3,
-            `text4`=:text4
+            SET `categories_name`=:category_name
             WHERE `id_category`=:id_category";
-            
+
             $sth = $pdo->prepare($sql);
-            $sth->bindValue(':id_category', $this->id_category, PDO::PARAM_INT);
-            $sth->bindValue(':category_name', $this->category_name, PDO::PARAM_STR);
-            $sth->bindValue(':text1', $this->text1, PDO::PARAM_STR);
-            $sth->bindValue(':text2', $this->text2, PDO::PARAM_STR);
-            $sth->bindValue(':text3', $this->text3, PDO::PARAM_STR);
-            $sth->bindValue(':text4', $this->text4, PDO::PARAM_STR);
+            $sth->bindValue(':id_category', $id_category, PDO::PARAM_INT);
+            $sth->bindValue(':category_name', $category_name, PDO::PARAM_STR);
             $result = $sth->execute();
 
             if (!$result) {
@@ -161,7 +115,7 @@ class Category
     {
         try {
             $pdo = Database::DBconnect();
-            $sql = "SELECT * FROM `categories` ORDER BY `categories`";
+            $sql = "SELECT * FROM `categories` ORDER BY `categories_name`";
             $sth = $pdo->prepare($sql);
 
             if ($sth->execute()) {
@@ -185,7 +139,7 @@ class Category
             if ($id_category != 0) {
                 $sql .= " WHERE id_category = :id_category";
             }
-            $sql .= " ORDER BY `categories`";
+            $sql .= " ORDER BY `categories_name`";
             $sth = $pdo->prepare($sql);
 
             if ($id_category != 0) {

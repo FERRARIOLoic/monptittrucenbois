@@ -51,11 +51,11 @@
                                     <strong>Vous êtes...</strong>
                                 </div>
                                 <div class="col-6">
-                                    <input id="particulier" type="radio" name="category" value="1" <?= ($user_info->users_category == 1) ? 'checked' : ''; ?>>
+                                    <input id="particulier" type="radio" name="category" value="1" <?= ($user_info->users_type == 1) ? 'checked' : ''; ?>>
                                     <label for="particulier">Particulier</label>
                                 </div>
                                 <div class="col-6">
-                                    <input id="professionnel" type="radio" name="category" value="2" <?= ($user_info->users_category == 2) ? 'checked' : ''; ?>>
+                                    <input id="professionnel" type="radio" name="category" value="2" <?= ($user_info->users_type == 2) ? 'checked' : ''; ?>>
                                     <label for="professionnel">Professionnel</label>
                                 </div>
                             </div>
@@ -167,7 +167,7 @@
                                                 <strong><label for="address">Adresse postale</label></strong>
                                             </div>
                                             <div class="col-12 align-self-center">
-                                                <input class="form-control <?= empty($user_info->users_address) ? 'is-invalid' : ''; ?>" id="address" type="text" name="address" value="<?= ($user_info->users_address) ?? ''; ?>" placeholder="">
+                                                <input class="form-control <?= empty($address_first->addresses_address) ? 'is-invalid' : ''; ?>" id="address" type="text" name="address" value="<?= ($address_first->addresses_address) ?? ''; ?>" placeholder="">
                                             </div>
                                         </div>
                                     </div>
@@ -178,7 +178,7 @@
                                                 <strong><label for="adressMore">Complément d'adresse</label></strong>
                                             </div>
                                             <div class="col-12 align-self-center">
-                                                <input class="form-control <?= empty($user_info->users_addressMore) ? 'is-invalid' : ''; ?>" id="adress_more" type="text" name="adress_more" value="<?= ($user_info->users_addressMore) ?? ''; ?>" placeholder="">
+                                                <input class="form-control" id="adress_more" type="text" name="adress_more" value="<?= ($address_first->addresses_address_more) ?? ''; ?>" placeholder="">
                                             </div>
                                         </div>
                                     </div>
@@ -189,7 +189,7 @@
                                                 <strong><label for="postalCode">Code Postal</label></strong>
                                             </div>
                                             <div class="col-12 align-self-center">
-                                                <input class="form-control <?= empty($user_info->users_postalCode) ? 'is-invalid' : ''; ?>" id="postal_code" type="number" name="postal_code" value="<?= ($user_info->users_postalCode) ?? ''; ?>" placeholder="">
+                                                <input class="form-control <?= empty($address_first->addresses_postal_code) ? 'is-invalid' : ''; ?>" id="postal_code" type="number" name="postal_code" value="<?= ($address_first->addresses_postal_code) ?? ''; ?>" placeholder="">
                                             </div>
                                         </div>
                                     </div>
@@ -200,7 +200,7 @@
                                                 <strong><label for="city">Ville</label></strong>
                                             </div>
                                             <div class="col-12 align-self-center">
-                                                <input class="form-control <?= empty($user_info->users_city) ? 'is-invalid' : ''; ?>" id="city" type="text" name="city" value="<?= ($user_info->users_city) ?? ''; ?>" placeholder="">
+                                                <input class="form-control <?= empty($address_first->addresses_city) ? 'is-invalid' : ''; ?>" id="city" type="text" name="city" value="<?= ($address_first->addresses_city) ?? ''; ?>" placeholder="">
                                             </div>
                                         </div>
                                     </div>

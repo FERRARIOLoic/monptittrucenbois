@@ -3,6 +3,9 @@
 require_once __DIR__ . '/../models/users.php';
 require_once __DIR__ . '/../helpers/JWT.php';
 
+//------------- LINKS ---------//
+require_once(__DIR__ . '/Header.php');
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
@@ -39,6 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $user->setEmail($email);
         $user->setPassword($password);
         $isUserRegistered = $user->save();
+        
+        var_dump($isUserRegistered);die;
         if($isUserRegistered){
             //envoi d'un mail avec lien contenant un jwt
             $subject = "Validez votre inscription";

@@ -17,10 +17,10 @@
             <div class=" col-12 col-md px-4 py-3 p-md-5">
                 <!------------- BOX CATEGORY --------->
                 <div class="row boxContact">
-                    <img src="../public/assets/img/icons/<?= $infoCategory->categories ?>.jpg" alt="<?= $infoCategory->categories ?>" class="productImg">
+                    <img src="../public/assets/img/icons/<?= $infoCategory->categories_name ?>.jpg" alt="<?= $infoCategory->categories ?>" class="productImg">
                     <div class="col-12  text-center align-self-center py-3">
                         <a href="produits.html?category_id=<?= $infoCategory->id_category; ?>" class="stretched-link">
-                            <h4><?= $infoCategory->categories ?></h4>
+                            <h4><?= $infoCategory->categories_name ?></h4>
                         </a>
                     </div>
                 </div>
