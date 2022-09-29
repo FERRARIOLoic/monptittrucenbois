@@ -10,8 +10,8 @@
                             <label for="name">Sélectionner un produit</label>
                             <select class="form-select" name="id_product">
                                 <?php
+                                // var_dump($ProductsList);die;
                                 foreach ($ProductsList as $product) : 
-                                // var_dump($product->id_product);die;
                                 ?>
                                     <option value="<?= $product->id_product; ?>"><?= $product->products_name; ?></option>
                                 <?php endforeach; ?>

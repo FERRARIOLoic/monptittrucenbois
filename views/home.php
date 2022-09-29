@@ -17,7 +17,7 @@
             <div class=" col-12 col-md px-4 py-3 p-md-5">
                 <!------------- BOX CATEGORY --------->
                 <div class="row boxContact">
-                    <img src="../public/assets/img/icons/<?= $infoCategory->categories_name ?>.jpg" alt="<?= $infoCategory->categories ?>" class="productImg">
+                    <img class="productImgHome" src="../public/assets/img/icons/<?= $infoCategory->categories_name ?>.jpg" alt="<?= $infoCategory->categories_name ?>">
                     <div class="col-12  text-center align-self-center py-3">
                         <a href="produits.html?category_id=<?= $infoCategory->id_category; ?>" class="stretched-link">
                             <h4><?= $infoCategory->categories_name ?></h4>
@@ -34,11 +34,11 @@
 
     <div class="row mt-5">
         <div class="col-12 text-center align-self-center">
-            <h1>Comment je travaille</h1>
+            <h2>Comment je travaille</h2>
         </div>
     </div>
     <div class="row descriptionPage">
-        <div class="col-12 text-center align-self-center fs-4 ">
+        <div class="col-12 text-center align-self-center fs-5 ">
             <p>Je travaille de différentes façons</p>
         </div>
     </div>
@@ -82,11 +82,11 @@
 
     <div class="row titlePage">
         <div class="col-12 text-center align-self-center">
-            <h1>Découvrir le métier</h1>
+            <h2>Découvrir le métier</h2>
         </div>
     </div>
     <div class="row descriptionPage">
-        <div class="col-12 text-center align-self-center fs-4 ">
+        <div class="col-12 text-center align-self-center fs-5 ">
             <p>Le travail du bois est une passion qui m'anime depuis déjà de nombreuses années</p>
             <p>Découvrez comment je travaille</p>
         </div>
@@ -95,10 +95,10 @@
         <div class=" col-12 p-5">
             <!------------- BOX CATEGORY --------->
             <div class="row boxContact">
-                <img src="../public/assets/img/icons/tournage_machinery_01.jpg" alt="<?= $title ?>" class="productImgLeft">
+                <img src="../public/assets/img/icons/tournage_machinery_01.jpg" alt="Tournage" class="productImgLeft">
                 <div class="col-12 col-md-6  text-center align-self-center py-3">
-                    <a href="<?= $url ?>" class="stretched-link">
-                        <h4><?= $title ?></h4>
+                    <a href="" class="stretched-link">
+                        <h4>Tournage sur bois</h4>
                     </a>
                 </div>
             </div>
@@ -106,10 +106,10 @@
         <div class=" col-12 p-5">
             <!------------- BOX CATEGORY --------->
             <div class="row boxContact">
-                <img src="../public/assets/img/icons/tournage_machinery_02.jpg" alt="<?= $title ?>" class="productImgLeft">
+                <img src="../public/assets/img/icons/tournage_machinery_02.jpg" alt="Tournage" class="productImgLeft">
                 <div class="col-12 col-md-6  text-center align-self-center py-3">
-                    <a href="<?= $url ?>" class="stretched-link">
-                        <h4><?= $title ?></h4>
+                    <a href="" class="stretched-link">
+                        <h4>Tournage</h4>
                     </a>
                 </div>
             </div>

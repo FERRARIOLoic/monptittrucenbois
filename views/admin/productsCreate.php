@@ -19,6 +19,7 @@
                                         <option value="">Sélectionner une catégorie</option>
                                         <option value=""></option>
                                         <?php
+                                        // var_dump($productsListCategories);die;
                                         foreach ($productsListCategories as $categories) : ?>
                                             <option value="<?= $categories->id_category; ?>" <?= ($categoryInfo ?? '' == $categories->id_category) ? 'selected' : '' ?>><?= $categories->categories_name; ?></option>
                                         <?php endforeach; ?>
@@ -73,8 +74,8 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
-                                    <!--<img src="<?= $ProductInfo->products_image; ?>" alt="<?= $productName; ?>" class="img-fluid imgPreview">-->
-                                </div>
+                                    
+                            </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group">

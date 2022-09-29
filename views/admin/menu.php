@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-12 py-3 text-center border-bottom border-2">
                 <a href='administrateur.html'>
-                    <h4 class='text-white'>Menu administrateur</h4>
+                    <h5 class='text-white'>Menu administrateur</h5>
                 </a>
             </div>
             <div class=" col-11 py-2 pt-3">

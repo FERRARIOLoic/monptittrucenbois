@@ -96,10 +96,6 @@ main {
 }
 
 
-h4 {
-    /* text-shadow: 1px 1px 1px #402013; */
-}
-
 h4:hover {
     text-shadow: none;
 }
@@ -111,6 +107,9 @@ h4:hover {
     -webkit-backdrop-filter: blur(4px);
     border-radius: 10px;
     color: #663300;
+}
+.selectQuantity {
+    background-color:#66330050;
 }
 
 .boxContact:hover {
@@ -178,9 +177,18 @@ a:hover {
     text-shadow: #EA9999;
 }
 
-.productImg {
-    width: 100%;
+.productImgHome {
+    max-width: 100%;
+    max-height:100%;
     border-radius: 10px 10px 0px 0px;
+    box-shadow: rgba(33, 35, 38, 0.5) 0px 10px 10px -10px;
+    padding: 0 0 0 0;
+}
+
+.productImg {
+    max-width: 100%;
+    max-height:100%;
+    border-radius:10px;
     box-shadow: rgba(33, 35, 38, 0.5) 0px 10px 10px -10px;
     padding: 0 0 0 0;
 }
@@ -214,8 +222,17 @@ a:hover {
 }
 
 .boxProductVue {
+    height:100%;
+    margin-top:20px;
     justify-content: space-around;
     /* background-color: blue; */
+}
+.boxProductImg {
+    height:50vh;
+}
+.boxProductDescription {
+    height:10vh;
+    justify-content: center;
 }
 
 .cmdDetails {
@@ -276,6 +293,26 @@ a:hover {
     font-size: 22px;
     /* width: 300px; */
 }
+.btnValidSmall {
+    background: rgba(255, 255, 255, 0.4);
+    /* box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 ); */
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 10px;
+    color: #663300;
+    font-size: 16px;
+    /* width: 300px; */
+}
+.btnValidSmallX {
+    background: rgba(255, 255, 255, 0.4);
+    /* box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 ); */
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 10px;
+    color: #663300;
+    font-size: 12px;
+    /* width: 300px; */
+}
 
 
 .btnModify {
@@ -323,4 +360,10 @@ a:hover {
     -webkit-backdrop-filter: blur(4px);
     border-radius: 0px 10px 10px 0px;
     color: #663300;
+}
+.productCategoryText {
+    
+text-shadow: 2px 7px 5px rgba(0,0,0,0.3), 
+0px -4px 10px rgba(255,255,255,0.3);
+
 }

@@ -6,6 +6,7 @@ require_once(__DIR__ . '/../helpers/regex.php');
 require_once(__DIR__ . '/../models/errors.php');
 require_once(__DIR__ . '/../models/users.php');
 require_once(__DIR__ . '/../models/addresses.php');
+require_once(__DIR__ . '/../models/orders.php');
 
 //récupération des informations de produit
 require_once(__DIR__ . '/../models/products.php');
@@ -14,16 +15,86 @@ $pageTitle = 'Profil utilisateur';
 
 // $error = intval(filter_input(INPUT_GET, 'error', FILTER_SANITIZE_NUMBER_INT));
 
-$user_info = User::getAll($_SESSION['user']->id_user);
-$address_first = Address::getAddressInfo($_SESSION['user']->id_user,1);
-// var_dump($address_first);die;
-$address_others = Address::getAddressInfo($_SESSION['user']->id_user);
+$user_info = User::getAll($_SESSION['user']->user_id);
+$address_first = Address::getAddressInfo($_SESSION['user']->user_id, 1);
+$address_others = Address::getAddressInfo($_SESSION['user']->user_id);
+
+//------------- ORDERS LIST ---------//
+$orders_pending = Order::getPending($_SESSION['user']->user_id);
+// var_dump($orders_pending);die;
+
 
 $action_profile = filter_input(INPUT_POST, 'action_profile', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
 
+//!------------- ORDER QUANTITY MODIFY ---------//
+if ($_SERVER['REQUEST_METHOD'] == 'POST' and $action_profile == 'delete') {
+
+    //------------- ID ORDER ---------//
+    $id_order = intval(filter_input(INPUT_POST, 'id_order', FILTER_SANITIZE_NUMBER_INT));
+    if (!empty($id_order)) {
+        $testid_order = filter_var($id_order, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => REGEX_INT)));
+        if (!$testid_order) {
+            $error["id_order"] = "Le code de commande n'est pas au bon format !!";
+        }
+    } else {
+        $error["id_order"] = "Vous devez sélectionner une ligne de commande !!";
+    }
+    
+
+    //------------- ADD DATA ---------//
+    $resultDelete = Order::delete($_SESSION['user']->user_id, $id_order);
+    // var_dump($resultDelete);die;
+    if ($resultDelete == true) {
+
+        $resultView = "Modifications enregistrées";
+    } else {
+        $resultView = "Erreur lors de l'enregistrement des données";
+    }
+    
+$orders_pending = Order::getPending($_SESSION['user']->user_id);
+}
+
+//!------------- ORDER QUANTITY MODIFY ---------//
+if ($_SERVER['REQUEST_METHOD'] == 'POST' and $action_profile == 'modify') {
+
+    //------------- ID ORDER ---------//
+    $id_order = intval(filter_input(INPUT_POST, 'id_order', FILTER_SANITIZE_NUMBER_INT));
+    if (!empty($id_order)) {
+        $testid_order = filter_var($id_order, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => REGEX_INT)));
+        if (!$testid_order) {
+            $error["id_order"] = "Le code de commande n'est pas au bon format !!";
+        }
+    } else {
+        $error["id_order"] = "Vous devez sélectionner une ligne de commande !!";
+    }
+
+    //------------- ORDER QUANTITY ---------//
+    $quantity = intval(filter_input(INPUT_POST, 'quantity', FILTER_SANITIZE_NUMBER_INT));
+    if (!empty($quantity)) {
+        $testid_order = filter_var($quantity, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => REGEX_INT)));
+        if (!$testid_order) {
+            $error["quantity"] = "Le a quantité est incorrecte !!";
+        }
+    } else {
+        $error["quantity"] = "Vous devez sélectionner une quantité !!";
+    }
+
+    //------------- ADD DATA ---------//
+    $resultUpdate = Order::update($_SESSION['user']->user_id, $id_order, $quantity);
+    // var_dump($resultUpdate);die;
+    if ($resultUpdate == true) {
+
+        $resultView = "Modifications enregistrées";
+    } else {
+        $resultView = "Erreur lors de l'enregistrement des données";
+    }
+    
+$orders_pending = Order::getPending($_SESSION['user']->user_id);
+}
+
 //!------------- PROFILE INFO ---------//
-if ($_SERVER['REQUEST_METHOD'] == 'POST' AND $action_profile=='profile_info') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' and $action_profile == 'profile_info') {
 
     //------------- CATEGORY ---------//
     $category = filter_input(INPUT_POST, 'category', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -115,7 +186,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' AND $action_profile=='profile_info') {
 
     //------------- ADD DATA ---------//
     $User = new User();
-    $User->setID($_SESSION['user']->id_user);
+    $User->setID($_SESSION['user']->user_id);
     $User->setCategory($category);
     $User->setGender($gender);
     $User->setLastname($lastname);
@@ -134,9 +205,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' AND $action_profile=='profile_info') {
     }
 }
 
+
 //!------------- ADRESS ---------//
-if ($_SERVER['REQUEST_METHOD'] == 'POST' AND $action_profile=='address') {
-    
+if ($_SERVER['REQUEST_METHOD'] == 'POST' and $action_profile == 'address') {
+
     //------------- ADRESS ---------//
     $address = filter_input(INPUT_POST, 'address', FILTER_SANITIZE_SPECIAL_CHARS);
     if (!empty($address)) {
@@ -148,12 +220,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' AND $action_profile=='address') {
         $error["address"] = "Vous devez entrer une adresse !!";
     }
 
-    
-    //------------- ADDRESS MORE ---------//
-    $address_more = filter_input(INPUT_POST, 'address_more', FILTER_SANITIZE_SPECIAL_CHARS)??'';
-    
 
-    
+    //------------- ADDRESS MORE ---------//
+    $address_more = filter_input(INPUT_POST, 'address_more', FILTER_SANITIZE_SPECIAL_CHARS) ?? '';
+
+
+
     //------------- POSTAL CODE ---------//
     $postal_code = filter_input(INPUT_POST, 'postal_code', FILTER_SANITIZE_SPECIAL_CHARS);
     if (!empty($postal_code)) {
@@ -165,7 +237,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' AND $action_profile=='address') {
         $error["postal_code"] = "Vous devez entrer un code postal !!";
     }
 
-    
+
     //------------- CITY ---------//
     $city = filter_input(INPUT_POST, 'city', FILTER_SANITIZE_SPECIAL_CHARS);
     if (!empty($city)) {
@@ -179,8 +251,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' AND $action_profile=='address') {
 
     //------------- ADD DATA ---------//
     $User = new Address();
-    $User->setID($_SESSION['user']->id_user);
-    $User->setUserId($_SESSION['user']->id_user);
+    $User->setID($_SESSION['user']->user_id);
+    $User->setUserId($_SESSION['user']->user_id);
     $User->setAddress($address);
     $User->setAddressMore($address_more);
     $User->setPostalCode($postal_code);
@@ -194,8 +266,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' AND $action_profile=='address') {
     } else {
         $resultView = "Erreur lors de l'enregistrement des données";
     }
-
-
 }
 
 

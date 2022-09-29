@@ -12,7 +12,7 @@
 
 
 <main class="container-fluid">
-    <?php include(__DIR__ . '\menu.php'); ?>
+    <?php include(__DIR__ . '/menu.php'); ?>
     
 
             

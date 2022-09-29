@@ -197,27 +197,25 @@ class Product
     //------------- GET ALL products ---------//
     public static function getProduct(int $id_product = 0)
     {
-        var_dump('id inserted',$id_product);
+        // var_dump('data',$id_product);
         $pdo = Database::DBconnect();
         try {
-            $sql = "SELECT `products_name`,
-            `products_description`,
-            `products_price`,
-            `products_weight`
+            $sql = "SELECT *
             FROM `products`";
             if ($id_product != 0) {
                 $sql .= " WHERE `id_product`=:id_product";
             }
             $sql .= " ORDER BY `products_name`";
             $sth = $pdo->prepare($sql);
-
+            
             if ($id_product != 0) {
                 $sth->bindValue(':id_product', $id_product, PDO::PARAM_INT);
             }
             if ($sth->execute()) {
                 if ($id_product != 0) {
-
+                    
                     $ProductInfo = $sth->fetch();
+                    // var_dump('fetch',$ProductInfo);
                     return $ProductInfo;
                 } else {
                     $ProductsList = $sth->fetchAll();

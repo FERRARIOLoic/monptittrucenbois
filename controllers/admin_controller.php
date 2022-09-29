@@ -10,11 +10,11 @@ require_once(__DIR__ . '/../models/categories.php');
 require_once(__DIR__ . '/../models/carriers.php');
 require_once(__DIR__ . '/../helpers/regex.php');
 
-include(__DIR__ . '/../views/templates/header.php');
 
 $pageTitle = 'Page administrateur';
 $admin_view = $_GET['display'] ?? '';
 
+include(__DIR__ . '/../views/templates/header.php');
 
 //------------- LINKS ---------//
 
@@ -225,7 +225,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and $admin_view == "productsCreate" and
 
 //!------------- PRODUCT MODIFY ---------//
 
-$ProductsList = Product::getAll();
+// $ProductsList = Product::getAll();
 
 //?------------ GET PRODUCT INFO AND REDIRECT ---------//
 
@@ -233,9 +233,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and $admin_view == "productsCreate" and
     $id_product = intval(filter_input(INPUT_POST, 'id_product', FILTER_SANITIZE_NUMBER_INT));
 
     $ProductInfo = Product::getProduct($id_product);
-    var_dump('data send',$ProductInfo);die;
-
+    
     $categoryInfo = (Category::getCategory($ProductInfo->id_category))->id_category;
+    var_dump('data send',$categoryInfo);
     $woodInfo = (Wood::getWood($ProductInfo->id_wood))->id_wood;
 }
 
@@ -531,4 +531,4 @@ if ($_SESSION['user']->users_admin == '1') {
     include(__DIR__ . '/../views/admin_unauthorized.php');
 }
 //------------- LINKS ---------//
-require_once(__DIR__ . '/Footer.php');
+include(__DIR__ . '/Footer.php');

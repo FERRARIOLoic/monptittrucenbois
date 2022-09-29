@@ -9,7 +9,7 @@
                 <div class="col-2 d-md-none text-start">
                     <img src="../public/assets/img/icons/menuHamburger.svg" class="menuImg" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" />
                 </div>
-                <div class="col-8 col-md-4 fs-6 titleSite text-center text-md-start nav-link">
+                <div class="col-8 col-md-3 fs-6 titleSite text-center text-md-start nav-link">
                     <a href="accueil.html">
                         <img class="navbarImgLogo" src="../public/assets/img/icons/logo.png" alt="Mon P'tit Truc En Bois">
                     </a>
@@ -40,7 +40,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="collapse navbar-collapse col-6 col-md-6 text-md-center" id="navbarNavAltMarkup" id="fixBtn">
+                <div class="collapse navbar-collapse col-6 col-md-7 text-md-center" id="navbarNavAltMarkup" id="fixBtn">
                     <div class="col-12 col-md-2 py-2">
                         <a class="nav-link" href="actualites.html"><strong>Actualités</strong></a>
                     </div>
