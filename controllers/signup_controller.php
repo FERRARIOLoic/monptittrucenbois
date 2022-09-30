@@ -1,10 +1,11 @@
 <?php
-// require_once __DIR__ . '/../hel/config.php';
+require_once __DIR__ . '/../helpers/modals.php';
 require_once __DIR__ . '/../models/users.php';
 require_once __DIR__ . '/../helpers/JWT.php';
 
 //------------- LINKS ---------//
 require_once(__DIR__ . '/Header.php');
+$pageTitle = 'Connexion';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -43,7 +44,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $user->setPassword($password);
         $isUserRegistered = $user->save();
         
-        var_dump($isUserRegistered);die;
         if($isUserRegistered){
             //envoi d'un mail avec lien contenant un jwt
             $subject = "Validez votre inscription";
@@ -51,8 +51,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $token = JWT::generate($payload);
             $message = 'Merci de valider votre compte en cliquant sur ce lien: <a href="'.$_SERVER['HTTP_ORIGIN'].'/controllers/signup_validate_Controller.php?token='.$token.'">Cliquez-ici</a>';
             mail($email, $subject, $message);
-            header('location: inscription.html');
-            die;
+            // header('location: inscription.html');
+            // die;
         } else {
             $errors['email'] = 'Un problème est survenu';
         }

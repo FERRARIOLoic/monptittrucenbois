@@ -28,8 +28,8 @@
                     <div class="col-12 text-center align-self-center fs-3 py-2 border-bottom border-1">
                         <h4><?= $productInfo->products_name; ?></h4>
                     </div>
-                    <div class="col-12 text-center boxProductImg align-self-center">
-                        <img class="productImg" src="/public/assets/img/products/<?= $pageTitle ?>/<?= $productInfo->id_product; ?>.jpg">
+                    <div class="col-12 text-center boxProductImg d-flex">
+                        <img class="productImg align-self-center" src="/public/assets/img/products/<?= $pageTitle ?>/<?= $productInfo->id_product; ?>.jpg">
                     </div>
                     <div class="col-12 py-2 px-4 boxProductDescription">
                         <?= $productInfo->products_description; ?>
@@ -67,7 +67,7 @@
                         </div>
                     <?php } else { ?>
                         <div class="col-12 py-3 text-center align-self-end productCategoryText border-top border-1">
-                            <a href='inscription.html'><span class='text-black'>Créer un compte pour commander</span></a>
+                            <a href='inscription.html'><span class='text-black'>S'inscrire ou se connecter pour commander</span></a>
                         </div>
                     <?php } ?>
                 </div>

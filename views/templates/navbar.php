@@ -26,7 +26,7 @@
                             <?php
                             if (isset($_SESSION['user'])) {
                                 // var_dump($_SERVER['REQUEST_URI']); die;
-                                if ($_SESSION['user']->users_admin == 1 and ($_SERVER['REQUEST_URI'] != "/profil.html" AND $_SERVER['REQUEST_URI'] != "/administrateur.html")) { ?>
+                                if ($_SESSION['user']->users_admin == 1 and ($_SERVER['REQUEST_URI'] != "/profil.html" and $_SERVER['REQUEST_URI'] != "/administrateur.html")) { ?>
                                     <a href="administrateur.html"><img id="btnModalLogin" type="button" class="profileImg" src="../public/assets/img/icons/admin.svg" alt="Menu administrateur" title="Menu administrateur"></a>
                                 <?php } elseif ($_SESSION['admin'] != 1 and $_SERVER['REQUEST_URI'] != "/profil.html") { ?>
                                     <a href="profil.html"><img class="profileImg" src="../public/assets/img/icons/profile.svg" alt="Accéder au profil" title="Accéder au profil"></a>
@@ -46,7 +46,6 @@
                     </div>
                     <?php
                     foreach ($categories_list as $category) :
-                        // var_dump($categories_list); die;
                     ?>
                         <div class="col-12 col-md-2 py-2">
                             <a class="nav-link" href="produits.html?category_id=<?= $category->id_category; ?>"><strong><?= $category->categories_name ?></strong></a>

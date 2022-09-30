@@ -11,7 +11,7 @@ if($datas===false){
     //Récupération de l'email contenu dans les datas
     $email = $datas->email;
     // Appel de la méthode de mise à jour du client (ajout de la date dans validated_at)
-    if(User::validate($email)){
+    if(User::validated($email)){
         $message = 'Votre compte est désormais validé!';
     } else {
         $message = 'Un problème s\'est produit lors de la validation de votre compte';
