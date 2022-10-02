@@ -226,11 +226,27 @@ class User
     {
         try {
             $pdo = Database::DBconnect();
-            $sql = "SELECT * FROM `users`";
+            $sql = "SELECT 
+            `users`.`user_id`,
+            `users`.`users_gender`,
+            `users`.`users_lastname`,
+            `users`.`users_firstname`,
+            `users`.`users_email`,
+            `users`.`users_phone`,
+            `users`.`users_birthdate`,
+            `users`.`users_type`,
+            `addresses`.`addresses_address`,
+            `addresses`.`addresses_address_more`,
+            `addresses`.`addresses_postal_code`,
+            `addresses`.`addresses_city`,
+            `addresses`.`addresses_type`
+            FROM `users`
+            INNER JOIN `addresses` ON `users`.`user_id`=`addresses`.`id_user`
+            ";
             if ($user_id != 0) {
-                $sql .= " WHERE `user_id`=:user_id";
+                $sql .= " WHERE `users`.`user_id`=:user_id";
             }
-            $sql .= " ORDER BY `users_lastname`";
+            $sql .= " ORDER BY `users`.`users_lastname`";
             $sth = $pdo->prepare($sql);
             if ($user_id != 0) {
                 $sth->bindValue(':user_id', $user_id, PDO::PARAM_INT);
@@ -245,7 +261,8 @@ class User
             } else {
                 return false;
             }
-        } catch (PDOException $ex) {
+        } catch (PDOException $e) {
+            var_dump($e);die;
             return false;
         }
     }

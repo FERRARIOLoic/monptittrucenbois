@@ -7,7 +7,7 @@
                     &#169;FERRARIOLoïc-05/22
                 </div>
                 <div class="col-6 col-md-6 text-end">
-                    <a href="legal.html">Mentions légales</a>
+                    <a href="mentions_legales.html">Mentions légales</a>
                 </div>
             </div>
         </div>

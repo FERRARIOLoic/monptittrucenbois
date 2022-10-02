@@ -124,8 +124,8 @@ class Order
         }
     }
 
-    //------------- UPDATE ORDER DATA ---------//
-    public static function update(int $user_id, int $id_order, int $quantity)
+    //------------- UPDATE ORDER QUANTITY ---------//
+    public static function updateQuantity(int $user_id, int $id_order, int $quantity)
     {
         // var_dump($id_order);die;
         $pdo = Database::DBconnect();
@@ -134,6 +134,30 @@ class Order
             $sth = $pdo->prepare($sql);
             $sth->bindValue(':quantity', $quantity, PDO::PARAM_STR);
             $sth->bindValue(':id_order', $id_order, PDO::PARAM_STR);
+            $sth->bindValue(':user_id', $user_id, PDO::PARAM_STR);
+            $result = $sth->execute();
+
+            if (!$result) {
+                throw new PDOException();
+            } else {
+                $resultView = "Les modifications ont été enregistrées";
+                return $resultView;
+            }
+            return true;
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
+
+    //------------- UPDATE ORDER QUANTITY ---------//
+    public static function updateCarrier(int $user_id, int $id_carrier)
+    {
+        // var_dump($id_order);die;
+        $pdo = Database::DBconnect();
+        try {
+            $sql = "UPDATE `orders` SET `id_carrier`=:id_carrier WHERE (`orders_payed`=NULL AND `id_user`=:user_id)";
+            $sth = $pdo->prepare($sql);
+            $sth->bindValue(':id_carrier', $id_carrier, PDO::PARAM_STR);
             $sth->bindValue(':user_id', $user_id, PDO::PARAM_STR);
             $result = $sth->execute();
 

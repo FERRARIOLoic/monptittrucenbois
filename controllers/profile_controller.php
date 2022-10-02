@@ -24,13 +24,12 @@ $orders_pending = Order::getPending($_SESSION['user']->user_id);
 
 //-------------- CARRIERS LIST ---------//
 $carriers_list = Carrier::getCarrier();
-// var_dump($carriers_list);die;
 
 
 $action_profile = filter_input(INPUT_POST, 'action_profile', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
 
-//!------------- ORDER QUANTITY MODIFY ---------//
+//!------------- ORDER PRODUCT DELETE ---------//
 if ($_SERVER['REQUEST_METHOD'] == 'POST' and $action_profile == 'delete') {
 
     //------------- ID ORDER ---------//
@@ -84,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and $action_profile == 'modify') {
     }
 
     //------------- ADD DATA ---------//
-    $resultUpdate = Order::update($_SESSION['user']->user_id, $id_order, $quantity);
+    $resultUpdate = Order::updateQuantity($_SESSION['user']->user_id, $id_order, $quantity);
     // var_dump($resultUpdate);die;
     if ($resultUpdate == true) {
 
@@ -94,6 +93,60 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and $action_profile == 'modify') {
     }
     
 $orders_pending = Order::getPending($_SESSION['user']->user_id);
+}
+
+
+
+//!------------- CARRIER CHOICE MODIFY ---------//
+if ($_SERVER['REQUEST_METHOD'] == 'POST' and $action_profile == 'carrier_choice') {
+
+    //------------- ID ORDER ---------//
+    $id_order = intval(filter_input(INPUT_POST, 'id_order', FILTER_SANITIZE_NUMBER_INT));
+    if (!empty($id_order)) {
+        $testid_order = filter_var($id_order, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => REGEX_INT)));
+        if (!$testid_order) {
+            $error["id_order"] = "Le code de commande n'est pas au bon format !!";
+        }
+    } else {
+        $error["id_order"] = "Vous devez sélectionner une ligne de commande !!";
+    }
+
+    //------------- ORDER CARRIER ---------//
+    $id_carrier = intval(filter_input(INPUT_POST, 'id_carrier', FILTER_SANITIZE_NUMBER_INT));
+    if (!empty($id_carrier)) {
+        $testid_order = filter_var($id_carrier, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => REGEX_INT)));
+        if (!$testid_order) {
+            $error["id_carrier"] = "Le a quantité est incorrecte !!";
+        }
+    } else {
+        $error["id_carrier"] = "Vous devez sélectionner une quantité !!";
+    }
+
+    //------------- ORDER WEIGHT ---------//
+    $order_weight = intval(filter_input(INPUT_POST, 'order_weight', FILTER_SANITIZE_NUMBER_INT));
+    // var_dump($order_weight);die;
+    if (!empty($order_weight)) {
+        $testid_order = filter_var($order_weight, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => REGEX_INT)));
+        if (!$testid_order) {
+            $error["order_weight"] = "Le a quantité est incorrecte !!";
+        }
+    } else {
+        $error["order_weight"] = "Vous devez sélectionner une quantité !!";
+    }
+
+    //------------- ADD DATA ---------//
+    $resultUpdate = Order::updateCarrier($_SESSION['user']->user_id, $id_order, $id_carrier);
+    // var_dump($resultUpdate);die;
+    if ($resultUpdate == true) {
+
+        $resultView = "Modifications enregistrées";
+    } else {
+        $resultView = "Erreur lors de l'enregistrement des données";
+    }
+    
+$orders_pending = Order::getPending($_SESSION['user']->user_id);
+$carriers_price = Carrier::getPrice($id_carrier,$order_weight); 
+// var_dump($carriers_price);die;
 }
 
 //!------------- PROFILE INFO ---------//

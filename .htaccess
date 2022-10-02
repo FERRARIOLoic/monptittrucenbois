@@ -15,9 +15,7 @@ RewriteCond %{HTTP:X-Forwarded-Proto} !https
 # Règles de réécriture d'URL :
 #--------------------------------------------------
 
-# Article avec numéro de page :
 RewriteRule ^accueil.html$ controllers/home_controller.php [L] 
-
 RewriteRule ^inscription.html$ controllers/signup_controller.php [L] 
 RewriteRule ^connexion.html$ controllers/signin_controller.php [L] 
 RewriteRule ^deconnexion.html$ controllers/signout_controller.php [L] 
@@ -30,5 +28,7 @@ RewriteRule ^profil.html$ controllers/profile_controller.php [L]
 RewriteRule ^informations.html$ controllers/workingInfo_controller.php [L] 
 RewriteRule ^administrateur.html$ controllers/admin_controller.php [L] 
 RewriteRule ^liste_utilisateurs.html$ controllers/user_controller.php [L] 
+RewriteRule ^foire_questions.html$ controllers/faq_controller.php [L] 
+RewriteRule ^mentions_legales.html$ controllers/legal_notices_controller.php [L] 
 
 ErrorDocument 404 /controllers/error-controller.php

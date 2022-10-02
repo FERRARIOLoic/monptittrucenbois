@@ -133,6 +133,12 @@ h4:hover {
     text-shadow: #EA9999;
 }
 
+.boxSubCategory,
+.boxSubCategoryUp,
+.boxSubCategoryDown {
+    color:rgb(201, 201, 201);
+}
+
 .boxSubCategory {
     background-color: #66330050;
     border-radius: 10px;

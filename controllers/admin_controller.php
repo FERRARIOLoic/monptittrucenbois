@@ -340,7 +340,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and $admin_view == "productsModify" and
 
 
 //?------------- ADD/MODIFY WOOD ---------//
-if ($_SERVER['REQUEST_METHOD'] == 'POST' and $admin_view == "dataModify" and isset($_POST['wood_name'])) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' and $admin_view == "woods" and isset($_POST['wood_name'])) {
     $id_wood = intval(filter_input(INPUT_POST, 'id_wood', FILTER_SANITIZE_NUMBER_INT)) ?? 0;
     // var_dump($_POST['id_wood']);die;
 
@@ -401,7 +401,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and $admin_view == "dataModify" and iss
 $resultCategory = $resultCategory ?? '';
 
 //?------------- ADD/MODIFY CARRIER ---------//
-if ($_SERVER['REQUEST_METHOD'] == 'POST' and $admin_view == "dataModify" and isset($_POST['carriers_name'])) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' and $admin_view == "carriers" and isset($_POST['carriers_name'])) {
 
     // GET THE ID_CARRIER FORM UPDATE OR CREATE
     $id_carrier = intval(filter_input(INPUT_POST, 'id_carrier', FILTER_SANITIZE_NUMBER_INT)) ?? 0;
@@ -521,10 +521,16 @@ if ($_SESSION['user']->users_admin == '1') {
         include(__DIR__ . '/../views/admin/productsModify.php');
     }
 
-    //------------- DATA MODIFY ---------//
-    elseif ($admin_view == "dataModify") {
-        $pageTitle = "Gérer les informations de base";
-        include(__DIR__ . '/../views/admin/dataModify.php');
+    //------------- CARRIERS ---------//
+    elseif ($admin_view == "woods") {
+        $pageTitle = "Les essences de bois";
+        include(__DIR__ . '/../views/admin/woods.php');
+    }
+
+    //------------- CARRIERS ---------//
+    elseif ($admin_view == "carriers") {
+        $pageTitle = "Les transporteurs";
+        include(__DIR__ . '/../views/admin/carriers.php');
     }
 } else {
 
