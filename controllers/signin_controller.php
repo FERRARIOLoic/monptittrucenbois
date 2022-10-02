@@ -3,7 +3,8 @@ session_start();
 
 
 require_once __DIR__ . '/../utils/connect.php';
-require_once __DIR__ . '/../models/users.php';
+require_once __DIR__ . '/../helpers/modals.php';
+require_once __DIR__ . '/../models/Users.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
@@ -31,6 +32,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
+
+include(__DIR__ . '/Header.php');
 
 include __DIR__.'/../views/templates/header.php';
 include __DIR__.'/../views/signin.php';

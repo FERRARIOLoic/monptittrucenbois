@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../helpers/JWT.php';
-require_once __DIR__ . '/../models/User.php';
+require_once __DIR__ . '/../models/Users.php';
 
 // Récupération des datas contenues dans le token
 $datas = JWT::get($_GET['token']);
@@ -20,5 +20,5 @@ if($datas===false){
 
 
 include __DIR__ . '/../views/templates/header.php';
-include __DIR__ . '/../views/users/validatesignup.php';
+include __DIR__ . '/../views/validate_signup.php';
 include __DIR__ . '/../views/templates/footer.php';

@@ -74,10 +74,13 @@ class JWT
 
         // si la signature crytptée générée à partir de l'url et la signature contenue dans l'url sont identiques, 
         // Le JWT est valide, on retourne alors le payload sous forme d'objet
+
+        //------------- IF SEND = GET ---------//
         if($signature_url_encoded===$signature_provided){
             return json_decode($payload);
         } else {
             return false;
         }
+
     }
 }

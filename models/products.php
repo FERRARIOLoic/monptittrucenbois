@@ -200,17 +200,25 @@ class Product
         // var_dump('data',$id_product);
         $pdo = Database::DBconnect();
         try {
-            $sql = "SELECT *
-            FROM `products`";
+            $sql = "SELECT `products`.`id_product`,
+            `products`.`products_name`,
+            `products`.`products_description`,
+            `products`.`products_price`,
+            `products`.`products_weight`,
+            `categories`.`categories_name`,
+            `woods`.`woods_name`
+            FROM `products` 
+            INNER JOIN `categories` ON `products`.`id_category`=`categories`.`id_category` 
+            INNER JOIN `woods` ON `products`.`id_wood`=`woods`.`id_wood`";
             if ($id_product != 0) {
-                $sql .= " WHERE `id_product`=:id_product";
+                $sql .= " WHERE `products`.`id_product`=:id_product";
             }
-            $sql .= " ORDER BY `products_name`";
+            $sql .= " ORDER BY `products`.`products_name`";
             $sth = $pdo->prepare($sql);
-            
             if ($id_product != 0) {
                 $sth->bindValue(':id_product', $id_product, PDO::PARAM_INT);
             }
+            // var_dump($sth->execute());die;
             if ($sth->execute()) {
                 if ($id_product != 0) {
                     
@@ -225,7 +233,7 @@ class Product
                 return false;
             }
         } catch (PDOException $e) {
-            // var_dump($e);die;
+            var_dump($e);die;
             return false;
         }
     }

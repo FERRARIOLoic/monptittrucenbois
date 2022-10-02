@@ -1,11 +1,9 @@
 <?php
 require_once __DIR__ . '/../helpers/modals.php';
-require_once __DIR__ . '/../models/users.php';
+require_once __DIR__ . '/../models/Users.php';
 require_once __DIR__ . '/../helpers/JWT.php';
 
 //------------- LINKS ---------//
-require_once(__DIR__ . '/Header.php');
-$pageTitle = 'Connexion';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -20,10 +18,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         $isOk = filter_var($email, FILTER_VALIDATE_EMAIL);
         if (!$isOk) {
-            $errors['email'] = 'Le mail n\'est pas valide';
+            $errors['email'] = "L'adresse n'est pas valide";
         }
         if(User::isMailExists($email)){
-            $errors['email'] = 'Le mail existe déjà';
+            $errors['email'] = "Erreur, l'adresse mail existe déjà";
         } 
     }
     /***********************************************************/
@@ -51,8 +49,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $token = JWT::generate($payload);
             $message = 'Merci de valider votre compte en cliquant sur ce lien: <a href="'.$_SERVER['HTTP_ORIGIN'].'/controllers/signup_validate_Controller.php?token='.$token.'">Cliquez-ici</a>';
             mail($email, $subject, $message);
-            // header('location: inscription.html');
-            // die;
+            header('location: /connexion.html');
+            exit;
         } else {
             $errors['email'] = 'Un problème est survenu';
         }
@@ -63,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 
+include(__DIR__ . '/Header.php');
 
-include __DIR__ . '/../views/templates/header.php';
 include __DIR__ . '/../views/signup.php';
 include __DIR__ . '/../views/templates/footer.php';

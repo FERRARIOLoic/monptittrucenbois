@@ -6,18 +6,18 @@ require_once(__DIR__ . '/../models/Categories.php');
 require_once(__DIR__ . '/../models/Orders.php');
 require_once(__DIR__ . '/../helpers/regex.php');
 
-$category_id = intval(filter_input(INPUT_GET, 'category_id', FILTER_SANITIZE_NUMBER_INT));
-// var_dump($category_id);die;
+$id_product = intval(filter_input(INPUT_GET, 'id_product', FILTER_SANITIZE_NUMBER_INT));
 
 
-$page_title_get = Category::getCategory($category_id);
-$pageTitle = $page_title_get->categories_name;
+$product_info = Product::getProduct($id_product);
+// var_dump($product_info);die;
+$pageTitle = $product_info->categories_name;
 
 //------------- PRODUCTS ALL LIST ---------//
 $products_list = Product::getAll();
 
 //------------- PRODUCTS CATEGORY LIST ---------//
-$products_list_category = Product::getCategory($category_id);
+$products_list_category = Product::getCategory($id_product);
 // var_dump($products_list_category);die;
 
 //!------------- ORDER PRODUCT ---------//
@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and $action_product == 'order') {
 require_once(__DIR__ . '/Header.php');
 
 //------------- VIEWS ---------//
-include(__DIR__ . '/../views/products_category.php');
+include(__DIR__ . '/../views/product_info.php');
 
 //------------- LINKS ---------//
 require_once(__DIR__ . '/Footer.php');

@@ -29,7 +29,7 @@
                         <h4><?= $productInfo->products_name; ?></h4>
                     </div>
                     <div class="col-12 text-center boxProductImg d-flex">
-                        <img class="productImg align-self-center" src="/public/assets/img/products/<?= $pageTitle ?>/<?= $productInfo->id_product; ?>.jpg">
+                        <img class="productImg align-self-center" src="/public/assets/img/products/<?= $pageTitle ?>/<?= $productInfo->id_product; ?>.jpg" alt='<?= $productInfo->products_name; ?>' title='<?= $productInfo->products_name; ?>'>
                     </div>
                     <div class="col-12 py-2 px-4 boxProductDescription">
                         <?= $productInfo->products_description; ?>
@@ -42,6 +42,9 @@
                     </div>
                     <div class="col-4 py-2 px-4">
                         Prix : <br><strong><?= $productInfo->products_price; ?> €</strong>
+                    </div>
+                    <div class="col-12 text-end fst-italic productCategoryText">
+                        <a class='text-black' href='informations_produit.html?id_product=<?= $productInfo->id_product; ?>'>Plus d'informations...</a>
                     </div>
                     <?php
                     if (isset($_SESSION['user'])) { ?>
@@ -67,7 +70,7 @@
                         </div>
                     <?php } else { ?>
                         <div class="col-12 py-3 text-center align-self-end productCategoryText border-top border-1">
-                            <a href='inscription.html'><span class='text-black'>S'inscrire ou se connecter pour commander</span></a>
+                            <span class='text-danger fw-bold'><a href='inscription.html'>S'inscrire</a> ou <a href='connexion.html'>Se connecter</a> pour commander</span></a>
                         </div>
                     <?php } ?>
                 </div>

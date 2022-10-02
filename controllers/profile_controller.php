@@ -3,13 +3,12 @@ session_start();
 //------------- REGEX ---------//
 require_once(__DIR__ . '/../helpers/regex.php');
 
-require_once(__DIR__ . '/../models/errors.php');
-require_once(__DIR__ . '/../models/users.php');
-require_once(__DIR__ . '/../models/addresses.php');
-require_once(__DIR__ . '/../models/orders.php');
-
-//récupération des informations de produit
-require_once(__DIR__ . '/../models/products.php');
+require_once(__DIR__ . '/../models/Errors.php');
+require_once(__DIR__ . '/../models/Users.php');
+require_once(__DIR__ . '/../models/Addresses.php');
+require_once(__DIR__ . '/../models/Orders.php');
+require_once(__DIR__ . '/../models/Carriers.php');
+require_once(__DIR__ . '/../models/Products.php');
 
 $pageTitle = 'Profil utilisateur';
 
@@ -22,6 +21,10 @@ $address_others = Address::getAddressInfo($_SESSION['user']->user_id);
 //------------- ORDERS LIST ---------//
 $orders_pending = Order::getPending($_SESSION['user']->user_id);
 // var_dump($orders_pending);die;
+
+//-------------- CARRIERS LIST ---------//
+$carriers_list = Carrier::getCarrier();
+// var_dump($carriers_list);die;
 
 
 $action_profile = filter_input(INPUT_POST, 'action_profile', FILTER_SANITIZE_FULL_SPECIAL_CHARS);

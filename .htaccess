@@ -17,16 +17,18 @@ RewriteCond %{HTTP:X-Forwarded-Proto} !https
 
 # Article avec numéro de page :
 RewriteRule ^accueil.html$ controllers/home_controller.php [L] 
+
+RewriteRule ^inscription.html$ controllers/signup_controller.php [L] 
+RewriteRule ^connexion.html$ controllers/signin_controller.php [L] 
+RewriteRule ^deconnexion.html$ controllers/signout_controller.php [L] 
 RewriteRule ^parametres.html$ controllers/settings_controller.php [L] 
 RewriteRule ^contact.html$ controllers/contact_controller.php [L] 
 RewriteRule ^actualites.html$ controllers/news_controller.php [L] 
 RewriteRule ^produits.html$ controllers/products_category_controller.php [L] 
+RewriteRule ^informations_produit.html$ controllers/product_info_controller.php [L] 
 RewriteRule ^profil.html$ controllers/profile_controller.php [L] 
 RewriteRule ^informations.html$ controllers/workingInfo_controller.php [L] 
 RewriteRule ^administrateur.html$ controllers/admin_controller.php [L] 
 RewriteRule ^liste_utilisateurs.html$ controllers/user_controller.php [L] 
-RewriteRule ^inscription.html$ controllers/signup_controller.php [L] 
-RewriteRule ^connexion.html$ controllers/signin_controller.php [L] 
-RewriteRule ^deconnexion.html$ controllers/signout_controller.php [L] 
 
 ErrorDocument 404 /controllers/error-controller.php

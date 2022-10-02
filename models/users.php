@@ -170,7 +170,7 @@ class User
     {
         try {
             $pdo = Database::DBconnect();
-            $sql = "UPDATE `users` SET `validated_at`=CURRENT_TIMESTAMP WHERE `email`=:email";
+            $sql = "UPDATE `users` SET `users_validated_at`=CURRENT_TIMESTAMP WHERE `users_email`=:email";
             $sth = $pdo->prepare($sql);
             $sth->bindValue(':email', $email, PDO::PARAM_STR);
             $result = $sth->execute();

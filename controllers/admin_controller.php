@@ -2,12 +2,12 @@
 // var_dump($_SERVER['REQUEST_URI']);die;
 session_start();
 
-require_once(__DIR__ . '/../models/addresses.php');
-require_once(__DIR__ . '/../models/users.php');
-require_once(__DIR__ . '/../models/woods.php');
-require_once(__DIR__ . '/../models/products.php');
-require_once(__DIR__ . '/../models/categories.php');
-require_once(__DIR__ . '/../models/carriers.php');
+require_once(__DIR__ . '/../models/Addresses.php');
+require_once(__DIR__ . '/../models/Users.php');
+require_once(__DIR__ . '/../models/Woods.php');
+require_once(__DIR__ . '/../models/Products.php');
+require_once(__DIR__ . '/../models/Categories.php');
+require_once(__DIR__ . '/../models/Carriers.php');
 require_once(__DIR__ . '/../helpers/regex.php');
 
 
@@ -402,27 +402,28 @@ $resultCategory = $resultCategory ?? '';
 
 //?------------- ADD/MODIFY CARRIER ---------//
 if ($_SERVER['REQUEST_METHOD'] == 'POST' and $admin_view == "dataModify" and isset($_POST['carriers_name'])) {
+
+    // GET THE ID_CARRIER FORM UPDATE OR CREATE
     $id_carrier = intval(filter_input(INPUT_POST, 'id_carrier', FILTER_SANITIZE_NUMBER_INT)) ?? 0;
-    // var_dump($_POST['id_carrier']);die;
+
     $carriers_name = filter_input(INPUT_POST, 'carriers_name', FILTER_SANITIZE_SPECIAL_CHARS);
-    // var_dump($_POST['carriers_name']);die;
-    $carriers_number = filter_input(INPUT_POST, 'carriers_number', FILTER_SANITIZE_SPECIAL_CHARS);
-    // var_dump($_POST['carriers_number']);die;
+    $carriers_phone = filter_input(INPUT_POST, 'carriers_phone', FILTER_SANITIZE_SPECIAL_CHARS);
     $carriers_email = filter_input(INPUT_POST, 'carriers_email', FILTER_SANITIZE_SPECIAL_CHARS);
-    // var_dump($_POST['carriers_email']);die;
+    
     if (isset($id_carrier) and isset($carriers_name)) {
-        $resultCarrier = Carrier::update($id_carrier, $carriers_name);
+        $resultCarrier = Carrier::update($id_carrier, $carriers_name, $carriers_phone, $carriers_email);
     }
-    if ($id_carrier == 0 and (isset($carriers_name) or isset($carriers_number) or isset($carriers_email))) {
-        // var_dump($carriers_name);die;
-        $resultCarrier = Carrier::save($carriers_name, $carriers_number, $carriers_email);
+    if ($id_carrier == 0 and (isset($carriers_name) or isset($carriers_phone) or isset($carriers_email))) {
+        // var_dump($carriers_email);die;
+        $resultCarrier = Carrier::save($carriers_name, $carriers_phone, $carriers_email);
     }
     unset($_POST['id_carrier']);
     unset($_POST['carriers_name']);
-    unset($_POST['carriers_number']);
+    unset($_POST['carriers_phone']);
     unset($_POST['carriers_email']);
 }
 $resultCarrier = $resultCarrier ?? '';
+// var_dump($resultCarrier);die;
 
 
 

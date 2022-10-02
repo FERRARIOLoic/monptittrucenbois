@@ -1,14 +1,9 @@
 <main class="container-fluid">
-    <div class="row titlePage">
-        <div class="col-12 text-center align-self-center">
-            <h1>Page administrateur / <?= $pageTitle; ?></h1>
-        </div>
-    </div>
-
-    <div class="row ">
+    <div class="row">
+        <?php include(__DIR__.'/menu.php'); ?>
 
         <!------------- WOODS LIST --------->
-        <div class="col-12 col-md-4 px-5 py-4 text-center">
+        <div class="col-12 col-md-6 px-5 py-4 text-center">
             <div class="row boxContact">
                 <div class="col-12 text-center align-self-center ">
                     <h2>Types de bois</h2>
@@ -82,11 +77,15 @@
                 </div>
             <?php } elseif ($resultCarrier == 1) { ?>
                 <div class="col-12 my-2 text-center align-self-center validBox d-flex justify-content-center justify-self-center">
-                    <span class="align-self-center validForm">Le transporteur à bien été enregistrée</span>
+                    <span class="align-self-center validForm">Le transporteur à bien été enregistré</span>
                 </div>
             <?php } elseif ($resultCarrier == 2) { ?>
                 <div class="col-12 my-2 text-center align-self-center validBox d-flex justify-content-center justify-self-center">
-                    <span class="align-self-center validForm">Le transporteur à bien été supprimée</span>
+                    <span class="align-self-center validForm">Le transporteur a bien été mis à jour</span>
+                </div>
+            <?php } elseif ($resultCarrier == 3) { ?>
+                <div class="col-12 my-2 text-center align-self-center validBox d-flex justify-content-center justify-self-center">
+                    <span class="align-self-center validForm">Le transporteur à bien été supprimé</span>
                 </div>
             <?php } ?>
             <!------------- ADD NEW CARRIER --------->
@@ -95,10 +94,10 @@
                     <input type="hidden" name="admin_view" value="dataModify">
                     <div class="row py-2">
                         <div class="col-12 col-md-3 py-2 align-self-center">
-                            <input type="text" class="form-control" name="carriers_name" placeholder="Nom du transporteur">
+                            <input type="text" class="form-control" name="carriers_name" placeholder="Nom du transporteur" required>
                         </div>
                         <div class="col-12 col-md-3 py-2 align-self-center">
-                            <input type="text" class="form-control" name="carriers_number" placeholder="Numéro de téléphone">
+                            <input type="text" class="form-control" name="carriers_phone" placeholder="Numéro de téléphone">
                         </div>
                         <div class="col-12 col-md-3 py-2 align-self-center">
                             <input type="email" class="form-control" name="carriers_email" placeholder="Adresse Email">
@@ -122,10 +121,10 @@
                                 <div class="row py-2">
 
                                     <div class="col-12 col-md-3 py-2 align-self-center">
-                                        <input type="text" class="form-control" name="carriers_name" value="<?= $carrier->carriers_name; ?>">
+                                        <input type="text" class="form-control" name="carriers_name" value="<?= $carrier->carriers_name; ?>" required>
                                     </div>
                                     <div class="col-12 col-md-3 py-2 align-self-center">
-                                        <input type="text" class="form-control" name="carriers_number" value="<?= $carrier->carriers_number; ?>">
+                                        <input type="text" class="form-control" name="carriers_phone" value="<?= $carrier->carriers_phone; ?>">
                                     </div>
                                     <div class="col-12 col-md-3 py-2 align-self-center">
                                         <input type="text" class="form-control" name="carriers_email" value="<?= $carrier->carriers_email; ?>">

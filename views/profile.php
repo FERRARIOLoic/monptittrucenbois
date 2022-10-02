@@ -22,11 +22,11 @@
                     </div>
 
                     <div class="col-12">
-                        <div class="row p-2 px-md-5 py-4">
+                        <div class="row p-2 px-md-5 pt-4">
                             <div class="col-3 border-bottom border-1 border-secondary"><strong>Produit</strong></div>
-                            <div class="col-2 border-bottom border-1 border-secondary"><strong>Quantité</strong></div>
-                            <div class="col-2 border-bottom border-1 border-secondary"><strong>Prix unitaire</strong></div>
-                            <div class="col-2 border-bottom border-1 border-secondary"><strong>Prix total</strong></div>
+                            <div class="col-2 text-end border-bottom border-1 border-secondary"><strong>Quantité</strong></div>
+                            <div class="col-2 text-end border-bottom border-1 border-secondary"><strong>Prix unitaire</strong></div>
+                            <div class="col-2 text-end border-bottom border-1 border-secondary"><strong>Prix total</strong></div>
                         </div>
                     </div>
                     <?php
@@ -40,23 +40,23 @@
                                 <div class="col-3">
                                     <?= $order_info->products_name ?>
                                 </div>
-                                <div class="col-2">
+                                <div class="col-2 text-end">
                                     <?= $order_info->orders_quantity ?>
                                 </div>
-                                <div class="col-2">
+                                <div class="col-2 text-end">
                                     <?= $order_info->orders_price ?>
                                 </div>
-                                <div class="col-2">
+                                <div class="col-2 text-end">
                                     <?= $order_price_product ?>
                                 </div>
-                                <div class="col-2">
-                                    <button type='submit' class='btn btnValidSmallX' onclick="toggle_text('update_<?= $order_info->id_order ?>');">Modifier</button>
+                                <div class="col-2 text-end">
+                                    <button type='submit' class='btn btnValidSmallX' onclick="toggle_text('update_<?= $order_info->id_order ?>');" alt='Modifier la quantité' title='Modifier la quantité'>Modifier</button>
                                 </div>
                                 <div class="col-1">
-                                <form action='' method='post'>
-                                    <input type='hidden' name='id_order' value='<?= $order_info->id_order; ?>'>
-                                    <button type='submit' class='btn btnValidSmallX' name='action_profile' value='delete'>X</button>
-                                </form>
+                                    <form action='' method='post'>
+                                        <input type='hidden' name='id_order' value='<?= $order_info->id_order; ?>'>
+                                        <button type='submit' class='btn btnValidSmallX' name='action_profile' value='delete' alt='Supprimer le produit' title='Supprimer le produit'>X</button>
+                                    </form>
                                 </div>
                             </div>
                             <span id="update_<?= $order_info->id_order ?>" style="display:none;">
@@ -81,13 +81,36 @@
                             </span>
                         </div>
 
+
+                        <!------------- TOTAL WEIGHT / PRICE --------->
                     <?php endforeach ?>
                     <div class="col-12 border-top border-1 py-3">
                         <div class="row p-2 px-md-5">
-                            <div class="col-6">Poids total : <?= $order_weight??'' ?> grammes</div>
-                            <div class="col-6">Coût total de la commande : <?= $order_price_total??''; ?> €</div>
+                            <div class="col-6">Poids total : <?= $order_weight ?? '' ?> grammes</div>
+                            <div class="col-6">Coût total de la commande : <?= $order_price_total ?? ''; ?> €</div>
                         </div>
                     </div>
+
+                    <!------------- LIST CHOICE CARRIER --------->
+                    <div class="col-12 pb-3">
+                        <div class="row">
+                            <div class="col-4 text-center">Choix du transporteur :</div>
+                            <div class="col-4">
+                                <select class='form-select' name='id_carrier'>
+                                    <?php
+                                    foreach ($carriers_list as $carrier_info) : ?>
+                                        <option value='<?= $carrier_info->id_carrier ?>' <?= $carrier_info->carriers_name == 'Chronopost' ? 'selected' : ''; ?>><?= $carrier_info->carriers_name ?></option>
+                                    <?php endforeach ?>
+                                </select>
+                            </div>
+                            <div class="col-4 text-center">
+                                <button type='submit' class='btn btnValidSmall' name='action_profile' value='carrier_choice'>Enregistrer</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+
                 </div>
             </div>
         </div>
