@@ -51,16 +51,22 @@
                                     <textarea class="form-control" id="description" name="description" rows="3" placeholder="Description du produit"><?= $ProductInfo->products_description ?? '' ?></textarea>
                                 </div>
                             </div>
-                            <div class="col-12 col-md-6">
+                            <div class="col-12 col-md-4">
                                 <div class="form-group my-2">
                                     <label for="weight">Poids (en grammes)</label>
                                     <input type="text" class="form-control" id="weight" name="weight" placeholder="Poids" value="<?= $ProductInfo->products_weight ?? '' ?>">
                                 </div>
                             </div>
-                            <div class="col-12 col-md-6">
+                            <div class="col-12 col-md-4">
                                 <div class="form-group my-2">
                                     <label for="price">Prix</label>
                                     <input type="text" class="form-control" id="price" name="price" placeholder="Prix du produit" value="<?= $ProductInfo->products_price ?? '' ? ($ProductInfo->products_price . ' €') : ''; ?>">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <div class="form-group my-2">
+                                    <label for="time">Temps de fabrication</label>
+                                    <input type="text" class="form-control" id="time" name="time" placeholder="En minutes" value="<?= $ProductInfo->products_time ?? '' ? ($ProductInfo->products_time . ' minutes') : ''; ?>">
                                 </div>
                             </div>
                         </div>

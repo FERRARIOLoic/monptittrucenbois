@@ -90,7 +90,7 @@
                                     </span>
                                 </div>
                             <?php endforeach;
-                            $order_weight = $order_weight / 100;
+                            $order_weight = $order_weight??0 / 100;
                             ?>
 
                         </div>
@@ -131,7 +131,7 @@
                     <div class="col-12 border-top border-1 py-3">
                         <div class="row p-2 px-md-5">
                             <div class="col-5">Prix du transport : <strong><?= $carriers_price->carriers_price ?? '' ?></strong></div>
-                            <div class="col-7">Montant total de la commande : <strong><?= $order_price_total + ($carriers_price->carriers_price ?? 0) ?? '' ?> €</strong></div>
+                            <div class="col-7">Montant total de la commande : <strong><?= ($order_price_total??0) + ($carriers_price->carriers_price ?? 0) ?? '' ?> €</strong></div>
                         </div>
                     </div>
 

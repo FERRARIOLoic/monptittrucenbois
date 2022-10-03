@@ -12,6 +12,7 @@ class Product
     private string $product_description;
     private int $product_weight;
     private int $product_price;
+    private int $product_time;
     private $pdo;
     private string $search;
 
@@ -50,6 +51,10 @@ class Product
     {
         $this->product_price = $product_price;
     }
+    public function setTime(int $product_time): void
+    {
+        $this->product_time = $product_time;
+    }
     public function setSearch(string $search): void
     {
         $this->search = $search;
@@ -83,6 +88,10 @@ class Product
     public function getPrice(): int
     {
         return $this->product_price;
+    }
+    public function getTime(): int
+    {
+        return $this->product_time;
     }
 
 
@@ -143,13 +152,17 @@ class Product
         // var_dump($productNew);die;
         if ($productNew == 1) {
             try {
-                $sql = "UPDATE `products` SET 
+                $sql = "UPDATE 
+                `products` 
+                SET 
                 `products_name`=:product_name,
                 `products_description`=:product_description,
                 `products_price`=:product_price,
                 `products_weight`=:product_weight,
+                `products_time`=:product_time,
                 `id_category`=:id_category,
-                `id_wood`=:id_wood WHERE `id_product`=:product_id";
+                `id_wood`=:id_wood 
+                WHERE `id_product`=:product_id";
                 $sth = $this->pdo->prepare($sql);
                 $sth->bindValue(':id_category', $this->id_category, PDO::PARAM_INT);
                 $sth->bindValue(':product_name', $this->product_name, PDO::PARAM_STR);
@@ -157,6 +170,7 @@ class Product
                 $sth->bindValue(':product_description', $this->product_description, PDO::PARAM_STR);
                 $sth->bindValue(':product_weight', $this->product_weight, PDO::PARAM_INT);
                 $sth->bindValue(':product_price', $this->product_price, PDO::PARAM_INT);
+                $sth->bindValue(':product_time', $this->product_time, PDO::PARAM_INT);
                 $sth->bindValue(':product_id', $this->product_id, PDO::PARAM_INT);
                 $result = $sth->execute();
 
@@ -205,7 +219,10 @@ class Product
             `products`.`products_description`,
             `products`.`products_price`,
             `products`.`products_weight`,
+            `products`.`products_time`,
+            `categories`.`id_category`,
             `categories`.`categories_name`,
+            `woods`.`id_wood`,
             `woods`.`woods_name`
             FROM `products` 
             INNER JOIN `categories` ON `products`.`id_category`=`categories`.`id_category` 

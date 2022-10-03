@@ -1,7 +1,7 @@
 <?php
 
 require_once(__DIR__ . '/../utils/connect.php');
-require_once(__DIR__ . '/../models/users.php');
+require_once(__DIR__ . '/../models/Users.php');
 
 class Address
 {

@@ -3,8 +3,8 @@
 //------------- DATABASE CONNECT ---------//
 
 //------------- LOGIC ---------//
-require_once(__DIR__ . '/../models/products.php');
-require_once(__DIR__ . '/../models/categories.php');
+require_once(__DIR__ . '/../models/Products.php');
+require_once(__DIR__ . '/../models/Categories.php');
 
 
 $categories_list = Category::getCategory();

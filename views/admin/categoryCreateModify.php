@@ -60,7 +60,8 @@
                                     <div class="col-12 my-2 text-center align-self-center validBox d-flex justify-content-center justify-self-center">
                                         <span class="align-self-center validForm">La catégorie à bien été supprimée</span>
                                     </div>
-                                <?php } ?>
+                                <?php } 
+                                unset($resultCategory); ?>
                                 <div class="col-12 py-2">
                                     <input type='text' class='form-control' name='categories' placeholder='Nom de la catégorie' value='<?= $category_info->categories ?? '' ?>'>
                                 </div>

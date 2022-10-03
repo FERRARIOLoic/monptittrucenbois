@@ -25,7 +25,9 @@
                     <div class="col-12 my-2 text-center align-self-center validBox d-flex justify-content-center justify-self-center">
                         <span class="align-self-center validForm">Le transporteur à bien été supprimé</span>
                     </div>
-                <?php } ?>
+                <?php } 
+                unset($resultCarrier);
+                ?>
                 <!------------- ADD NEW CARRIER --------->
                 <div class="col-12 text-start border-bottom border-1">
                     <form action="" method="post">

@@ -1,7 +1,7 @@
 <?php
 
 require_once(__DIR__ . '/../utils/connect.php');
-require_once(__DIR__ . '/../models/products.php');
+require_once(__DIR__ . '/../models/Products.php');
 
 class Order
 {

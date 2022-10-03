@@ -14,7 +14,6 @@ require_once(__DIR__ . '/../helpers/regex.php');
 $pageTitle = 'Page administrateur';
 $admin_view = $_GET['display'] ?? '';
 
-include(__DIR__ . '/../views/templates/header.php');
 
 //------------- LINKS ---------//
 
@@ -234,8 +233,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and $admin_view == "productsCreate" and
 
     $ProductInfo = Product::getProduct($id_product);
     
+    // var_dump('data send',$ProductInfo);
     $categoryInfo = (Category::getCategory($ProductInfo->id_category))->id_category;
-    var_dump('data send',$categoryInfo);
     $woodInfo = (Wood::getWood($ProductInfo->id_wood))->id_wood;
 }
 
@@ -318,6 +317,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and $admin_view == "productsModify" and
         $error["price"] = "Sélectionner une catégorie!!";
     }
 
+    //------------- TIME ---------//
+    $time = intval(filter_input(INPUT_POST, 'time', FILTER_SANITIZE_NUMBER_INT));
+    if (!empty($time)) {
+        $test_time = filter_var($time, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => REGEX_INT)));
+        if (!$test_time) {
+            $error["time"] = "Erreur de format !!";
+        }
+    } else {
+        $error["time"] = "Sélectionner un temps de fabrication!!";
+    }
+
 
     //------------- ADD DATA ---------//
     $product = new Product();
@@ -328,6 +338,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and $admin_view == "productsModify" and
     $product->setDescription($description);
     $product->setWeight($weight);
     $product->setPrice($price);
+    $product->setTime($time);
     $resultUpdate = $product->update();
     // var_dump($resultUpdate);
     // die;
@@ -417,10 +428,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and $admin_view == "carriers" and isset
         // var_dump($carriers_email);die;
         $resultCarrier = Carrier::save($carriers_name, $carriers_phone, $carriers_email);
     }
-    unset($_POST['id_carrier']);
-    unset($_POST['carriers_name']);
-    unset($_POST['carriers_phone']);
-    unset($_POST['carriers_email']);
+    unset($_POST['id_carrier'], $_POST['carriers_name'], $_POST['carriers_phone'], $_POST['carriers_email']);
 }
 $resultCarrier = $resultCarrier ?? '';
 // var_dump($resultCarrier);die;
@@ -432,6 +440,7 @@ $resultCarrier = $resultCarrier ?? '';
 
 
 
+include(__DIR__ . '/../views/templates/header.php');
 
 
 //!------------- VIEWS ---------//

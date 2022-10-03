@@ -79,9 +79,7 @@ class Carrier
                 if (!$result) {
                     throw new PDOException();
                 }
-                unset($carriers_name);
-                unset($carriers_phone);
-                unset($carriers_email);
+                unset($carriers_name, $carriers_phone, $carriers_email);
             } catch (PDOException $e) {
                 // var_dump($e);die;
                 return false;
