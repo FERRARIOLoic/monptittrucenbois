@@ -30,6 +30,8 @@
                                     <a href="administrateur.html"><img id="btnModalLogin" type="button" class="profileImg" src="../public/assets/img/icons/admin.svg" alt="Menu administrateur" title="Menu administrateur"></a>
                                 <?php } elseif ($_SESSION['admin'] != 1 and $_SERVER['REQUEST_URI'] != "/profil.html") { ?>
                                     <a href="profil.html"><img class="profileImg" src="../public/assets/img/icons/profile.svg" alt="Accéder au profil" title="Accéder au profil"></a>
+                                <?php } elseif ($_SESSION['admin'] != 1 and $_SERVER['REQUEST_URI'] = "/profil.html") { ?>
+                                    <img id="btnModalLogin" type="button" class="profileImg" data-bs-toggle="modal" data-bs-target="#modalLogin" src="../public/assets/img/icons/logout.svg" alt="Déconnexion" title="Déconnexion">
                                 <?php } elseif ($_SESSION['user']->users_admin == 1 and ($_SERVER['REQUEST_URI'] == "/profil.html" or $_SERVER['REQUEST_URI'] == "/administrateur.html")) { ?>
                                     <img id="btnModalLogin" type="button" class="profileImg" data-bs-toggle="modal" data-bs-target="#modalLogin" src="../public/assets/img/icons/logout.svg" alt="Déconnexion" title="Déconnexion">
                                 <?php }

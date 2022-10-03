@@ -234,6 +234,9 @@ class User
             `users`.`users_email`,
             `users`.`users_phone`,
             `users`.`users_birthdate`,
+            `users`.`users_created_at`,
+            `users`.`users_validated_at`,
+            `users`.`users_connected_at`,
             `users`.`users_type`,
             `addresses`.`addresses_address`,
             `addresses`.`addresses_address_more`,
@@ -241,7 +244,7 @@ class User
             `addresses`.`addresses_city`,
             `addresses`.`addresses_type`
             FROM `users`
-            INNER JOIN `addresses` ON `users`.`user_id`=`addresses`.`id_user`
+            LEFT JOIN `addresses` ON `users`.`user_id`=`addresses`.`id_user`
             ";
             if ($user_id != 0) {
                 $sql .= " WHERE `users`.`user_id`=:user_id";
