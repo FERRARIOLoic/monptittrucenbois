@@ -2,10 +2,10 @@
     <div class="row titlePage">
         <div class="col-12 pb-3 text-center align-self-center">
             <h1>Ma page profil</h1>
-        <?php
-        if ($_SESSION['user']->users_admin == 1 AND $_SERVER['REQUEST_URI'] = "/profil.html") { ?>
+            <?php
+            if ($_SESSION['user']->users_admin == 1 and $_SERVER['REQUEST_URI'] = "/profil.html") { ?>
                 <a href="administrateur.html" alt='Afficher la vue administrateur' title='Afficher la vue administrateur' class='text-white'>Aller à la vue administrateur</a>
-        <?php } ?>
+            <?php } ?>
         </div>
 
         <?php
@@ -38,7 +38,21 @@
                             </div>
 
                             <?php
-                            foreach ($orders_pending as $order_info) :
+                            //------------- UNSET TOTALS ---------//
+
+                            unset($order_number);
+                            unset($order_weight);
+                            unset($order_price_product);
+                            unset($order_price_total);
+
+                            if (!empty($orders_pending)) {
+                                $orders_list = $orders_pending;
+                            } elseif (!empty($orders_payed) or !empty($orders_made)) {
+                                $orders_list = $orders_made;
+                            } elseif (!empty($orders_shipped)) {
+                                $orders_list = $orders_shipped;
+                            }
+                            foreach ($orders_list as $order_info) :
                                 $order_number = ($order_number ?? 0) + ($order_info->orders_quantity);
                                 $order_weight = ($order_weight ?? 0) + ($order_info->orders_weight * $order_info->orders_quantity);
                                 $order_price_product = $order_info->orders_quantity * $order_info->orders_price;
@@ -58,15 +72,23 @@
                                         <div class="col-2 text-end align-self-center">
                                             <?= $order_price_product ?>
                                         </div>
-                                        <div class="col-2 text-end align-self-center">
-                                            <button type='submit' class='btn btnValidSmallX' onclick="toggle_text('update_<?= $order_info->id_order ?>');" alt='Modifier la quantité' title='Modifier la quantité'>Modifier</button>
-                                        </div>
-                                        <div class="col-1 text-end align-self-center">
-                                            <form action='' method='post'>
-                                                <input type='hidden' name='id_order' value='<?= $order_info->id_order; ?>'>
-                                                <button type='submit' class='btn btnValidSmallX' name='action_profile' value='delete' alt='Supprimer le produit' title='Supprimer le produit'>X</button>
-                                            </form>
-                                        </div>
+                                        <?php if (($order_info->orders_payed == null and $order_info->orders_status == NULL)) { ?>
+                                            <div class="col-2 text-end align-self-center">
+                                                <button type='submit' class='btn btnValidSmallX' onclick="toggle_text('update_<?= $order_info->id_order ?>');" alt='Modifier la quantité' title='Modifier la quantité'>Modifier</button>
+                                            </div>
+                                            <div class="col-1 text-end align-self-center">
+                                                <form action='' method='post'>
+                                                    <input type='hidden' name='id_order' value='<?= $order_info->id_order; ?>'>
+                                                    <button type='submit' class='btn btnValidSmallX' name='action_profile' value='delete' alt='Supprimer le produit' title='Supprimer le produit'>X</button>
+                                                </form>
+                                            </div>
+                                        <?php } elseif (($order_info->orders_payed == 1 and $order_info->orders_status == NULL)) { ?>
+                                            <div class="col-1"></div>
+                                            <div class="col-2 text-center boxSubCategoryNOK">En cours</div>
+                                        <?php } elseif (($order_info->orders_payed == 1 and $order_info->orders_status == 1)) { ?>
+                                            <div class="col-1"></div>
+                                            <div class="col-2 text-center boxSubCategoryOK">Fabriqué</div>
+                                        <?php } ?>
                                     </div>
                                     <span id="update_<?= $order_info->id_order ?>" style="display:none;">
                                         <form action='' method='post' class='col-9 boxSubCategoryDown p-2 pe-3'>
@@ -90,7 +112,7 @@
                                     </span>
                                 </div>
                             <?php endforeach;
-                            $order_weight = $order_weight??0 / 100;
+                            $order_weight = $order_weight ?? 0 / 100;
                             ?>
 
                         </div>
@@ -99,51 +121,102 @@
                     <!------------- TOTAL PRODUCTS / WEIGHT --------->
                     <div class="col-12 py-3">
                         <div class="row p-2 px-md-5">
-                            <div class="col-4 text-end">Nombre total d'articles :</div>
-                            <div class="col-1 text-end"><strong><?= $order_number ?? '' ?></strong></div>
-                            <div class="col-5 text-end">Poids total de la commande :</div>
-                            <div class="col-2"><strong><?= $order_weight ?? '' ?> kilos</strong></div>
+                            <div class="col-12 col-md-6">
+                                <div class="row">
+                                    <div class="col-9 text-end">Nombre total d'articles :</div>
+                                    <div class="col-3 text-md-end"><strong><?= $order_number ?? '' ?></strong></div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="row">
+                                    <div class="col-9 text-end">Poids total de la commande :</div>
+                                    <div class="col-3"><strong><?= $order_weight / 1000 ?? '' ?> kg</strong></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <!------------- LIST CHOICE CARRIER --------->
-                    <div class="col-12 py-3 border-top border-1">
-                        <form action='' method='post' class='row'>
-                            <input type='hidden' name='id_order' value='<?= $order_info->id_order; ?>'>
-                            <input type='hidden' name='order_weight' value='<?= ceil($order_weight); ?>'>
-                            <div class="col-4 text-center align-self-center">Choix du transporteur :</div>
-                            <div class="col-4">
-                                <select class='form-select' name='id_carrier'>
-                                    <option></option>
-                                    <?php
-                                    foreach ($carriers_list as $carrier_info) : ?>
-                                        <option value='<?= $carrier_info->id_carrier ?>' <?= ($carrier_info->id_carrier == ($id_carrier ?? '')) ? 'selected' : ''; ?>><?= $carrier_info->carriers_name ?></option>
-                                    <?php endforeach ?>
-                                </select>
-                            </div>
-                            <div class="col-4 text-center">
-                                <button type='submit' class='btn btnValidSmall' name='action_profile' value='carrier_choice'>Enregistrer</button>
-                            </div>
-                        </form>
-                    </div>
+                    <?php if ($order_info->orders_payed == NULL) { ?>
+                        <!------------- LIST CHOICE CARRIER --------->
+                        <div class="col-12 py-3 border-top border-1">
+                            <form action='' method='post' class='row'>
+                                <input type='hidden' name='id_order' value='<?= $order_info->id_order; ?>'>
+                                <input type='hidden' name='order_weight' value='<?= ceil($order_weight / 1000); ?>'>
+                                <div class="col-4 text-center align-self-center">Choix du transporteur :</div>
+                                <div class="col-4">
+                                    <select class='form-select' name='id_carrier'>
+                                        <option></option>
+                                        <?php
+                                        foreach ($carriers_list as $carrier_info) : ?>
+                                            <option value='<?= $carrier_info->id_carrier ?>' <?= ($carrier_info->id_carrier == ($id_carrier ?? '')) ? 'selected' : ''; ?>><?= $carrier_info->carriers_name ?></option>
+                                        <?php endforeach ?>
+                                    </select>
+                                </div>
+                                <div class="col-4 text-center">
+                                    <button type='submit' class='btn btnValidSmall' name='action_profile' value='carrier_choice'>Enregistrer</button>
+                                </div>
+                            </form>
+                        </div>
+                    <?php } ?>
 
                     <!------------- TOTAL PRICE --------->
                     <div class="col-12 border-top border-1 py-3">
                         <div class="row p-2 px-md-5">
-                            <div class="col-5">Prix du transport : <strong><?= $carriers_price->carriers_price ?? '' ?></strong></div>
-                            <div class="col-7">Montant total de la commande : <strong><?= ($order_price_total??0) + ($carriers_price->carriers_price ?? 0) ?? '' ?> €</strong></div>
-                        </div>
-                    </div>
-
-
-                    <!------------- VALIDATE ORDER --------->
-                    <div class="col-12 border-top border-1 py-3">
-                        <div class="row p-2 px-md-5">
-                            <div class="col-12 text-center">
-                                <button class='btn btnValid'>Confirmer la commande</button>
+                            <div class="col-12 col-md-6">
+                                <div class="row">
+                                    <div class="col-9 text-end">Prix du transport : </div>
+                                    <div class="col-3">
+                                        <strong><?= $carriers_price->carriers_price ?? '' ?></strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="row">
+                                    <div class="col-9 text-end">Montant total de la commande : </div>
+                                    <div class="col-3">
+                                        <strong><?= ($order_price_total ?? 0) + ($carriers_price->carriers_price ?? 0) ?? '' ?> €</strong>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+
+
+                    <?php if ($order_info->orders_payed == NULL) { ?>
+                        <!------------- VALIDATE ORDER --------->
+                        <div class="col-12 border-top border-1 py-3">
+                            <div class="row p-2 px-md-5">
+                                <div class="col-12 text-center">
+                                    <button class='btn btnValid'>Confirmer la commande</button>
+                                </div>
+                            </div>
+                        </div>
+                    <?php } ?>
+
+                    <?php if (isset($order_info->orders_ship_number)) { ?>
+                        <input type='hidden' name='id_order' value='<?= $order_info->id_order; ?>'>
+                        <!------------- ORDER SHIP NUMBER --------->
+                        <div class="col-12 border-top border-1 py-3">
+                            <div class="row p-2 px-md-5">
+                                <div class="col-12 col-md-6">
+                                    <div class="row py-3">
+                                        <div class="col-6 text-end">Numéro de colis :</div>
+                                        <div class="col-6"><strong><?= ($order_info->orders_ship_number) ?></strong></div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="row">
+                                        <div class="col-12 text-center py-2"><a href=''><button class='btn btnValidSmall'>Suivre mon colis</button></a></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <form action='' method='post' class="row p-2 px-md-5 border-top border-1">
+                                <div class="col-12 text-center">
+                                    <button type='submit' class='btn btnValid' name='action_profile' value='ship_received'>J'ai bien reçu mon colis</button>
+                                </div>
+                            </form>
+                        </div>
+                    <?php } ?>
 
 
 

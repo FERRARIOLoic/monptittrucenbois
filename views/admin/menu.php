@@ -18,7 +18,7 @@
                             <div class="col-12 px-2 py-2"><a href="administrateur.html?display=usersList">Liste des utilisateurs</a></div>
                         </div>
                         <div class="row">
-                            <div class="col-12 px-2 py-2"><a href="administrateur.html?display=usersNew">Nouveaux utilisateurs</a></div>
+                            <div class="col-12 px-2 py-2"><a href="administrateur.html?display=usersNew">Créer un utilisateur</a></div>
                         </div>
                     </span>
                 </div>
@@ -31,16 +31,16 @@
                     </div>
                     <span id="orders" style="display:none;">
                         <div class="row border-1 border-top border-secondary">
-                            <div class="col-12 px-2 py-2"><a href="administrateur.html?display=ordersNew">Nouvelles commandes</a></div>
+                            <div class="col-12 px-2 py-2"><a href="administrateur.html?display=ordersNew">En cours</a></div>
                         </div>
                         <div class="row">
-                            <div class="col-12 px-2 py-2"><a href="administrateur.html?display=ordersPending">En cours de traitement</a></div>
+                            <div class="col-12 px-2 py-2"><a href="administrateur.html?display=ordersPending">Payées</a></div>
                         </div>
                         <div class="row">
                             <div class="col-12 px-2 py-2"><a href="administrateur.html?display=ordersShip">En attente de livraison</a></div>
                         </div>
                         <div class="row">
-                            <div class="col-12 px-2 py-2"><a href="administrateur.html?display=ordersEnded">Commandes terminées</a></div>
+                            <div class="col-12 px-2 py-2"><a href="administrateur.html?display=ordersEnded">Terminées</a></div>
                         </div>
                     </span>
                 </div>
@@ -129,9 +129,3 @@
             </div>
         </div>
     </div>
-    <!------------- MENU ADMINISTRATEUR --------->
-    <div class="offset-md-2 col-10">
-        <div class="row">
-            <div class="col-12 py-4 text-center">
-                <h1><?= $pageTitle; ?></h1>
-            </div>

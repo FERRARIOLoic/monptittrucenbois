@@ -19,8 +19,13 @@ $address_first = Address::getAddressInfo($_SESSION['user']->user_id, 1);
 $address_others = Address::getAddressInfo($_SESSION['user']->user_id);
 
 //------------- ORDERS LIST ---------//
-$orders_pending = Order::getPending($_SESSION['user']->user_id);
-// var_dump($orders_pending);die;
+$orders_all = Order::getPending($_SESSION['user']->user_id);
+$orders_pending = Order::getPending($_SESSION['user']->user_id,0,0,0,0);
+$orders_payed = Order::getPending($_SESSION['user']->user_id,1,0,0,0);
+$orders_made = Order::getPending($_SESSION['user']->user_id,1,1,0,0);
+$orders_shipped = Order::getPending($_SESSION['user']->user_id,1,1,1,0);
+$orders_delivered = Order::getPending($_SESSION['user']->user_id,1,1,1,1);
+// var_dump($orders_shipped);die;
 
 //-------------- CARRIERS LIST ---------//
 $carriers_list = Carrier::getCarrier();
@@ -135,7 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and $action_profile == 'carrier_choice'
     }
 
     //------------- ADD DATA ---------//
-    $resultUpdate = Order::updateCarrier($_SESSION['user']->user_id, $id_order, $id_carrier);
+    $resultUpdate = Order::updateCarrier($_SESSION['user']->user_id, $id_carrier, $order_weight);
     // var_dump($resultUpdate);die;
     if ($resultUpdate == true) {
 

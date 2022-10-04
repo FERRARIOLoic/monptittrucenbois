@@ -194,7 +194,7 @@ class Carrier
     //------------- GET PRICE ---------//
     public static function getPrice(int $id_carrier, int $order_weight)
     {
-        // var_dump('class',$id_carrier);die;
+        // var_dump('order_weight',$order_weight);die;
         try {
             $pdo = Database::DBconnect();
             $sql = "SELECT * FROM `prices` WHERE (`id_carrier` = :id_carrier AND `carriers_max_weight`>=:order_weight); ";

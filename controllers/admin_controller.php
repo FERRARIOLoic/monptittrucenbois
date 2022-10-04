@@ -8,6 +8,7 @@ require_once(__DIR__ . '/../models/Woods.php');
 require_once(__DIR__ . '/../models/Products.php');
 require_once(__DIR__ . '/../models/Categories.php');
 require_once(__DIR__ . '/../models/Carriers.php');
+require_once(__DIR__ . '/../models/Orders.php');
 require_once(__DIR__ . '/../helpers/regex.php');
 
 
@@ -36,12 +37,106 @@ $ProductsList = Product::getProduct();
 
 
 //!------------- ORDER NEW ---------//
+$ordersNew = Order::getPending(0,0,0,0,0);
 
 //!------------- ORDER PENDING ---------//
+$ordersPending = Order::getPending(0,1,0,0,0);
+// var_dump($ordersPending);die;
 
-//!------------- ORDER SHIP ---------//
+$action_order = trim((string) filter_input(INPUT_POST,'action_order',FILTER_SANITIZE_SPECIAL_CHARS));
+
+//?------------- MODIFY STATUS ---------//
+if ($_SERVER['REQUEST_METHOD'] == 'POST' AND $admin_view == "ordersPending" AND $action_order=="made") {
+
+    //------------- NAME CATEGORY ---------//
+    $id_order = intval(filter_input(INPUT_POST, 'id_order', FILTER_SANITIZE_NUMBER_INT));
+    if (!empty($id_order)) {
+        $test_name = filter_var($id_order, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => REGEX_INT)));
+        if (!$test_name) {
+            $error["id_order"] = "Erreur de format !!";
+        }
+    } else {
+        $error["id_order"] = "Sélectionner une commande !!";
+    }
+
+    $orderMade = Order::updateStatus($id_order,1);
+
+    $ordersPending = Order::getPending(0,1,0,0,0);
+}
+
+
+//!------------- ORDER MADE ---------//
+
+$ordersShip = Order::getShip();
+
+$action_order = trim((string) filter_input(INPUT_POST,'action_order',FILTER_SANITIZE_SPECIAL_CHARS));
+
+//?------------- MODIFY STATUS ---------//
+if ($_SERVER['REQUEST_METHOD'] == 'POST' AND $admin_view == "ordersPending" AND $action_order=="made") {
+
+    //------------- NAME CATEGORY ---------//
+    $id_order = intval(filter_input(INPUT_POST, 'id_order', FILTER_SANITIZE_NUMBER_INT));
+    if (!empty($id_order)) {
+        $test_name = filter_var($id_order, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => REGEX_INT)));
+        if (!$test_name) {
+            $error["id_order"] = "Erreur de format !!";
+        }
+    } else {
+        $error["id_order"] = "Sélectionner une commande !!";
+    }
+
+    $orderMade = Order::updateStatus($id_order,1);
+
+}
+
+
+//!------------- ORDER SHIP NUMBER ---------//
+
+$action_order = trim((string) filter_input(INPUT_POST,'action_order',FILTER_SANITIZE_SPECIAL_CHARS));
+
+//?------------- MODIFY STATUS ---------//
+if ($_SERVER['REQUEST_METHOD'] == 'POST' AND $admin_view == "ordersShip" AND $action_order=="made") {
+
+    //------------- NAME CATEGORY ---------//
+    $id_order = intval(filter_input(INPUT_POST, 'id_order', FILTER_SANITIZE_NUMBER_INT));
+    if (!empty($id_order)) {
+        $test_name = filter_var($id_order, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => REGEX_INT)));
+        if (!$test_name) {
+            $error["id_order"] = "Erreur de format !!";
+        }
+    } else {
+        $error["id_order"] = "Sélectionner une commande !!";
+    }
+
+    $orderMade = Order::updateStatus($id_order,1);
+
+}
+
 
 //!------------- ORDER ENDED ---------//
+
+$ordersDelivery = Order::getShip();
+
+$action_order = trim((string) filter_input(INPUT_POST,'action_order',FILTER_SANITIZE_SPECIAL_CHARS));
+
+//?------------- MODIFY STATUS ---------//
+if ($_SERVER['REQUEST_METHOD'] == 'POST' AND $admin_view == "ordersPending" AND $action_order=="made") {
+
+    //------------- NAME CATEGORY ---------//
+    $id_order = intval(filter_input(INPUT_POST, 'id_order', FILTER_SANITIZE_NUMBER_INT));
+    if (!empty($id_order)) {
+        $test_name = filter_var($id_order, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => REGEX_INT)));
+        if (!$test_name) {
+            $error["id_order"] = "Erreur de format !!";
+        }
+    } else {
+        $error["id_order"] = "Sélectionner une commande !!";
+    }
+
+    $orderMade = Order::updateStatus($id_order,1);
+
+    $ordersDelivery = Order::getPending(0,1,1);
+}
 
 //!------------- EVENT CREATE ---------//
 
@@ -467,13 +562,13 @@ if ($_SESSION['user']->users_admin == '1') {
 
     //------------- ORDER NEW ---------//
     elseif ($admin_view == "ordersNew") {
-        $pageTitle = "Nouvelle commandes";
+        $pageTitle = "Commandes en cours";
         include(__DIR__ . '/../views/admin/ordersNew.php');
     }
 
     //------------- ORDER PENDING ---------//
     elseif ($admin_view == "ordersPending") {
-        $pageTitle = "Commandes en cours";
+        $pageTitle = "Commandes payées";
         include(__DIR__ . '/../views/admin/ordersPending.php');
     }
 

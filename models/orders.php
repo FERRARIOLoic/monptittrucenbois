@@ -150,25 +150,77 @@ class Order
     }
 
     //------------- UPDATE ORDER QUANTITY ---------//
-    public static function updateCarrier(int $user_id, int $id_carrier)
+    public static function updateCarrier(int $user_id, int $id_carrier, int $order_weight)
     {
-        // var_dump($id_order);die;
+        $carrier_price = Carrier::getPrice($id_carrier, $order_weight);
+        // var_dump($carrier_price);die;
         $pdo = Database::DBconnect();
         try {
-            $sql = "UPDATE `orders` SET `id_carrier`=:id_carrier WHERE (`orders_payed`=NULL AND `id_user`=:user_id)";
+            $sql = "UPDATE `orders` SET `id_carrier_price`=:id_carrier_price WHERE (ISNULL(`orders_payed`) AND `id_user`=:user_id)";
             $sth = $pdo->prepare($sql);
-            $sth->bindValue(':id_carrier', $id_carrier, PDO::PARAM_STR);
+            $sth->bindValue(':id_carrier_price', $carrier_price->id_price, PDO::PARAM_STR);
             $sth->bindValue(':user_id', $user_id, PDO::PARAM_STR);
             $result = $sth->execute();
 
             if (!$result) {
                 throw new PDOException();
             } else {
-                $resultView = "Les modifications ont été enregistrées";
-                return $resultView;
+                return true;
             }
             return true;
         } catch (PDOException $e) {
+            return false;
+        }
+    }
+
+    //------------- UPDATE ORDER QUANTITY ---------//
+    public static function updateStatus(int $id_order, int $orders_status)
+    {
+        $pdo = Database::DBconnect();
+        try {
+            $sql = "UPDATE `orders` SET `orders_status`=:orders_status WHERE `id_order`=:id_order ; ";
+            $sth = $pdo->prepare($sql);
+            $sth->bindValue(':id_order', $id_order, PDO::PARAM_STR);
+            $sth->bindValue(':orders_status', $orders_status, PDO::PARAM_STR);
+            $result = $sth->execute();
+
+            if (!$result) {
+                throw new PDOException();
+            } else {
+                return true;
+            }
+            return true;
+        } catch (PDOException $e) {
+            var_dump($e);
+            die;
+            return false;
+        }
+    }
+
+    //------------- UPDATE ORDER QUANTITY ---------//
+    public static function updateShipNumber(int $id_order, int $ship_number)
+    {
+        $pdo = Database::DBconnect();
+        try {
+            $sql = "UPDATE `orders` 
+            SET `orders_ship_number`=:ship_number 
+            WHERE (`iduser`=:id_user 
+            AND `orders_payed`!=NULL 
+            AND `orders_status`!=NULL) ; ";
+            $sth = $pdo->prepare($sql);
+            $sth->bindValue(':id_order', $id_order, PDO::PARAM_STR);
+            $sth->bindValue(':ship_number', $ship_number, PDO::PARAM_STR);
+            $result = $sth->execute();
+
+            if (!$result) {
+                throw new PDOException();
+            } else {
+                return true;
+            }
+            return true;
+        } catch (PDOException $e) {
+            var_dump($e);
+            die;
             return false;
         }
     }
@@ -200,9 +252,35 @@ class Order
     }
 
 
+    //------------- GET USER ORDERS ---------//
+    public static function getByUser(int $id_user = 0)
+    {
+        try {
+            $pdo = Database::DBconnect();
+            $sql = "SELECT `` FROM `categories`";
+            if ($id_user != 0) {
+                $sql .= " WHERE id_user_carrier = :id_user";
+            }
+            $sql .= " ORDER BY `categories`";
+            $sth = $pdo->prepare($sql);
+            if ($id_user != 0) {
+                $sth->bindValue(':id_user', $id_user, PDO::PARAM_INT);
+            }
+            if ($sth->execute()) {
+                $categories_list = $sth->fetchAll();
+                return $categories_list;
+            } else {
+                return false;
+            }
+        } catch (PDOException $ex) {
+            return false;
+        }
+    }
+
+
 
     //------------- GET ORDER PENDING ---------//
-    public static function getPending(int $user_id)
+    public static function getPending(int $user_id = 0, int $payed = 0, int $made = 0, int $ship = 0, int $deliver = 0)
     {
         try {
             $pdo = Database::DBconnect();
@@ -211,25 +289,152 @@ class Order
             `orders`.`orders_date`,
             `orders`.`orders_weight`,
             `orders`.`orders_price`,
+            `orders`.`orders_payed`,
+            `orders`.`orders_delivered`,
+            `orders`.`orders_ship_number`,
             `orders`.`id_product`,
             `orders`.`orders_quantity`,
-            `products`.`products_name`
+            `orders`.`id_user`,
+            `orders`.`orders_status`,
+            `products`.`products_name`,
+            `users`.`users_lastname`,
+            `users`.`users_firstname`
             FROM `orders` 
             INNER JOIN `products` ON `orders`.`id_product`=`products`.`id_product`
-            WHERE (`id_user` = :id_user AND ISNULL(`orders_payed`)) 
-            ORDER BY `products`.`products_name`";
+            INNER JOIN `users` ON `users`.`user_id`=`orders`.`id_user`";
+
+            if ($user_id != 0) {
+                if ($payed != 0) {
+                    if ($made != 0) {
+                        if ($ship != 0) {
+                            if ($deliver != 0) {
+                                $sql .= " WHERE (`id_user` = :id_user 
+                                AND (`orders`.`orders_payed`=1) 
+                                AND (`orders`.`orders_status`=1)
+                                AND (`orders`.`orders_ship_number` IS NOT NULL)
+                                AND (`orders`.`orders_delivered`=1)
+                                ) 
+                                ORDER BY `orders`.`orders_date`";
+                            } else {
+                                $sql .= " WHERE (`id_user` = :id_user 
+                                AND (`orders`.`orders_payed`=1) 
+                                AND (`orders`.`orders_status`=1)
+                                AND (`orders`.`orders_ship_number` IS NOT NULL)
+                                AND ISNULL(`orders`.`orders_delivered`)
+                                ) 
+                                ORDER BY `orders`.`orders_date`";
+                            }
+                        } else {
+                            $sql .= " WHERE (`id_user` = :id_user 
+                        AND (`orders`.`orders_payed`=1) 
+                        AND (`orders`.`orders_status`=1)
+                        ) 
+                        ORDER BY `orders`.`orders_date`";
+                        }
+                    } else {
+                        $sql .= " WHERE (`id_user` = :id_user 
+                    AND (`orders`.`orders_payed`=1) 
+                    AND (ISNULL(`orders`.`orders_status`) OR (`orders`.`orders_status`=1))
+                    ) 
+                    ORDER BY `orders`.`orders_date`";
+                    }
+                } else {
+                    $sql .= " WHERE (`id_user` = :id_user 
+                ) 
+                ORDER BY `orders`.`orders_date`";
+                }
+            } else {
+                if ($payed != 0) {
+                    if ($made != 0) {
+                        if ($ship != 0) {
+                            if ($deliver != 0) {
+                                $sql .= " WHERE ( (`orders`.`orders_payed`=1) 
+                                AND (`orders`.`orders_status`=1)
+                                AND isset(`orders`.`orders_ship_number`)
+                                AND (`orders`.`orders_delivered`=1)
+                                ) 
+                                ORDER BY `orders`.`orders_date`";
+                            } else {
+                                $sql .= " WHERE ( (`orders`.`orders_payed`=1) 
+                                AND (`orders`.`orders_status`=1)
+                                AND isset(`orders`.`orders_ship_number`)
+                                AND ISNULL(`orders`.`orders_delivered`)
+                                ) 
+                                ORDER BY `orders`.`orders_date`";
+                            }
+                        } else {
+                            $sql .= " WHERE ( (`orders`.`orders_payed`=1) 
+                        AND (`orders`.`orders_status`=1)
+                        AND ISNULL(`orders`.`orders_ship_number`)
+                        AND ISNULL(`orders`.`orders_delivered`)
+                        ) 
+                        ORDER BY `orders`.`orders_date`";
+                        }
+                    } else {
+                        $sql .= " WHERE ( (`orders`.`orders_payed`=1) 
+                    AND ISNULL(`orders`.`orders_status`)
+                    AND ISNULL(`orders`.`orders_ship_number`)
+                    AND ISNULL(`orders`.`orders_delivered`)
+                    ) 
+                    ORDER BY `orders`.`orders_date`";
+                    }
+                } else {
+                    $sql .= " WHERE ( ISNULL(`orders`.`orders_payed`) 
+                AND ISNULL(`orders`.`orders_status`)
+                AND ISNULL(`orders`.`orders_ship_number`)
+                AND ISNULL(`orders`.`orders_delivered`)
+                ) 
+                ORDER BY `orders`.`orders_date`";
+                }
+            }
+
+
+            // var_dump($sql);die;
+
+
+
             $sth = $pdo->prepare($sql);
 
             if ($user_id != 0) {
                 $sth->bindValue(':id_user', $user_id, PDO::PARAM_INT);
             }
             if ($sth->execute()) {
-                    $carriers_list = $sth->fetchAll();
+                $carriers_list = $sth->fetchAll();
                 return $carriers_list;
             } else {
                 return false;
             }
-        } catch (PDOException $ex) {
+        } catch (PDOException $e) {
+            var_dump($e);die;
+            return false;
+        }
+    }
+
+
+
+
+    //------------- GET ORDER SHIP ---------//
+    public static function getShip()
+    {
+        try {
+            $pdo = Database::DBconnect();
+            $sql = "SELECT 
+            `orders`.`id_user`,
+            `users`.`users_lastname`,
+            `users`.`users_firstname`
+            FROM `orders` 
+            INNER JOIN `users` ON `orders`.`id_user`=`users`.`user_id`
+            WHERE (`orders_payed`=1 AND `orders_status`=1 AND ISNULL(`orders_ship_number`)) 
+            GROUP BY `id_user`;";
+            $sth = $pdo->prepare($sql);
+            if ($sth->execute()) {
+                $users_order_list = $sth->fetchAll();
+                return $users_order_list;
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            // var_dump($e);die;
             return false;
         }
     }

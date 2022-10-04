@@ -143,6 +143,14 @@ h4:hover {
     background-color: #66330050;
     border-radius: 10px;
 }
+.boxSubCategoryNOK {
+    background-color: rgba(255, 0, 0, 0.2);
+    border-radius: 10px;
+}
+.boxSubCategoryOK {
+    background-color: rgba(0, 128, 0, 0.2);
+    border-radius: 10px;
+}
 
 .boxSubCategoryUp {
     background-color: #66330050;
@@ -389,7 +397,7 @@ a:hover {
 .boxMenuAdmin {
     min-height: 100vh;
     background-color: #663300;
-    border-radius: 0px 10px 10px 0px;
+    /* border-radius: 0px 10px 10px 0px; */
     position:fixed;
 }
 
