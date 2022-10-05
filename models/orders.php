@@ -294,6 +294,7 @@ class Order
             `orders`.`orders_ship_number`,
             `orders`.`id_product`,
             `orders`.`orders_quantity`,
+            `orders`.`id_carrier_price`,
             `orders`.`id_user`,
             `orders`.`orders_status`,
             `products`.`products_name`,
@@ -327,7 +328,7 @@ class Order
                         } else {
                             $sql .= " WHERE (`id_user` = :id_user 
                         AND (`orders`.`orders_payed`=1) 
-                        AND (`orders`.`orders_status`=1)
+                        AND (ISNULL(`orders`.`orders_status`) OR (`orders`.`orders_status`=1))
                         ) 
                         ORDER BY `orders`.`orders_date`";
                         }
@@ -335,12 +336,14 @@ class Order
                         $sql .= " WHERE (`id_user` = :id_user 
                     AND (`orders`.`orders_payed`=1) 
                     AND (ISNULL(`orders`.`orders_status`) OR (`orders`.`orders_status`=1))
+                    AND (`orders`.`id_carrier_price` IS NOT NULL)
                     ) 
                     ORDER BY `orders`.`orders_date`";
                     }
                 } else {
-                    $sql .= " WHERE (`id_user` = :id_user 
-                ) 
+                    $sql .= " WHERE (`id_user` = :id_user
+                    AND ISNULL(`orders`.`id_carrier_price`)
+                    ) 
                 ORDER BY `orders`.`orders_date`";
                 }
             } else {

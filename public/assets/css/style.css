@@ -39,9 +39,13 @@ main {
     justify-content: space-between;
     flex-direction: column;
 }
+.titleSite {
+    font-size: small;
+    font-weight:700;
+}
 
 .navbarImgBackground {
-    background-color: #77623d;
+    background-color: #b1935e;
 }
 
 .navbarScrollHide {
@@ -88,6 +92,7 @@ main {
 .progress-bar {
     text-decoration: none;
     color: #663300;
+    font-weight:700;
 }
 
 .nav-link:hover {
@@ -101,12 +106,28 @@ h4:hover {
 }
 
 .boxContact {
-    background: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.3);
     /* box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 ); */
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
     border-radius: 10px;
-    color: #663300;
+    color: #4e2700;
+}
+.boxContactUp {
+    background: rgba(255, 255, 255, 0.3);
+    /* box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 ); */
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 10px 10px 0px 0px;
+    color: #4e2700;
+}
+.boxContactDown {
+    background: rgba(255, 255, 255, 0.3);
+    /* box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 ); */
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 0px 0px 10px 10px;
+    color: #4e2700;
 }
 
 .selectQuantity {
@@ -136,12 +157,19 @@ h4:hover {
 .boxSubCategory,
 .boxSubCategoryUp,
 .boxSubCategoryDown {
-    color:rgb(201, 201, 201);
+    color:rgb(230, 230, 230);
 }
 
 .boxSubCategory {
     background-color: #66330050;
     border-radius: 10px;
+}
+.boxSubCategoryWhite {
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    border-right: 1px solid rgb(100, 100, 100);
+    border-bottom: 1px solid rgb(100, 100, 100);
+    border-left: 1px solid rgb(100, 100, 100);
 }
 .boxSubCategoryNOK {
     background-color: rgba(255, 0, 0, 0.2);
@@ -150,6 +178,22 @@ h4:hover {
 .boxSubCategoryOK {
     background-color: rgba(0, 128, 0, 0.2);
     border-radius: 10px;
+}
+.boxSubCategoryHS {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+.boxSubCategoryDownNOK {
+    background-color: rgba(255, 0, 0, 0.2);
+    border-radius: 0px 0px 10px 10px;
+}
+.boxSubCategoryDownOK {
+    background-color: rgba(0, 128, 0, 0.2);
+    border-radius: 0px 0px 10px 10px;
+}
+.boxSubCategoryDownHS {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 0px 0px 10px 10px;
 }
 
 .boxSubCategoryUp {
@@ -163,6 +207,13 @@ h4:hover {
 }
 .boxSubCategoryDownGrey {
     background: rgba(255, 255, 255, 0.2);
+    border-radius: 0px 0px 10px 10px;
+    border-right: 1px solid rgb(100, 100, 100);
+    border-bottom: 1px solid rgb(100, 100, 100);
+    border-left: 1px solid rgb(100, 100, 100);
+}
+.boxSubCategoryDownWhite {
+    background: rgba(255, 255, 255, 0.8);
     border-radius: 0px 0px 10px 10px;
     border-right: 1px solid rgb(100, 100, 100);
     border-bottom: 1px solid rgb(100, 100, 100);
@@ -409,10 +460,21 @@ a:hover {
     border-radius: 0px 10px 10px 0px;
     color: #663300;
 }
+.boxMenuAdminSubDown {
+    background: rgba(255, 255, 255, 0.4);
+    /* box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 ); */
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 0px 0px 10px 10px;
+    color: #663300;
+}
 
 .productCategoryText {
-
     text-shadow: 2px 7px 5px rgba(0, 0, 0, 0.3),
         0px -4px 10px rgba(255, 255, 255, 0.3);
+}
 
+.titleText {
+    text-shadow: 2px 7px 5px rgba(255, 255, 255, 0.3),
+        0px -4px 10px rgba(0, 0, 0, 0.3);
 }

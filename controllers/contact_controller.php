@@ -5,7 +5,9 @@ $pageTitle = 'Contact';
 
 require_once(__DIR__.'/../models/Users.php');
 
-$user_info = User::getAll($_SESSION['user']->user_id);
+if(!empty($_SESSION)){
+    $user_info = User::getAll($_SESSION['user']->user_id);
+}
 // var_dump($user_info);die;
 
 //------------- LINKS ---------//

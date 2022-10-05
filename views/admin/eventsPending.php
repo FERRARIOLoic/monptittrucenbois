@@ -10,11 +10,11 @@
                 </div>
                 <div class=" col-12 px-4 py-3 p-md-5">
                     <!------------- BOX EVENT --------->
-                    <?php foreach ($eventsEnded as $eventInfo) :
+                    <?php foreach ($eventsPending as $eventInfo) :
                         $event_start_date = strtotime($eventInfo->events_start_date);
                         $event_end_date = strtotime($eventInfo->events_end_date);
                     ?>
-                        <div class="row">
+                        <div class="row py-4">
                             <div class="col-12">
                                 <div class="row boxContact">
                                     <div class="col-12 col-md-6">

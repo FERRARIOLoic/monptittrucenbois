@@ -7,9 +7,11 @@ Options +FollowSymlinks
 
 # Activation du module de réécriture d'URL :
 RewriteEngine on
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+# RewriteRule (.*) https://monptittrucenbois.legtux.org/$1 [R=301,L]
 
 # Passage en https :
-RewriteCond %{HTTP:X-Forwarded-Proto} !https
+# RewriteCond %{HTTP:X-Forwarded-Proto} !https
 
 #--------------------------------------------------
 # Règles de réécriture d'URL :

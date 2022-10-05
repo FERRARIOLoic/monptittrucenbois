@@ -7,20 +7,20 @@
         <div class="container-fluid ">
             <div class="row navbar-collapse" id="navbarSupportedContent">
                 <div class="col-2 d-md-none text-start">
-                    <img src="../public/assets/img/icons/menuHamburger.svg" class="menuImg" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" />
+                    <img alt='Afficher le menu' src="../public/assets/img/icons/menuHamburger.svg" class="menuImg" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" />
                 </div>
-                <div class="col-8 col-md-3 fs-6 titleSite text-center text-md-start nav-link">
+                <div class="col-8 col-md-3 titleSite text-center text-md-start nav-link">
                     <a href="accueil.html">
                         <img class="navbarImgLogo" src="../public/assets/img/icons/logo.png" alt="Mon P'tit Truc En Bois">
                     </a>
                     <a href="accueil.html">
-                        <strong>Mon P'tit Truc En Bois</strong>
+                        Mon P'tit Truc En Bois
                     </a>
                 </div>
                 <div class="col-2 col-md-1 order-md-2">
                     <div class="row text-end">
                         <div class=" col-6 col-md-6 order-md-2 text-end ">
-                            <img id="btnModalSearch" type="button" class="searchImg" data-bs-toggle="modal" data-bs-target="#modalSearch" class="networkImg" src="../public/assets/img/icons/search.svg">
+                            <img alt='Faire une recherche sur le site' id="btnModalSearch" type="button" class="searchImg" data-bs-toggle="modal" data-bs-target="#modalSearch" class="networkImg" src="../public/assets/img/icons/search.svg">
                         </div>
                         <div class=" col-6 col-md-6 order-md-2 text-end ">
                             <?php
@@ -44,23 +44,23 @@
                 </div>
                 <div class="collapse navbar-collapse col-6 col-md-7 text-md-center" id="navbarNavAltMarkup" id="fixBtn">
                     <div class="col-12 col-md-2 py-2">
-                        <a class="nav-link" href="actualites.html"><strong>Actualités</strong></a>
+                        <a class="nav-link" href="actualites.html">Actualités</a>
                     </div>
                     <?php
                     foreach ($categories_list as $category) :
                     ?>
                         <div class="col-12 col-md-2 py-2">
-                            <a class="nav-link" href="produits.html?category_id=<?= $category->id_category; ?>"><strong><?= $category->categories_name ?></strong></a>
+                            <a class="nav-link" href="produits.html?category_id=<?= $category->id_category; ?>"><?= $category->categories_name ?></a>
                         </div>
                     <?php endforeach; ?>
                     <div class="col-12 col-md-2 py-2">
-                        <a class="nav-link" href="contact.html"><strong>Contacts</strong></a>
+                        <a class="nav-link" href="contact.html">Contacts</a>
                     </div>
                     <div class="col-12 col-md-2 py-2 border-2 border-top border-secondary d-md-none">
-                        <a class="nav-link" href="administrateur.html"><strong>Menu administrateur</strong></a>
+                        <a class="nav-link" href="administrateur.html">Menu administrateur</a>
                     </div>
                     <div class="col-12 col-md-2 py-2 d-md-none">
-                        <a class="nav-link" href="orders.html"><strong>Gestion des commandes</strong></a>
+                        <a class="nav-link" href="orders.html">Gestion des commandes</a>
                     </div>
                 </div>
             </div>

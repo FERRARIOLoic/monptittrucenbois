@@ -16,10 +16,23 @@
         </div>
         <div class="col-12 col-md-6 py-4" id='<?= $product_info->id_product; ?>'>
             <div class="row boxContact boxProductVue my-3 mx-md-2">
-                <div class="col-12 py-2 px-4 text-center align-self-center border-bottom border-1">
+                <div class="offset-md-2 col-8 py-2 px-4 text-center align-self-center border-bottom border-1">
                     <h4>Informations du produit</h4>
                 </div>
-                <div class="col-12 py-2 px-4 boxProductDescription">
+                <div class="col-md-2 align-self-center text-end">
+                    <?php
+                    // var_dump(isset($_SESSION['user']->users_admin));die;
+                    if (isset($_SESSION['user']->users_admin)) { ?>
+                        <form action="administrateur.html?display=productsCreate" method="post">
+                            <input type='hidden' name='id_product' value='<?= $product_info->id_product; ?>'>
+                            <button type="submit" class="btn btnValidSmallX" alt='Modifier les informations du produit' title='Modifier les informations du produit'>
+                                <lord-icon src="https://cdn.lordicon.com/iiixgoqp.json" trigger="hover" colors="primary:#663300" style="width:20px;height:20px">
+                                </lord-icon>
+                            </button>
+                        </form>
+                    <?php } ?>
+                </div>
+                <div class="col-11 text-center py-2 px-4 boxContact align-self-center">
                     <?= $product_info->products_description; ?>
                 </div>
                 <div class="col-4 py-2 px-4">
@@ -32,7 +45,7 @@
                     Prix : <br><strong><?= $product_info->products_price; ?> €</strong>
                 </div>
                 <div class="col-4 py-2 px-4">
-                    Temps de fabrication : <br><strong><?= ($product_info->products_time!=NULL)?$product_info->products_time.'  minutes':'Information inconnue'; ?></strong>
+                    Temps de fabrication : <br><strong><?= ($product_info->products_time != NULL) ? $product_info->products_time . '  minutes' : 'Information inconnue'; ?></strong>
                 </div>
                 <?php
                 if (isset($_SESSION['user'])) { ?>

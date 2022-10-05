@@ -238,7 +238,7 @@ class Product
             // var_dump($sth->execute());die;
             if ($sth->execute()) {
                 if ($id_product != 0) {
-                    
+
                     $ProductInfo = $sth->fetch();
                     // var_dump('fetch',$ProductInfo);
                     return $ProductInfo;
@@ -250,7 +250,43 @@ class Product
                 return false;
             }
         } catch (PDOException $e) {
-            var_dump($e);die;
+            var_dump($e);
+            die;
+            return false;
+        }
+    }
+
+
+
+    //------------- GET ALL products ---------//
+    public static function getLast()
+    {
+        $pdo = Database::DBconnect();
+        try {
+            $sql = "SELECT `products`.`id_product`,
+            `products`.`products_name`,
+            `products`.`products_description`,
+            `products`.`products_price`,
+            `products`.`products_weight`,
+            `products`.`products_time`,
+            `categories`.`id_category`,
+            `categories`.`categories_name`,
+            `woods`.`id_wood`,
+            `woods`.`woods_name`
+            FROM `products` 
+            INNER JOIN `categories` ON `products`.`id_category`=`categories`.`id_category` 
+            INNER JOIN `woods` ON `products`.`id_wood`=`woods`.`id_wood`
+            ORDER BY `products`.`products_name` DESC LIMIT 0,3";
+            $sth = $pdo->prepare($sql);
+            if ($sth->execute()) {
+                $ProductsLast = $sth->fetchAll();
+                return $ProductsLast;
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            var_dump($e);
+            die;
             return false;
         }
     }

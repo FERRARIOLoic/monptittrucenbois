@@ -24,11 +24,11 @@
                             <strong>Vous êtes...</strong>
                         </div>
                         <div class="col-6 col-md-4">
-                            <input id="particulier" type="radio" name="category" value="particulier" <?= ($user_info->users_type == 1) ? 'checked' : ''; ?>>
+                            <input id="particulier" type="radio" name="category" value="particulier" <?= (($user_info->users_type??'') == 1) ? 'checked' : ''; ?>>
                             <label for="particulier">Particulier</label>
                         </div>
                         <div class="col-6 col-md-4">
-                            <input id="professionnel" type="radio" name="category" value="professionnel" <?= ($user_info->users_type == 2) ? 'checked' : ''; ?>>
+                            <input id="professionnel" type="radio" name="category" value="professionnel" <?= (($user_info->users_type??'') == 2) ? 'checked' : ''; ?>>
                             <label for="professionnel">Professionnel</label>
                         </div>
                     </div>
@@ -40,11 +40,11 @@
                             <strong>Civilité</strong>
                         </div>
                         <div class="col-6 col-md-4">
-                            <input id="miss" type="radio" name="gender" value="Madame" <?= ($user_info->users_gender == 1) ? 'checked' : ''; ?>>
+                            <input id="miss" type="radio" name="gender" value="Madame" <?= (($user_info->users_gender??'') == 1) ? 'checked' : ''; ?>>
                             <label for="miss">Madame</label>
                         </div>
                         <div class="col-6 col-md-4">
-                            <input id="mister" type="radio" name="gender" value="Monsieur" <?= ($user_info->users_gender == 2) ? 'checked' : ''; ?>>
+                            <input id="mister" type="radio" name="gender" value="Monsieur" <?= (($user_info->users_gender??'') == 2) ? 'checked' : ''; ?>>
                             <label for="mister">Monsieur</label>
                         </div>
                     </div>

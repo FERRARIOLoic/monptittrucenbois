@@ -61,7 +61,7 @@
                                     <div class="col-12 col-md-4">
                                         <div class="row">
                                             <div class="col-9 text-end">Nombre total d'articles :</div>
-                                            <div class="col-3 text-md-end"><strong><?= $order_number ?? '' ?></strong></div>
+                                            <div class="col-3"><strong><?= $order_number ?? '' ?></strong></div>
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-4">

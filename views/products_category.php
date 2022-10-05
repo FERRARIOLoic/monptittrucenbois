@@ -52,10 +52,10 @@
                             <form action='' method='post'>
                                 <input type='hidden' name='id_product' value='<?= $productInfo->id_product; ?>'>
                                 <div class="row">
-                                    <div class="col-4 text-end align-self-center">
+                                    <div class="col-3 text-end align-self-center">
                                         Quantité : 
                                     </div>
-                                    <div class="col-2 text-end align-self-center">
+                                    <div class="col-3 text-end align-self-center">
                                         <select class='form-select' name='quantity'>
                                             <?php for ($i=1; $i <= 10; $i++) :?> 
                                             <option><?= $i ?></option>

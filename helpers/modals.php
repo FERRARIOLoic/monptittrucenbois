@@ -29,7 +29,7 @@
                         </div>
                         <div class="col-12 text-center align-self-center py-5">
                             <a href="deconnexion.html" class="stretched-link">
-                                <button class="bnt btnValid">
+                                <button class="btn btnValid">
                                     <h4>Se déconnecter</h4>
                                 </button>
                             </a>

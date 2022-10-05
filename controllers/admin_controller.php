@@ -1,5 +1,4 @@
 <?php
-// var_dump($_SERVER['REQUEST_URI']);die;
 session_start();
 
 require_once(__DIR__ . '/../models/Addresses.php');
@@ -9,6 +8,7 @@ require_once(__DIR__ . '/../models/Products.php');
 require_once(__DIR__ . '/../models/Categories.php');
 require_once(__DIR__ . '/../models/Carriers.php');
 require_once(__DIR__ . '/../models/Orders.php');
+require_once(__DIR__ . '/../models/Events.php');
 require_once(__DIR__ . '/../helpers/regex.php');
 
 
@@ -37,16 +37,16 @@ $ProductsList = Product::getProduct();
 
 
 //!------------- ORDER NEW ---------//
-$ordersNew = Order::getPending(0,0,0,0,0);
+$ordersNew = Order::getPending(0, 0, 0, 0, 0);
 
 //!------------- ORDER PENDING ---------//
-$ordersPending = Order::getPending(0,1,0,0,0);
-// var_dump($ordersPending);die;
+$ordersPending = Order::getPending(0, 1, 0, 0, 0);
 
-$action_order = trim((string) filter_input(INPUT_POST,'action_order',FILTER_SANITIZE_SPECIAL_CHARS));
+$action_order = trim((string) filter_input(INPUT_POST, 'action_order', FILTER_SANITIZE_SPECIAL_CHARS));
+$action_event = trim((string) filter_input(INPUT_POST, 'action_event', FILTER_SANITIZE_SPECIAL_CHARS));
 
 //?------------- MODIFY STATUS ---------//
-if ($_SERVER['REQUEST_METHOD'] == 'POST' AND $admin_view == "ordersPending" AND $action_order=="made") {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' and $admin_view == "ordersPending" and $action_order == "made") {
 
     //------------- NAME CATEGORY ---------//
     $id_order = intval(filter_input(INPUT_POST, 'id_order', FILTER_SANITIZE_NUMBER_INT));
@@ -59,9 +59,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' AND $admin_view == "ordersPending" AND 
         $error["id_order"] = "Sélectionner une commande !!";
     }
 
-    $orderMade = Order::updateStatus($id_order,1);
+    $orderMade = Order::updateStatus($id_order, 1);
 
-    $ordersPending = Order::getPending(0,1,0,0,0);
+    $ordersPending = Order::getPending(0, 1, 0, 0, 0);
 }
 
 
@@ -69,10 +69,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' AND $admin_view == "ordersPending" AND 
 
 $ordersShip = Order::getShip();
 
-$action_order = trim((string) filter_input(INPUT_POST,'action_order',FILTER_SANITIZE_SPECIAL_CHARS));
-
 //?------------- MODIFY STATUS ---------//
-if ($_SERVER['REQUEST_METHOD'] == 'POST' AND $admin_view == "ordersPending" AND $action_order=="made") {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' and $admin_view == "ordersPending" and $action_order == "made") {
 
     //------------- NAME CATEGORY ---------//
     $id_order = intval(filter_input(INPUT_POST, 'id_order', FILTER_SANITIZE_NUMBER_INT));
@@ -85,17 +83,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' AND $admin_view == "ordersPending" AND 
         $error["id_order"] = "Sélectionner une commande !!";
     }
 
-    $orderMade = Order::updateStatus($id_order,1);
-
+    $orderMade = Order::updateStatus($id_order, 1);
 }
 
 
 //!------------- ORDER SHIP NUMBER ---------//
 
-$action_order = trim((string) filter_input(INPUT_POST,'action_order',FILTER_SANITIZE_SPECIAL_CHARS));
-
 //?------------- MODIFY STATUS ---------//
-if ($_SERVER['REQUEST_METHOD'] == 'POST' AND $admin_view == "ordersShip" AND $action_order=="made") {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' and $admin_view == "ordersShip" and $action_order == "made") {
 
     //------------- NAME CATEGORY ---------//
     $id_order = intval(filter_input(INPUT_POST, 'id_order', FILTER_SANITIZE_NUMBER_INT));
@@ -108,8 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' AND $admin_view == "ordersShip" AND $ac
         $error["id_order"] = "Sélectionner une commande !!";
     }
 
-    $orderMade = Order::updateStatus($id_order,1);
-
+    $orderMade = Order::updateStatus($id_order, 1);
 }
 
 
@@ -117,10 +111,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' AND $admin_view == "ordersShip" AND $ac
 
 $ordersDelivery = Order::getShip();
 
-$action_order = trim((string) filter_input(INPUT_POST,'action_order',FILTER_SANITIZE_SPECIAL_CHARS));
-
 //?------------- MODIFY STATUS ---------//
-if ($_SERVER['REQUEST_METHOD'] == 'POST' AND $admin_view == "ordersPending" AND $action_order=="made") {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' and $admin_view == "ordersPending" and $action_order == "made") {
 
     //------------- NAME CATEGORY ---------//
     $id_order = intval(filter_input(INPUT_POST, 'id_order', FILTER_SANITIZE_NUMBER_INT));
@@ -133,16 +125,109 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' AND $admin_view == "ordersPending" AND 
         $error["id_order"] = "Sélectionner une commande !!";
     }
 
-    $orderMade = Order::updateStatus($id_order,1);
+    $orderMade = Order::updateStatus($id_order, 1);
 
-    $ordersDelivery = Order::getPending(0,1,1);
+    $ordersDelivery = Order::getPending(0, 1, 1);
 }
+
+
+
 
 //!------------- EVENT CREATE ---------//
 
+//?------------- ADD NEW EVENT ---------//
+if ($_SERVER['REQUEST_METHOD'] == 'POST' and $admin_view == "eventsCreate" and $action_event == 'create') {
+
+    //------------- NAME EVENT ---------//
+    $events_name = trim((string) filter_input(INPUT_POST, 'events_name', FILTER_SANITIZE_SPECIAL_CHARS));
+    if (!empty($events_name)) {
+        $test_name = filter_var($events_name, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => REGEX_NAME)));
+        if (!$test_name) {
+            $error["events_name"] = "Erreur de format !!";
+        } else {
+            if (strlen($events_name) <= 1 || strlen($events_name) >= 70) {
+                $error["events_name"] = "La longueur n'est pas bonne";
+            }
+        }
+    } else {
+        $error["events_name"] = "Sélectionner un évènement !!";
+    }
+
+    //------------- DESCRIPTION EVENT ---------//
+    $events_description = trim((string) filter_input(INPUT_POST, 'events_description', FILTER_SANITIZE_SPECIAL_CHARS));
+    if (!empty($events_description)) {
+        $test_name = filter_var($events_description, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => REGEX_NAME)));
+        if (!$test_name) {
+            $error["events_description"] = "Erreur de format !!";
+        } else {
+            if (strlen($events_description) <= 1 || strlen($events_description) >= 200) {
+                $error["events_description"] = "La longueur n'est pas bonne";
+            }
+        }
+    } else {
+        $error["events_description"] = "Sélectionner un évènement !!";
+    }
+    //------------- START DATE EVENT ---------//
+    $events_start_date = trim((string) filter_input(INPUT_POST, 'events_start_date', FILTER_SANITIZE_SPECIAL_CHARS));
+    $events_start_date = !empty($events_start_date) ? $events_start_date: date('Y-m-d');
+    if (!empty($events_start_date)) {
+        $test_name = filter_var($events_start_date, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => REGEX_NAME)));
+        if (!$test_name) {
+            $error["events_start_date"] = "Erreur de format !!";
+        } else {
+            if (strlen($events_start_date) <= 1 || strlen($events_start_date) >= 200) {
+                $error["events_start_date"] = "La longueur n'est pas bonne";
+            }
+        }
+    } else {
+        $error["events_start_date"] = "Sélectionner un évènement !!";
+    }
+    //------------- END DATE EVENT ---------//
+    $events_end_date = trim((string) filter_input(INPUT_POST, 'events_end_date', FILTER_SANITIZE_SPECIAL_CHARS));
+    if (!empty($events_end_date)) {
+        $test_name = filter_var($events_end_date, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => REGEX_NAME)));
+        if (!$test_name) {
+            $error["events_end_date"] = "Erreur de format !!";
+        } else {
+            if (strlen($events_end_date) <= 1 || strlen($events_end_date) >= 200) {
+                $error["events_end_date"] = "La longueur n'est pas bonne";
+            }
+        }
+    } else {
+        $error["events_end_date"] = "Sélectionner un évènement !!";
+    }
+    //------------- ID PRODUCT EVENT ---------//
+    $id_product = intval(filter_input(INPUT_POST, 'id_product', FILTER_SANITIZE_NUMBER_INT)) ?? 0;
+    // var_dump($id_product);die;
+    if (!empty($id_product)) {
+        $test_name = filter_var($id_product, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => REGEX_INT)));
+        if (!$test_name) {
+            $error["id_product"] = "Erreur de format !!";
+        }
+    } else {
+        $error["id_product"] = "Sélectionner un évènement !!";
+    }
+    
+    //------------- ADD DATA ---------//
+    $category = new Event();
+    $category->setEventName($events_name);
+    $category->setEventDescription($events_description);
+    $category->setEventStartDate($events_start_date);
+    $category->setEventEndDate($events_end_date);
+    $category->setEventProductID($id_product);
+    $resultNewCategory = $category->save($events_name, $events_description, $events_start_date, $events_end_date, $id_product);
+}
+
+
 //!------------- EVENT PENDING ---------//
+$eventsPending = Event::getPending();
+// var_dump($eventsPending);die;
+
+
 
 //!------------- EVENT ENDED ---------//
+$eventsEnded = Event::getEnded();
+// var_dump($eventsEnded);die;
 
 //!------------- CATEGORY - CREATE / MODIFY ---------//
 
@@ -207,11 +292,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and $admin_view == "categoryCreateModif
         } else {
             $error["category_name"] = "Sélectionner un nom !!";
         }
-        // var_dump($category_name);die;
 
         //------------- ADD DATA ---------//
         $resultUpdateCategory = Category::update($id_category, $category_name);
-        // var_dump($id_category);die;
     }
 }
 
@@ -308,8 +391,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and $admin_view == "productsCreate" and
     $product->setWeight($weight);
     $product->setPrice($price);
     $resultCreate = $product->save();
-    // var_dump($resultCreate);
-    // die;
 }
 
 
@@ -327,8 +408,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and $admin_view == "productsCreate" and
     $id_product = intval(filter_input(INPUT_POST, 'id_product', FILTER_SANITIZE_NUMBER_INT));
 
     $ProductInfo = Product::getProduct($id_product);
-    
-    // var_dump('data send',$ProductInfo);
+
     $categoryInfo = (Category::getCategory($ProductInfo->id_category))->id_category;
     $woodInfo = (Wood::getWood($ProductInfo->id_wood))->id_wood;
 }
@@ -435,8 +515,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and $admin_view == "productsModify" and
     $product->setPrice($price);
     $product->setTime($time);
     $resultUpdate = $product->update();
-    // var_dump($resultUpdate);
-    // die;
 }
 
 
@@ -448,27 +526,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and $admin_view == "productsModify" and
 //?------------- ADD/MODIFY WOOD ---------//
 if ($_SERVER['REQUEST_METHOD'] == 'POST' and $admin_view == "woods" and isset($_POST['wood_name'])) {
     $id_wood = intval(filter_input(INPUT_POST, 'id_wood', FILTER_SANITIZE_NUMBER_INT)) ?? 0;
-    // var_dump($_POST['id_wood']);die;
 
     $action_wood = filter_input(INPUT_POST, 'action_wood', FILTER_SANITIZE_SPECIAL_CHARS) ?? '';
-    // var_dump($action_wood);die;
 
     $wood_name = filter_input(INPUT_POST, 'wood_name', FILTER_SANITIZE_SPECIAL_CHARS) ?? '';
-    // var_dump($wood_name);die;
     if (isset($id_wood) and isset($wood_name) and $action_wood == "modify") {
         $resultWood = Wood::update($id_wood, $wood_name);
-        // var_dump('delete');die;
     }
     if (isset($id_wood) and isset($wood_name) and $action_wood == "delete") {
         $resultWood = Wood::delete($id_wood);
-        // var_dump($resultWood);die;
     }
     if ($id_wood == 0 and isset($wood_name) and $action_wood == "add") {
-        // var_dump($wood_name);die;
         $resultWood = Wood::save($wood_name);
     }
-    // unset($id_wood);
-    // unset($wood_name);
 }
 
 $resultWood = $resultWood ?? '';
@@ -477,31 +547,23 @@ $resultWood = $resultWood ?? '';
 //?------------- ADD/MODIFY CATEGORIES ---------//
 if ($_SERVER['REQUEST_METHOD'] == 'POST' and $admin_view == "dataModify" and isset($_POST['category_name'])) {
     $id_category = intval(filter_input(INPUT_POST, 'id_category', FILTER_SANITIZE_NUMBER_INT)) ?? 0;
-    // var_dump($_POST['id_category']);die;
 
     $action_category = filter_input(INPUT_POST, 'action_category', FILTER_SANITIZE_SPECIAL_CHARS) ?? '';
-    // var_dump($action_category);die;
 
     $category_name = filter_input(INPUT_POST, 'category_name', FILTER_SANITIZE_SPECIAL_CHARS) ?? '';
-    // var_dump($category_name);die;
     if (isset($id_category) and isset($category_name) and $action_category == "modify") {
         $resultCategory = Category::update($id_category, $category_name);
-        // var_dump('delete');die;
     }
     if (isset($id_category) and isset($category_name) and $action_category == "delete") {
         $resultCategory = Category::delete($id_category);
-        // var_dump($resultCategory);die;
     }
     if ($id_category == 0 and isset($category_name) and $action_category == "add") {
-        // var_dump($category_name);die;
 
         //------------- ADD DATA ---------//
         $category = new Category();
         $category->setCategoryName($category_name);
         $resultNewCategory = $category->save();
     }
-    // unset($id_category);
-    // unset($category_name);
 }
 
 $resultCategory = $resultCategory ?? '';
@@ -515,18 +577,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and $admin_view == "carriers" and isset
     $carriers_name = filter_input(INPUT_POST, 'carriers_name', FILTER_SANITIZE_SPECIAL_CHARS);
     $carriers_phone = filter_input(INPUT_POST, 'carriers_phone', FILTER_SANITIZE_SPECIAL_CHARS);
     $carriers_email = filter_input(INPUT_POST, 'carriers_email', FILTER_SANITIZE_SPECIAL_CHARS);
-    
+
     if (isset($id_carrier) and isset($carriers_name)) {
         $resultCarrier = Carrier::update($id_carrier, $carriers_name, $carriers_phone, $carriers_email);
     }
     if ($id_carrier == 0 and (isset($carriers_name) or isset($carriers_phone) or isset($carriers_email))) {
-        // var_dump($carriers_email);die;
         $resultCarrier = Carrier::save($carriers_name, $carriers_phone, $carriers_email);
     }
     unset($_POST['id_carrier'], $_POST['carriers_name'], $_POST['carriers_phone'], $_POST['carriers_email']);
 }
 $resultCarrier = $resultCarrier ?? '';
-// var_dump($resultCarrier);die;
 
 
 
@@ -539,7 +599,6 @@ include(__DIR__ . '/../views/templates/header.php');
 
 
 //!------------- VIEWS ---------//
-// var_dump($_SESSION['user']);die;
 if ($_SESSION['user']->users_admin == '1') {
 
     //------------- ADMIN VIEW ---------//
