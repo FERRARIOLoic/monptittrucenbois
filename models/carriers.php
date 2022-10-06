@@ -60,26 +60,27 @@ class Carrier
 
 
     //------------- SAVE CREATE carrier ---------//
-    public static function save(string $carriers_name, string $carriers_phone, string $carriers_email)
+    public static function save(string $carriers_name, string $carriers_phone, string $carriers_email, string $carriers_ship_follow)
     {
         $pdo = Database::DBconnect();
         $carrier_new = Carrier::isCarrierExist($carriers_name);
         if ($carrier_new == 0) {
 
             try {
-                $sql = "INSERT INTO `carriers` (`carriers_name`,`carriers_phone`,`carriers_email`) 
-                                    VALUES (:carriers_name,:carriers_phone,:carriers_email)";
+                $sql = "INSERT INTO `carriers` (`carriers_name`,`carriers_phone`,`carriers_email`,`carriers_ship_follow`) 
+                                    VALUES (:carriers_name,:carriers_phone,:carriers_email,:carriers_ship_follow)";
                 $sth = $pdo->prepare($sql);
                 $sth->bindValue(':carriers_name', $carriers_name, PDO::PARAM_STR);
                 $sth->bindValue(':carriers_phone', $carriers_phone, PDO::PARAM_STR);
                 $sth->bindValue(':carriers_email', $carriers_email, PDO::PARAM_STR);
+                $sth->bindValue(':carriers_ship_follow', $carriers_ship_follow, PDO::PARAM_STR);
                 // var_dump($sth->execute());die;
                 $result = $sth->execute();
 
                 if (!$result) {
                     throw new PDOException();
                 }
-                unset($carriers_name, $carriers_phone, $carriers_email);
+                unset($carriers_name, $carriers_phone, $carriers_email, $carriers_ship_follow);
             } catch (PDOException $e) {
                 // var_dump($e);die;
                 return false;
@@ -110,17 +111,18 @@ class Carrier
     }
 
     //------------- UPDATE carrier DATA ---------//
-    public static function update(int $id_carrier, string $carriers_name, string $carriers_phone, string $carriers_email)
+    public static function update(int $id_carrier, string $carriers_name, string $carriers_phone, string $carriers_email, string $carriers_ship_follow)
     {
         // var_dump($id_wood);die;
         $pdo = Database::DBconnect();
         try {
-            $sql = "UPDATE `carriers` SET `carriers_name`=:carriers_name, `carriers_phone`=:carriers_phone, `carriers_email`=:carriers_email WHERE `id_carrier`=:id_carrier";
+            $sql = "UPDATE `carriers` SET `carriers_name`=:carriers_name, `carriers_phone`=:carriers_phone, `carriers_email`=:carriers_email, `carriers_ship_follow`=:carriers_ship_follow WHERE `id_carrier`=:id_carrier";
             $sth = $pdo->prepare($sql);
             $sth->bindValue(':id_carrier', $id_carrier, PDO::PARAM_STR);
             $sth->bindValue(':carriers_name', $carriers_name, PDO::PARAM_STR);
             $sth->bindValue(':carriers_phone', $carriers_phone, PDO::PARAM_STR);
             $sth->bindValue(':carriers_email', $carriers_email, PDO::PARAM_STR);
+            $sth->bindValue(':carriers_ship_follow', $carriers_ship_follow, PDO::PARAM_STR);
             $result = $sth->execute();
 
             if (!$result) {
@@ -189,6 +191,28 @@ class Carrier
         }
     }
 
+
+    //------------- GET PRICE ---------//
+    public static function getByID(int $id_carrier_price)
+    {
+        // var_dump('order_weight',$order_weight);die;
+        try {
+            $pdo = Database::DBconnect();
+            $sql = "SELECT `carriers_price` FROM `prices` WHERE (`id_price` = :id_carrier_price); ";
+            $sth = $pdo->prepare($sql);
+            $sth->bindValue(':id_carrier_price', $id_carrier_price, PDO::PARAM_INT);
+
+            if ($sth->execute()) {
+                    $CarrierPrice = $sth->fetch();
+                return $CarrierPrice;
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            var_dump($e);die;
+            return false;
+        }
+    }
 
 
     //------------- GET PRICE ---------//

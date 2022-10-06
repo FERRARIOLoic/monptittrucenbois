@@ -51,12 +51,12 @@
 
                                     <div class="form-floating">
                                         <input type="email" autocomplete="email" class="form-control <?= isset($errors['global']) ? 'is-invalid' : '' ?>" id="email" name="email" required placeholder="email" />
-                                        <label for="email" class="form-label px-4">Adresse mail*</label>
+                                        <label for="email" class="form-label px-4 boxContactTitle">Adresse mail*</label>
                                     </div>
 
                                     <div class="form-floating mb-5">
                                         <input type="password" value="" class="form-control <?= isset($errors['global']) ? 'is-invalid' : '' ?>" id="password" required name="password" placeholder="*****" />
-                                        <label for="password" class="form-label px-4">Mot de passe*</label>
+                                        <label for="password" class="form-label px-4 boxContactTitle">Mot de passe*</label>
                                     </div>
                                     <div class="col-12 text-center mb-5">
                                         <button class="btn btnValid" type="submit"><strong>Connexion</strong></button>

@@ -1,6 +1,6 @@
 <main class='container-fluid text-center'>
     <div class="row titlePage">
-        <div class="col-12 col-md-6 ">
+        <div class="col-12 offset-md-6 col-md-6 ">
             <h1>Connexion</h1>
         </div>
     </div>
@@ -14,12 +14,12 @@
 
                 <div class="form-floating mb-4">
                     <input type="email" autocomplete="email" value="<?= $email ?? '' ?>" class="form-control <?= isset($errors['global']) ? 'is-invalid' : '' ?>" id="email" name="email" required placeholder="dupondjean@gmail.com" />
-                    <label for="email" class="form-label px-4">Adresse mail <span class='text-danger fw-bold'>*</span></label>
+                    <label for="email" class="form-label px-4 boxContactTitle">Adresse mail <span class='text-danger fw-bold'>*</span></label>
                 </div>
 
                 <div class="form-floating">
                     <input type="password" value="" class="form-control <?= isset($errors['global']) ? 'is-invalid' : '' ?>" id="password" required name="password" placeholder="Mot de passe" />
-                    <label for="password" class="form-label px-4">Mot de passe <span class='text-danger fw-bold'>*</span></label>
+                    <label for="password" class="form-label px-4 boxContactTitle">Mot de passe <span class='text-danger fw-bold'>*</span></label>
                 </div>
                 
                 <div class="col-12 text-danger text-start mb-4"><span class='fw-bold'>* Champs obligatoires</span></div>

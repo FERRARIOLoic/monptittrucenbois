@@ -144,6 +144,27 @@
                     </span>
                 </div>
             </div>
+
+            <div class=" col-11 py-2 border-top border-1">
+                <!------------- BOX INFOS --------->
+                <div id="admin_3" class="row boxMenuAdminSub" onclick="toggle_text('infos_money');">
+                    <div class="col-12 align-self-center py-2">
+                        <h5>Comptabilité</h5>
+                    </div>
+                    <span id="infos_money" style="display:none;">
+                        <div class="row border-1 border-top border-secondary">
+                            <div class="col-12 px-2 py-2"><a href="administrateur.html?display=">Semaine</a></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 px-2 py-2"><a href="administrateur.html?display=">Mois</a></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 px-2 py-2"><a href="administrateur.html?display=">Année</a></div>
+                        </div>
+                    </span>
+                </div>
+            </div>
+
             <div class=" col-11 pt-5">
                 <a href='profil.html' class='text-white'>Voir mon profil</a>
             </div>
@@ -221,16 +242,16 @@
             <div class="col-12 boxMenuAdminSubDown">
 
                 <!------------- BOX USERS --------->
-                    <span id="users" style="display:none;">
-                        <div class="row text-center border-1 border-top border-secondary">
-                            <div class="col-6 px-2 py-2">
-                                <a href="administrateur.html?display=usersList">Liste</a>
-                            </div>
-                            <div class="col-6 px-2 py-2">
-                                <a href="administrateur.html?display=usersNew">Créer </a>
-                            </div>
+                <span id="users" style="display:none;">
+                    <div class="row text-center border-1 border-top border-secondary">
+                        <div class="col-6 px-2 py-2">
+                            <a href="administrateur.html?display=usersList">Liste</a>
                         </div>
-                    </span>
+                        <div class="col-6 px-2 py-2">
+                            <a href="administrateur.html?display=usersNew">Créer </a>
+                        </div>
+                    </div>
+                </span>
                 <!------------- BOX ORDERS --------->
                 <span id="orders" style="display:none;">
                     <div class="row text-center border-1 border-top border-secondary">

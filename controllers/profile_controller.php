@@ -18,16 +18,28 @@ $user_info = User::getAll($_SESSION['user']->user_id);
 $address_first = Address::getAddressInfo($_SESSION['user']->user_id, 1);
 $address_others = Address::getAddressInfo($_SESSION['user']->user_id);
 
-//------------- ORDERS LIST ---------//
-$orders_all = Order::getPending($_SESSION['user']->user_id);
-$orders_pending = Order::getPending($_SESSION['user']->user_id,0,0,0,0);
-$orders_payed = Order::getPending($_SESSION['user']->user_id,1,0,0,0);
-$orders_made = Order::getPending($_SESSION['user']->user_id,1,1,0,0);
-$orders_shipped = Order::getPending($_SESSION['user']->user_id,1,1,1,0);
-$orders_delivered = Order::getPending($_SESSION['user']->user_id,1,1,1,1);
-// var_dump($orders_shipped);die;
+//!------------- REQUESTS INFOS ---------//
 
-//-------------- CARRIERS LIST ---------//
+//?------------- ALL ORDERS ---------//
+$orders_all = Order::getPending($_SESSION['user']->user_id);
+
+//?------------- ORDERS PENDING ---------//
+$orders_pending = Order::getPending($_SESSION['user']->user_id, 0, 0, 0, 0);
+
+//?------------- ORDERS PAYED ---------//
+$orders_payed = Order::getPending($_SESSION['user']->user_id, 1, 0, 0, 0);
+
+//?------------- ORDERS MADE ---------//
+$orders_made = Order::getPending($_SESSION['user']->user_id, 1, 1, 0, 0);
+// var_dump($orders_all);die;
+
+//?------------- ORDERS SHIPPED ---------//
+$orders_shipped = Order::getPending($_SESSION['user']->user_id, 1, 1, 1, 0);
+
+//?------------- ORDERS DELIVERED ---------//
+$orders_delivered = Order::getPending($_SESSION['user']->user_id, 1, 1, 1, 1);
+
+//?------------- GET CARRIERS ---------//
 $carriers_list = Carrier::getCarrier();
 
 
@@ -47,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and $action_profile == 'delete') {
     } else {
         $error["id_order"] = "Vous devez sélectionner une ligne de commande !!";
     }
-    
+
 
     //------------- ADD DATA ---------//
     $resultDelete = Order::delete($_SESSION['user']->user_id, $id_order);
@@ -58,8 +70,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and $action_profile == 'delete') {
     } else {
         $resultView = "Erreur lors de l'enregistrement des données";
     }
-    
-$orders_pending = Order::getPending($_SESSION['user']->user_id);
+
+    $orders_pending = Order::getPending($_SESSION['user']->user_id);
 }
 
 //!------------- ORDER QUANTITY MODIFY ---------//
@@ -96,8 +108,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and $action_profile == 'modify') {
     } else {
         $resultView = "Erreur lors de l'enregistrement des données";
     }
-    
-$orders_pending = Order::getPending($_SESSION['user']->user_id);
+
+    $orders_pending = Order::getPending($_SESSION['user']->user_id);
 }
 
 
@@ -148,10 +160,49 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and $action_profile == 'carrier_choice'
     } else {
         $resultView = "Erreur lors de l'enregistrement des données";
     }
-    
-$orders_pending = Order::getPending($_SESSION['user']->user_id);
-$carriers_price = Carrier::getPrice($id_carrier,$order_weight); 
-// var_dump($carriers_price);die;
+
+    $orders_pending = Order::getPending($_SESSION['user']->user_id);
+    $carriers_price = Carrier::getPrice($id_carrier, $order_weight);
+    // var_dump($carriers_price);die;
+}
+
+//!------------- ORDER VALIDATE ---------//
+if ($_SERVER['REQUEST_METHOD'] == 'POST' and $action_profile == 'order_validate') {
+
+    //------------- ID ORDER ---------//
+    $orders_number = trim((string) filter_input(INPUT_POST, 'orders_number', FILTER_SANITIZE_SPECIAL_CHARS));
+    if (!empty($orders_number)) {
+        $testorders_number = filter_var($orders_number, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => REGEX_INT)));
+        if (!$testorders_number) {
+            $error["orders_number"] = "Le code de commande n'est pas au bon format !!";
+        }
+    } else {
+        $error["orders_number"] = "Vous devez sélectionner une ligne de commande !!";
+    }
+
+    //------------- ADD DATA ---------//
+    $resultUpdate = Order::validate($_SESSION['user']->user_id, $orders_number);
+    $orders_pending = Order::getPending($_SESSION['user']->user_id);
+    // var_dump($resultUpdate);die;
+}
+
+
+//!------------- ORDER RECEIVED ---------//
+if ($_SERVER['REQUEST_METHOD'] == 'POST' AND $action_profile == 'ship_received') {
+
+    //------------- ID ORDER ---------//
+    $orders_number = trim((string) filter_input(INPUT_POST, 'orders_number', FILTER_SANITIZE_SPECIAL_CHARS));
+    if (!empty($orders_number)) {
+        $testorders_number = filter_var($orders_number, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => REGEX_NAME)));
+        if (!$testorders_number) {
+            $error["orders_number"] = "Le code de commande n'est pas au bon format !!";
+        }
+    } else {
+        $error["orders_number"] = "Vous devez sélectionner une ligne de commande !!";
+    }
+    //------------- ADD DATA ---------//
+    $shipReceived = Order::shipReceived($orders_number);
+    // var_dump($shipReceived);die;
 }
 
 //!------------- PROFILE INFO ---------//

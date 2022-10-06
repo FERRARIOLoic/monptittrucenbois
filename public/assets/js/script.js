@@ -37,19 +37,19 @@ btnInscriptionModal.addEventListener('click', () => {
         <div id="cartVueModal">
             <div class="form-floating">
                 <input type="email" autocomplete="email" class="form-control <?= isset($errors['email']) ? 'is-invalid' : '' ?>" id="email" name="email" required placeholder="email" />
-                <label for="email" class="form-label px-4">Email*</label>
+                <label for="email" class="form-label px-4 boxContactTitle">Adresse mail*</label>
                 <div class="error"><?= $errors['email'] ?? '' ?></div>
             </div>
         
             <div class="form-floating">
                 <input type="password" autocomplete="password" class="form-control <?= isset($errors['password']) ? 'is-invalid' : '' ?>" id="password" name="password" required placeholder="password" />
-                <label for="password" class="form-label px-4">Mot de passe*</label>
+                <label for="password" class="form-label px-4 boxContactTitle">Mot de passe*</label>
                 <div class="error"><?= $errors['password'] ?? '' ?></div>
             </div>
         
             <div class="form-floating mb-5">
                 <input type="password" autocomplete="password_verif" class="form-control <?= isset($errors['password_verif']) ? 'is-invalid' : '' ?>" id="password_verif" name="password_verif" required placeholder="password_verif" />
-                <label for="password_verif" class="form-label px-4">Confirmer le mot de passe*</label>
+                <label for="password_verif" class="form-label px-4 boxContactTitle">Confirmer le mot de passe*</label>
                 <div class="error"><?= $errors['password_verif'] ?? '' ?></div>
             </div>
             <div class="col-12 text-center mb-5">
@@ -71,12 +71,12 @@ btnConnexionModal.addEventListener('click', () => {
 
         <div class="form-floating">
             <input type="email" autocomplete="email" class="form-control <?= isset($errors['global']) ? 'is-invalid' : '' ?>" id="email" name="email" required placeholder="email" />
-            <label for="email" class="form-label px-4">Adresse mail*</label>
+            <label for="email" class="form-label px-4 boxContactTitle">Adresse mail*</label>
         </div>
 
         <div class="form-floating mb-5">
             <input type="password" value="" class="form-control <?= isset($errors['global']) ? 'is-invalid' : '' ?>" id="password" required name="password" placeholder="*****" />
-            <label for="password" class="form-label px-4">Mot de passe*</label>
+            <label for="password" class="form-label px-4 boxContactTitle">Mot de passe*</label>
         </div>
         <div class="col-12 text-center mb-5">
         <button class="btn btnValid" type="submit"><strong>Connexion</strong></button>

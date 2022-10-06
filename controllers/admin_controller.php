@@ -15,6 +15,7 @@ require_once(__DIR__ . '/../helpers/regex.php');
 $pageTitle = 'Page administrateur';
 $admin_view = $_GET['display'] ?? '';
 
+$no_information = "<span class='textUnknown'>Non renseignée</span>";
 
 //------------- LINKS ---------//
 
@@ -68,6 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and $admin_view == "ordersPending" and 
 //!------------- ORDER MADE ---------//
 
 $ordersShip = Order::getShip();
+// var_dump($ordersShip);die;
 
 //?------------- MODIFY STATUS ---------//
 if ($_SERVER['REQUEST_METHOD'] == 'POST' and $admin_view == "ordersPending" and $action_order == "made") {
@@ -130,6 +132,40 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and $admin_view == "ordersPending" and 
     $ordersDelivery = Order::getPending(0, 1, 1);
 }
 
+//!------------- ORDER SHIP ---------//
+
+
+//?------------- MODIFY STATUS ---------//
+if ($_SERVER['REQUEST_METHOD'] == 'POST' and $admin_view == "ordersShip" and $action_order == "ship_number") {
+
+    //------------- ORDER NUMBER ---------//
+    $orders_number = trim((string) filter_input(INPUT_POST, 'orders_number', FILTER_SANITIZE_SPECIAL_CHARS));
+    if (!empty($orders_number)) {
+        $test_name = filter_var($orders_number, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => REGEX_NAME)));
+        if (!$test_name) {
+            $error["orders_number"] = "Erreur de format !!";
+        }
+    } else {
+        $error["orders_number"] = "Sélectionner une commande !!";
+    }
+
+    //------------- SHIP NUMBER ---------//
+    $orders_ship_number = trim((string) filter_input(INPUT_POST, 'orders_ship_number', FILTER_SANITIZE_SPECIAL_CHARS));
+    if (!empty($orders_ship_number)) {
+        $test_name = filter_var($orders_ship_number, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => REGEX_NAME)));
+        if (!$test_name) {
+            $error["orders_ship_number"] = "Erreur de format !!";
+        }
+    } else {
+        $error["orders_ship_number"] = "Sélectionner une commande !!";
+    }
+
+    $orderMade = Order::saveShip($orders_number,$orders_ship_number);
+}
+
+
+//!------------- ORDERS ENDED ---------//
+$ordersEnded = Order::getEnded();
 
 
 
@@ -577,12 +613,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and $admin_view == "carriers" and isset
     $carriers_name = filter_input(INPUT_POST, 'carriers_name', FILTER_SANITIZE_SPECIAL_CHARS);
     $carriers_phone = filter_input(INPUT_POST, 'carriers_phone', FILTER_SANITIZE_SPECIAL_CHARS);
     $carriers_email = filter_input(INPUT_POST, 'carriers_email', FILTER_SANITIZE_SPECIAL_CHARS);
+    $carriers_ship_follow = filter_input(INPUT_POST, 'carriers_ship_follow', FILTER_SANITIZE_SPECIAL_CHARS);
 
     if (isset($id_carrier) and isset($carriers_name)) {
-        $resultCarrier = Carrier::update($id_carrier, $carriers_name, $carriers_phone, $carriers_email);
+        $resultCarrier = Carrier::update($id_carrier, $carriers_name, $carriers_phone, $carriers_email, $carriers_ship_follow);
     }
     if ($id_carrier == 0 and (isset($carriers_name) or isset($carriers_phone) or isset($carriers_email))) {
-        $resultCarrier = Carrier::save($carriers_name, $carriers_phone, $carriers_email);
+        $resultCarrier = Carrier::save($carriers_name, $carriers_phone, $carriers_email, $carriers_ship_follow);
     }
     unset($_POST['id_carrier'], $_POST['carriers_name'], $_POST['carriers_phone'], $_POST['carriers_email']);
 }

@@ -16,19 +16,19 @@
 
                         <div class=" col-12 form-floating mb-4">
                             <input type="email" autocomplete="email" class="form-control <?= isset($errors['email']) ? 'is-invalid' : '' ?>" id="email" name="email" value='<?= $email??'' ?>' placeholder="dupondjean@gmail.com" required />
-                            <label for="email" class="form-label px-4">Adresse mail <span class='text-danger fw-bold'>*</span></label>
+                            <label for="email" class="form-label px-4 boxContactTitle">Adresse mail <span class='text-danger fw-bold'>*</span></label>
                             <div class="<?= isset($errors['email']) ? 'errorForm errorBoxDown' : ''; ?>"><?= $errors['email'] ?? '' ?></div>
                         </div>
 
                         <div class=" col-12 form-floating mb-4">
                             <input type="password" autocomplete="password" class="form-control <?= isset($errors['password']) ? 'is-invalid' : '' ?>" id="password" required name="password" placeholder="password" />
-                            <label for="password" class="form-label px-4">Mot de passe <span class='text-danger fw-bold'>*</span></label>
+                            <label for="password" class="form-label px-4 boxContactTitle">Mot de passe <span class='text-danger fw-bold'>*</span></label>
                             <div class="<?= isset($errors['password']) ? 'errorForm errorBoxDown' : ''; ?>"><?= $errors['password'] ?? '' ?></div>
                         </div>
 
                         <div class=" col-12 form-floating">
                             <input type="password" value="" class="form-control <?= isset($errors['password_verif']) ? 'is-invalid' : '' ?>" id="password_verif" required name="password_verif" placeholder="password" />
-                            <label for="password_verif" class="form-label px-4">Confirmer le mot de passe <span class='text-danger fw-bold'>*</span></label>
+                            <label for="password_verif" class="form-label px-4 boxContactTitle">Confirmer le mot de passe <span class='text-danger fw-bold'>*</span></label>
                             <div class="<?= isset($errors['password_verif']) ? 'errorForm errorBoxDown' : ''; ?>"><?= $errors['password_verif'] ?? '' ?></div>
                         </div>
                         <div class="col-12 text-danger text-start mb-4"><strong>* Champs obligatoires</strong></div>

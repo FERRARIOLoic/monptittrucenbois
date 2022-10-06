@@ -278,14 +278,37 @@ class Order
     }
 
 
+    //------------- ORDER VALIDATE ---------//
+    public static function validate(int $id_user, string $orders_number)
+    {
+        try {
+            $pdo = Database::DBconnect();
+            $sql = "UPDATE `orders` SET `orders_number`=:orders_number, `orders_payed`=:orders_payed WHERE id_user = :id_user";
+            $sth = $pdo->prepare($sql);
+            $sth->bindValue(':id_user', $id_user, PDO::PARAM_INT);
+            $sth->bindValue(':orders_payed', 1, PDO::PARAM_INT);
+            $sth->bindValue(':orders_number', $orders_number, PDO::PARAM_STR);
+            if ($sth->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (PDOException $ex) {
+            return false;
+        }
+    }
+
+
 
     //------------- GET ORDER PENDING ---------//
     public static function getPending(int $user_id = 0, int $payed = 0, int $made = 0, int $ship = 0, int $deliver = 0)
     {
+        // var_dump($user_id,$payed,$made,$ship,$deliver);
         try {
             $pdo = Database::DBconnect();
             $sql = "SELECT 
             `orders`.`id_order`,
+            `orders`.`orders_number`,
             `orders`.`orders_date`,
             `orders`.`orders_weight`,
             `orders`.`orders_price`,
@@ -304,98 +327,128 @@ class Order
             INNER JOIN `products` ON `orders`.`id_product`=`products`.`id_product`
             INNER JOIN `users` ON `users`.`user_id`=`orders`.`id_user`";
 
+
+            /*
+id_carrier_price
+orders_payed
+orders_status
+orders_ship_number
+orders_delivered
+
+AND (`orders`.`id_carrier_price` IS NOT NULL) 
+AND (`orders`.`orders_payed`=1) 
+AND (`orders`.`orders_status`=1) 
+AND (`orders`.`orders_ship_number` IS NOT NULL) 
+AND (`orders`.`orders_delivered`=1) 
+
+*/
             if ($user_id != 0) {
                 if ($payed != 0) {
                     if ($made != 0) {
                         if ($ship != 0) {
                             if ($deliver != 0) {
                                 $sql .= " WHERE (`id_user` = :id_user 
+                                AND (`orders`.`id_carrier_price` IS NOT NULL) 
                                 AND (`orders`.`orders_payed`=1) 
-                                AND (`orders`.`orders_status`=1)
-                                AND (`orders`.`orders_ship_number` IS NOT NULL)
-                                AND (`orders`.`orders_delivered`=1)
+                                AND (`orders`.`orders_status`=1) 
+                                AND (`orders`.`orders_ship_number` IS NOT NULL) 
+                                AND (`orders`.`orders_delivered`=1) 
                                 ) 
                                 ORDER BY `orders`.`orders_date`";
                             } else {
                                 $sql .= " WHERE (`id_user` = :id_user 
+                                AND (`orders`.`id_carrier_price` IS NOT NULL) 
                                 AND (`orders`.`orders_payed`=1) 
-                                AND (`orders`.`orders_status`=1)
-                                AND (`orders`.`orders_ship_number` IS NOT NULL)
-                                AND ISNULL(`orders`.`orders_delivered`)
+                                AND (`orders`.`orders_status`=1) 
+                                AND (`orders`.`orders_ship_number` IS NOT NULL) 
+                                AND ISNULL(`orders`.`orders_delivered`) 
                                 ) 
                                 ORDER BY `orders`.`orders_date`";
                             }
                         } else {
                             $sql .= " WHERE (`id_user` = :id_user 
-                        AND (`orders`.`orders_payed`=1) 
-                        AND (ISNULL(`orders`.`orders_status`) OR (`orders`.`orders_status`=1))
-                        ) 
-                        ORDER BY `orders`.`orders_date`";
+                            AND (`orders`.`id_carrier_price` IS NOT NULL) 
+                            AND (`orders`.`orders_payed`=1) 
+                            AND (ISNULL(`orders`.`orders_status`) OR (`orders`.`orders_status`=1)) 
+                            AND ISNULL(`orders`.`orders_ship_number`) 
+                            AND ISNULL(`orders`.`orders_delivered`) 
+                            ) 
+                            ORDER BY `orders`.`orders_date`";
                         }
                     } else {
                         $sql .= " WHERE (`id_user` = :id_user 
-                    AND (`orders`.`orders_payed`=1) 
-                    AND (ISNULL(`orders`.`orders_status`) OR (`orders`.`orders_status`=1))
-                    AND (`orders`.`id_carrier_price` IS NOT NULL)
-                    ) 
-                    ORDER BY `orders`.`orders_date`";
+                        AND (`orders`.`id_carrier_price` IS NOT NULL) 
+                        AND (`orders`.`orders_payed`=1) 
+                        AND (ISNULL(`orders`.`orders_status`) OR (`orders`.`orders_status`=1)) 
+                        AND ISNULL(`orders`.`orders_ship_number`) 
+                        AND ISNULL(`orders`.`orders_delivered`) 
+                        ) 
+                        ORDER BY `orders`.`orders_date`";
                     }
                 } else {
-                    $sql .= " WHERE (`id_user` = :id_user
-                    AND ISNULL(`orders`.`id_carrier_price`)
+                    $sql .= " WHERE (`id_user` = :id_user 
+                    AND (ISNULL(`orders`.`id_carrier_price`) OR (`orders`.`id_carrier_price` IS NOT NULL)) 
+                    AND ISNULL(`orders`.`orders_payed`) 
+                    AND ISNULL(`orders`.`orders_status`) 
+                    AND ISNULL(`orders`.`orders_ship_number`) 
+                    AND ISNULL(`orders`.`orders_delivered`) 
                     ) 
-                ORDER BY `orders`.`orders_date`";
+                    ORDER BY `orders`.`orders_date`";
                 }
             } else {
                 if ($payed != 0) {
                     if ($made != 0) {
                         if ($ship != 0) {
                             if ($deliver != 0) {
-                                $sql .= " WHERE ( (`orders`.`orders_payed`=1) 
-                                AND (`orders`.`orders_status`=1)
-                                AND isset(`orders`.`orders_ship_number`)
-                                AND (`orders`.`orders_delivered`=1)
+                                $sql .= " WHERE (
+                                    (`orders`.`id_carrier_price` IS NOT NULL) 
+                                AND (`orders`.`orders_payed`=1) 
+                                AND (`orders`.`orders_status`=1) 
+                                AND (`orders`.`orders_ship_number` IS NOT NULL) 
+                                AND (`orders`.`orders_delivered`=1) 
                                 ) 
                                 ORDER BY `orders`.`orders_date`";
                             } else {
-                                $sql .= " WHERE ( (`orders`.`orders_payed`=1) 
-                                AND (`orders`.`orders_status`=1)
-                                AND isset(`orders`.`orders_ship_number`)
-                                AND ISNULL(`orders`.`orders_delivered`)
+                                $sql .= " WHERE (
+                                    (`orders`.`id_carrier_price` IS NOT NULL) 
+                                AND (`orders`.`orders_payed`=1) 
+                                AND (`orders`.`orders_status`=1) 
+                                AND (`orders`.`orders_ship_number` IS NOT NULL) 
+                                AND ISNULL(`orders`.`orders_delivered`) 
                                 ) 
                                 ORDER BY `orders`.`orders_date`";
                             }
                         } else {
-                            $sql .= " WHERE ( (`orders`.`orders_payed`=1) 
-                        AND (`orders`.`orders_status`=1)
-                        AND ISNULL(`orders`.`orders_ship_number`)
-                        AND ISNULL(`orders`.`orders_delivered`)
-                        ) 
-                        ORDER BY `orders`.`orders_date`";
+                            $sql .= " WHERE (
+                                (`orders`.`id_carrier_price` IS NOT NULL) 
+                            AND (`orders`.`orders_payed`=1) 
+                            AND (ISNULL(`orders`.`orders_status`) OR (`orders`.`orders_status`=1)) 
+                            AND ISNULL(`orders`.`orders_ship_number`) 
+                            AND ISNULL(`orders`.`orders_delivered`) 
+                            ) 
+                            ORDER BY `orders`.`orders_date`";
                         }
                     } else {
-                        $sql .= " WHERE ( (`orders`.`orders_payed`=1) 
-                    AND ISNULL(`orders`.`orders_status`)
-                    AND ISNULL(`orders`.`orders_ship_number`)
-                    AND ISNULL(`orders`.`orders_delivered`)
-                    ) 
-                    ORDER BY `orders`.`orders_date`";
+                        $sql .= " WHERE (
+                            (`orders`.`id_carrier_price` IS NOT NULL) 
+                        AND (`orders`.`orders_payed`=1) 
+                        AND (ISNULL(`orders`.`orders_status`) OR (`orders`.`orders_status`=1)) 
+                        AND ISNULL(`orders`.`orders_ship_number`) 
+                        AND ISNULL(`orders`.`orders_delivered`) 
+                        ) 
+                        ORDER BY `orders`.`orders_date`";
                     }
                 } else {
-                    $sql .= " WHERE ( ISNULL(`orders`.`orders_payed`) 
-                AND ISNULL(`orders`.`orders_status`)
-                AND ISNULL(`orders`.`orders_ship_number`)
-                AND ISNULL(`orders`.`orders_delivered`)
-                ) 
-                ORDER BY `orders`.`orders_date`";
+                    $sql .= " WHERE (
+                        (ISNULL(`orders`.`id_carrier_price`) OR (`orders`.`id_carrier_price` IS NOT NULL)) 
+                    AND ISNULL(`orders`.`orders_payed`) 
+                    AND ISNULL(`orders`.`orders_status`) 
+                    AND ISNULL(`orders`.`orders_ship_number`) 
+                    AND ISNULL(`orders`.`orders_delivered`) 
+                    ) 
+                    ORDER BY `orders`.`orders_date`";
                 }
             }
-
-
-            // var_dump($sql);die;
-
-
-
             $sth = $pdo->prepare($sql);
 
             if ($user_id != 0) {
@@ -408,12 +461,32 @@ class Order
                 return false;
             }
         } catch (PDOException $e) {
-            var_dump($e);die;
+            var_dump($e);
+            die;
             return false;
         }
     }
 
 
+
+
+    //------------- SHIP RECEIVED ---------//
+    public static function shipReceived(string $orders_number)
+    {
+        try {
+            $pdo = Database::DBconnect();
+            $sql = "UPDATE `orders` SET `orders_delivered`=1 WHERE `orders_number` = :orders_number";
+            $sth = $pdo->prepare($sql);
+            $sth->bindValue(':orders_number', $orders_number, PDO::PARAM_STR);
+            if ($sth->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (PDOException $ex) {
+            return false;
+        }
+    }
 
 
     //------------- GET ORDER SHIP ---------//
@@ -423,6 +496,7 @@ class Order
             $pdo = Database::DBconnect();
             $sql = "SELECT 
             `orders`.`id_user`,
+            `orders`.`orders_number`,
             `users`.`users_lastname`,
             `users`.`users_firstname`
             FROM `orders` 
@@ -437,7 +511,71 @@ class Order
                 return false;
             }
         } catch (PDOException $e) {
+            var_dump($e);die;
+            return false;
+        }
+    }
+
+
+    //------------- GET ORDER SHIP ---------//
+    public static function saveShip(string $orders_number, string $orders_ship_number)
+    {
+        try {
+            $pdo = Database::DBconnect();
+            $sql = "UPDATE `orders` 
+            SET `orders_ship_number`=:orders_ship_number 
+            WHERE `orders_number`=:orders_number;";
+            $sth = $pdo->prepare($sql);
+            $sth->bindValue(':orders_number', $orders_number, PDO::PARAM_STR);
+            $sth->bindValue(':orders_ship_number', $orders_ship_number, PDO::PARAM_STR);
+            if ($sth->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
             // var_dump($e);die;
+            return false;
+        }
+    }
+
+
+    //------------- GET ORDER SHIP ---------//
+    public static function getEnded()
+    {
+        try {
+            $pdo = Database::DBconnect();
+            $sql = "SELECT 
+            `orders`.`id_order`,
+            `orders`.`orders_number`,
+            `orders`.`orders_date`,
+            `orders`.`orders_weight`,
+            `orders`.`orders_price`,
+            `orders`.`orders_payed`,
+            `orders`.`orders_delivered`,
+            `orders`.`orders_ship_number`,
+            `orders`.`id_product`,
+            `orders`.`orders_quantity`,
+            `orders`.`id_carrier_price`,
+            `orders`.`id_user`,
+            `orders`.`orders_status`,
+            `products`.`products_name`,
+            `users`.`users_lastname`,
+            `users`.`users_firstname`
+            FROM `orders` 
+            INNER JOIN `products` ON `orders`.`id_product`=`products`.`id_product`
+            INNER JOIN `users` ON `users`.`user_id`=`orders`.`id_user`
+            WHERE `orders`.`orders_ship_number` IS NOT NULL 
+            GROUP BY `orders`.`orders_number`";
+            $sth = $pdo->prepare($sql);
+            if ($sth->execute()) {
+                $users_order_list = $sth->fetchAll();
+                return $users_order_list;
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            var_dump($e);die;
             return false;
         }
     }
