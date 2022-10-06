@@ -31,7 +31,9 @@ function toggle_text(id) {
 //------------- INSCRIPTION ---------//
 btnInscriptionModal.addEventListener('click', () => {
     btnConnexionModal.classList.remove('bigifyTextSelected');
+    btnConnexionModal.classList.remove('boxSubCategoryWhite');
     btnInscriptionModal.classList.add('bigifyTextSelected');
+    btnInscriptionModal.classList.add('boxSubCategoryWhite');
     connectVueModal.innerHTML = `
     <form action="inscription.html" method="post">
         <div id="cartVueModal">
@@ -62,7 +64,9 @@ btnInscriptionModal.addEventListener('click', () => {
 //------------- CONNEXION ---------//
 btnConnexionModal.addEventListener('click', () => {
     btnConnexionModal.classList.add('bigifyTextSelected');
+    btnConnexionModal.classList.add('boxSubCategoryWhite');
     btnInscriptionModal.classList.remove('bigifyTextSelected');
+    btnInscriptionModal.classList.remove('boxSubCategoryWhite');
     connectVueModal.innerHTML = `
     <div id="cartVueModal">
     <form class="mb-5" method="POST" action="connexion.html">

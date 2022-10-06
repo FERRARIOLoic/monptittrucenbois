@@ -192,6 +192,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' AND $action_profile == 'ship_received')
 
     //------------- ID ORDER ---------//
     $orders_number = trim((string) filter_input(INPUT_POST, 'orders_number', FILTER_SANITIZE_SPECIAL_CHARS));
+    // var_dump($orders_number);die;
     if (!empty($orders_number)) {
         $testorders_number = filter_var($orders_number, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => REGEX_NAME)));
         if (!$testorders_number) {
@@ -202,7 +203,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' AND $action_profile == 'ship_received')
     }
     //------------- ADD DATA ---------//
     $shipReceived = Order::shipReceived($orders_number);
-    // var_dump($shipReceived);die;
+    $orders_shipped = Order::getPending($_SESSION['user']->user_id, 1, 1, 1, 0);
+    unset($orders_number);
+
 }
 
 //!------------- PROFILE INFO ---------//

@@ -20,12 +20,12 @@
     <div class="modal-dialog">
         <div class="modal-content navbarImgBackground">
             <div id="cartVueModal">
-                <div class="row mt-2">
+                <div class="row mt-2 pt-5 px-md-5">
                     <?php
                     if (isset($_SESSION['user'])) {
                     ?>
-                        <div class="col-12 text-center align-self-center py-5">
-                            <h4>Confirmer votre départ</h4>
+                        <div class="col-12 text-center align-self-center py-5 boxContact">
+                            <h4>Vous nous quittez ?</h4>
                         </div>
                         <div class="col-12 text-center align-self-center py-5">
                             <a href="deconnexion.html" class="stretched-link">
@@ -35,15 +35,20 @@
                             </a>
                         </div>
                     <?php
-                    } else {
-                    ?>
-                        <div id="btnInscriptionModal" class="col-6 text-center align-self-center p-3">
-                            Inscription
+                    } else { ?>
+                        <div class="col-12 pb-4 border-bottom border-1">
+                            <div class="row text-center d-flex justify-content-center">
+
+                                <div id="btnInscriptionModal" class="col-5 text-center align-self-center p-3 boxContact">
+                                    Inscription
+                                </div>
+                                <div class="col-1"></div>
+                                <div id="btnConnexionModal" class="col-5 text-center align-self-center p-3 boxContact bigifyTextSelected boxSubCategoryWhite">
+                                    Connexion
+                                </div>
+                            </div>
                         </div>
-                        <div id="btnConnexionModal" class="col-6 text-center align-self-center p-3 bigifyTextSelected">
-                            Connexion
-                        </div>
-                        <div class="offset-1 col-10 border-2 border-secondary border-top py-3">
+                        <div class="offset-1 col-10 py-3 pb-4">
                             <div id="connectVueModal">
                                 <form class="mb-5" method="POST" action="connexion.html">
 
@@ -64,9 +69,9 @@
                                 </form>
                             </div>
                         </div>
-                    <?php } ?>
                 </div>
             </div>
+        <?php } ?>
         </div>
     </div>
 </div>

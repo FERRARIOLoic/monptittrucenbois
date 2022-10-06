@@ -436,7 +436,7 @@
                                     $order_price_product = $order_info->orders_quantity * $order_info->orders_price;
                                     $order_price_total = ($order_price_total ?? 0) + $order_price_product;
                                     $order_carrier_price = Carrier::getByID($order_info->id_carrier_price);
-                                    $orders_ship = $order_info->orders_number;
+                                    $orders_order = $order_info->orders_number;
                                 endforeach;
                                 $order_weight = $order_weight ?? 0 / 100;
                                 ?>
@@ -477,7 +477,7 @@
                                     </div>
                                 </div>
                                 <form action='' method='post' class="row p-2 px-md-5 border-top border-1">
-                                    <input type='hidden' name='orders_number' value='<?= $orders_number ?? ''; ?>'>
+                                    <input type='hidden' name='orders_number' value='<?= $orders_order ?? ''; ?>'>
                                     <div class="col-12 pt-2 text-center">
                                         <button type='submit' class='btn btnValid' name='action_profile' value='ship_received'>J'ai bien reçu mon colis</button>
                                     </div>
