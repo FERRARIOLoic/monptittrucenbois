@@ -318,6 +318,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and $action_profile == 'profile_info') 
     } else {
         $resultView = "Erreur lors de l'enregistrement des données";
     }
+    
+$user_info = User::getAll($_SESSION['user']->user_id);
 }
 
 
@@ -381,6 +383,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and $action_profile == 'address') {
     } else {
         $resultView = "Erreur lors de l'enregistrement des données";
     }
+    $user_info = User::getAll($_SESSION['user']->user_id);
 }
 
 

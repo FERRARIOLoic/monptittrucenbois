@@ -9,12 +9,12 @@
                 <div class="col-2 d-md-none text-start">
                     <img alt='Afficher le menu' src="../public/assets/img/icons/menuHamburger.svg" class="menuImg" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" />
                 </div>
-                <div class="col-8 col-md-3 titleSite text-center text-md-start nav-link">
+                <div class="col-8 col-md-3 text-center text-md-start nav-link">
                     <a href="accueil.html">
                         <img class="navbarImgLogo" src="../public/assets/img/icons/logo.png" alt="Mon P'tit Truc En Bois">
                     </a>
                     <a href="accueil.html">
-                        Mon P'tit Truc En Bois
+                        <span class='titleSite'>Mon P'tit Truc En Bois</span>
                     </a>
                 </div>
                 <div class="col-2 col-md-1 order-md-2">
@@ -46,13 +46,19 @@
                     <div class="col-12 col-md-2 py-2">
                         <a class="nav-link" href="actualites.html">Actualités</a>
                     </div>
-                    <?php
-                    foreach ($categories_list as $category) :
-                    ?>
-                        <div class="col-12 col-md-2 py-2">
-                            <a class="nav-link" href="produits.html?category_id=<?= $category->id_category; ?>"><?= $category->categories_name ?></a>
-                        </div>
-                    <?php endforeach; ?>
+                    <div class="col-12 col-md-2 py-2 nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Catégories
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <?php foreach ($categories_list as $category) :
+                            ?>
+                                <div class="col-12 py-2">
+                                    <a class="nav-link" href="produits.html?category_id=<?= $category->id_category; ?>"><?= $category->categories_name ?></a>
+                                </div>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
                     <div class="col-12 col-md-2 py-2">
                         <a class="nav-link" href="contact.html">Contacts</a>
                     </div>

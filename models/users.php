@@ -120,7 +120,7 @@ class User
                 $sth->bindValue(':password', $this->getPassword(), PDO::PARAM_STR);
                 return $sth->execute();
             } catch (PDOException $ex) {
-                var_dump('error');
+                // var_dump('error');
                 die;
                 return false;
             }
@@ -189,7 +189,7 @@ class User
     public function update()
     {
         try {
-            var_dump($this->category);die;
+            // var_dump($this->category);die;
             $sql = "UPDATE `users` 
             SET `users_type`=:category, 
             `users_gender`=:gender, 
@@ -216,6 +216,7 @@ class User
                 return true;
             }
         } catch (PDOException $e) {
+            // var_dump($e);die;
             return false;
         }
     }

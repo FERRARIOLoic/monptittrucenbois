@@ -22,8 +22,8 @@
     <div class="col-12 col-md-8">
         <div class="row p-2 px-md-5">
             <div class="col-12">
-                <div class='row boxContact'>
-                    <div class="col-12 py-3 boxContactTitle text-center border-bottom border-1">
+                <div class='row '>
+                    <div class="col-12 py-3 boxSubCategoryWhite text-center">
                         <h4>Commande en cours</h4>
                     </div>
 
@@ -40,8 +40,8 @@
                             Aucune commande en cours
                         </div>
                     <?php } else { ?>
-                        <div class="col-12 p-4">
-                            <div class="row boxSubCategory">
+                        <div class="col-12 p-4 boxProfileOrderPending">
+                            <div class="row">
                                 <div class="col-12">
                                     <div class="row p-2 px-md-5 border-bottom border-1 border-secondary">
                                         <div class="col-12 col-md-3 "><strong>Produit</strong></div>
@@ -127,7 +127,7 @@
                         </div>
 
                         <!------------- TOTAL PRODUCTS / WEIGHT --------->
-                        <div class="col-12 py-3">
+                        <div class="col-12 py-3 boxProfileOrderPending">
                             <div class="row p-2 px-md-5">
                                 <div class="col-12 col-md-6">
                                     <div class="row">
@@ -146,7 +146,7 @@
 
                         <?php if (isset($order_info->orders_payed) == NULL) { ?>
                             <!------------- LIST CHOICE CARRIER --------->
-                            <div class="col-12 py-3 border-top border-1">
+                            <div class="col-12 py-3 border-top border-1 boxProfileOrderPending">
                                 <form action='' method='post' class='row'>
                                     <input type='hidden' name='id_order' value='<?= $order_info->id_order; ?>'>
                                     <input type='hidden' name='order_weight' value='<?= ceil($order_weight / 1000); ?>'>
@@ -168,7 +168,7 @@
                         <?php } ?>
 
                         <!------------- TOTAL PRICE --------->
-                        <div class="col-12 border-top border-1 py-3">
+                        <div class="col-12 border-top border-1 py-3 boxProfileOrderPending">
                             <div class="row p-2 px-md-5">
                                 <div class="col-12 col-md-6">
                                     <div class="row">
@@ -192,7 +192,7 @@
 
                         <?php if (isset($order_info->orders_payed) == NULL) { ?>
                             <!------------- VALIDATE ORDER --------->
-                            <div class="col-12 border-top border-1 py-3">
+                            <div class="col-12 border-top border-1 py-3 boxProfileOrderPending">
                                 <div class="row p-2 px-md-5">
                                     <div class="col-12 text-center">
                                         <form action='' method='post'>
@@ -463,26 +463,26 @@
                         </div>
                         <!------------- ORDER SHIP NUMBER --------->
                         <div class="col-12 border-top border-1 py-3">
-                                <div class="row px-md-5">
-                                    <div class="col-12 col-md-8 align-self-center">
-                                        <div class="row">
-                                            <div class="col-6 text-end">Numéro de colis :</div>
-                                            <div class="col-6"><strong><?= ($order_info->orders_ship_number) ?></strong></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-md-4 align-self-center">
-                                        <div class="row">
-                                            <div class="col-12 text-center py-2"><a href=''><button class='btn btnValidSmall'>Suivre mon colis</button></a></div>
-                                        </div>
+                            <div class="row px-md-5">
+                                <div class="col-12 col-md-8 align-self-center">
+                                    <div class="row">
+                                        <div class="col-6 text-end">Numéro de colis :</div>
+                                        <div class="col-6"><strong><?= ($order_info->orders_ship_number) ?></strong></div>
                                     </div>
                                 </div>
-                                <form action='' method='post' class="row p-2 px-md-5 border-top border-1">
-                                    <input type='hidden' name='orders_number' value='<?= $orders_order ?? ''; ?>'>
-                                    <div class="col-12 pt-2 text-center">
-                                        <button type='submit' class='btn btnValid' name='action_profile' value='ship_received'>J'ai bien reçu mon colis</button>
+                                <div class="col-12 col-md-4 align-self-center">
+                                    <div class="row">
+                                        <div class="col-12 text-center py-2"><a href=''><button class='btn btnValidSmall'>Suivre mon colis</button></a></div>
                                     </div>
-                                </form>
+                                </div>
                             </div>
+                            <form action='' method='post' class="row p-2 px-md-5 border-top border-1">
+                                <input type='hidden' name='orders_number' value='<?= $orders_order ?? ''; ?>'>
+                                <div class="col-12 pt-2 text-center">
+                                    <button type='submit' class='btn btnValid' name='action_profile' value='ship_received'>J'ai bien reçu mon colis</button>
+                                </div>
+                            </form>
+                        </div>
 
                     <?php } ?>
                 </div>
@@ -498,7 +498,7 @@
     <div class="col-12 col-md-4">
         <div class="row p-2">
             <div class="col-12">
-                <form action='' method='post' class='row boxContact'>
+                <form action='' method='post' class='row boxProfileOrderPending'>
                     <div class="col-12 py-3 boxContactTitle text-center border-bottom border-1">
                         <h4>Mes informations de profil</h4>
                     </div>

@@ -1,6 +1,6 @@
 /*------------- IMPORT de la POLICE ROBOTO ---------*/
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
 
 
 * {
@@ -19,8 +19,8 @@ body {
     flex-direction: column;
     min-height: 100vh;
     font-family: 'Roboto', sans-serif;
-    color: #EA9999;
-    background-image: url('../img/icons/background_wood.jpg');
+    color: #1D0902;
+    /* background-image: url('../img/icons/background_wood.jpg'); */
     background-position: center center;
     background-attachment: fixed;
     background-repeat: no-repeat;
@@ -39,13 +39,27 @@ main {
     justify-content: space-between;
     flex-direction: column;
 }
+
 .titleSite {
-    font-size: small;
-    font-weight:700;
+    /* font-weight:700; */
+    color: #EA9999;
+    letter-spacing: 0.5px;
+    font-family: 'Caveat', cursive;
+}
+h1 {
+    font-size: 60px;
+    font-weight: bolder;
 }
 
+.titleText {
+    color: #EA9999;
+    letter-spacing: 0.5px;
+    font-family: 'Caveat', cursive;
+}
+
+
 .navbarImgBackground {
-    background-color: #b1935e;
+    background-color: white;
 }
 
 .navbarScrollHide {
@@ -82,6 +96,21 @@ main {
 
 .form-floating {
     padding: 15px;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    outline: none;
+}
+
+.form-control {
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    outline: none;
+}
+
+.form-control:focus {
+    outline: none;
 }
 
 .form-label {
@@ -92,12 +121,12 @@ main {
 .progress-bar {
     text-decoration: none;
     color: #663300;
-    font-weight:700;
+    font-weight: 700;
 }
 
 .nav-link:hover {
     text-shadow: 0 5px 5px rgb(255, 250, 234, 0.5);
-    color: #EA9999;
+    color: #1D0902;
 }
 
 
@@ -106,13 +135,15 @@ h4:hover {
 }
 
 .boxContact {
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(120, 120, 120, 0.1);
     /* box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 ); */
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
-    border-radius: 10px;
+    /* border-radius: 10px; */
     color: #4e2700;
 }
+
+
 .boxContactUp {
     background: rgba(255, 255, 255, 0.3);
     /* box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 ); */
@@ -121,6 +152,7 @@ h4:hover {
     border-radius: 10px 10px 0px 0px;
     color: #4e2700;
 }
+
 .boxContactDown {
     background: rgba(255, 255, 255, 0.3);
     /* box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 ); */
@@ -129,6 +161,10 @@ h4:hover {
     border-radius: 0px 0px 10px 10px;
     color: #4e2700;
 }
+
+.boxProfileOrderPending {background: linear-gradient(90deg, rgba(204,204,204,0.2) 0%, rgba(255,255,255,0) 20%, rgba(255,255,255,0) 80%, rgba(204,204,204,0.2) 100%);
+}
+
 
 .selectQuantity {
     background-color: #66330050;
@@ -150,47 +186,62 @@ h4:hover {
 .boxContactTitle {
     font-size: 20px;
     font-weight: bold;
-    color: #EA9999;
-    text-shadow: #EA9999;
 }
 
 .boxSubCategory,
 .boxSubCategoryUp,
 .boxSubCategoryDown {
-    color:rgb(230, 230, 230);
+    color: rgb(230, 230, 230);
 }
 
 .boxSubCategory {
     background-color: #66330050;
     border-radius: 10px;
 }
+
 .boxSubCategoryWhite {
-    background: rgba(255, 255, 255, 0.8);
-    border-radius: 10px;
-    border-right: 1px solid rgb(100, 100, 100);
-    border-bottom: 1px solid rgb(100, 100, 100);
-    border-left: 1px solid rgb(100, 100, 100);
+    background: linear-gradient(0deg, rgba(204, 204, 204, 0.2) 0%, rgba(255, 255, 255, 1) 90%);
 }
+.fadeInTop {
+    animation: fadeInTop 1s ease 0s 1 normal both;
+}
+@keyframes fadeInTop {
+	0% {
+		opacity: 0;
+		transform: translateY(-50px);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
 .boxSubCategoryNOK {
     background-color: rgba(255, 0, 0, 0.2);
     border-radius: 10px;
 }
+
 .boxSubCategoryOK {
     background-color: rgba(0, 128, 0, 0.2);
     border-radius: 10px;
 }
+
 .boxSubCategoryHS {
     background-color: rgba(0, 0, 0, 0.2);
     border-radius: 10px;
 }
+
 .boxSubCategoryDownNOK {
     background-color: rgba(255, 0, 0, 0.2);
     border-radius: 0px 0px 10px 10px;
 }
+
 .boxSubCategoryDownOK {
     background-color: rgba(0, 128, 0, 0.2);
     border-radius: 0px 0px 10px 10px;
 }
+
 .boxSubCategoryDownHS {
     background-color: rgba(0, 0, 0, 0.2);
     border-radius: 0px 0px 10px 10px;
@@ -205,6 +256,7 @@ h4:hover {
     background-color: #66330050;
     border-radius: 0px 0px 10px 10px;
 }
+
 .boxSubCategoryDownGrey {
     background: rgba(255, 255, 255, 0.2);
     border-radius: 0px 0px 10px 10px;
@@ -212,6 +264,7 @@ h4:hover {
     border-bottom: 1px solid rgb(100, 100, 100);
     border-left: 1px solid rgb(100, 100, 100);
 }
+
 .boxSubCategoryDownWhite {
     background: rgba(255, 255, 255, 0.8);
     border-radius: 0px 0px 10px 10px;
@@ -242,22 +295,18 @@ a:hover {
 .titlePage {
     margin-top: 100px;
     font-family: 'Roboto', sans-serif;
-    color: #EA9999;
-    text-shadow: #EA9999;
 }
 
 .descriptionPage {
     margin-top: 20px;
     font-family: 'Roboto', sans-serif;
-    color: #EA9999;
-    text-shadow: #EA9999;
 }
 
 .productImgHome {
     max-width: 100%;
     max-height: 100%;
-    border-radius: 10px 10px 0px 0px;
-    box-shadow: rgba(33, 35, 38, 0.5) 0px 10px 10px -10px;
+    /* border-radius: 10px 10px 0px 0px; */
+    /* box-shadow: rgba(33, 35, 38, 0.5) 0px 10px 10px -10px; */
     padding: 0 0 0 0;
 }
 
@@ -270,10 +319,11 @@ a:hover {
 }
 
 .productImgWorking {
-    height: 250px;
+    height: 70%;
     width: 100%;
-    border-radius: 10px 10px 0px 0px;
-    box-shadow: rgba(33, 35, 38, 0.5) 0px 10px 10px -10px;
+    /* border-right:1px solid #dcdcdc; */
+    /* border-radius: 10px 10px 0px 0px; */
+    /* box-shadow: rgba(33, 35, 38, 0.5) 0px 10px 10px -10px; */
     padding: 0 0 0 0;
     object-fit: cover;
     object-position: center center;
@@ -322,7 +372,7 @@ a:hover {
 }
 
 .textUnknown {
-    color:rgb(100, 100, 100);
+    color: rgb(100, 100, 100);
     font-style: italic;
     font-size: 12px;
 }
@@ -357,8 +407,6 @@ a:hover {
 .bigifyTextSelected {
     font-size: 25px;
     font-weight: bold;
-    color: #EA9999;
-    text-shadow: #ffd7d7;
 
 }
 
@@ -449,7 +497,7 @@ a:hover {
     min-height: 100vh;
     background-color: #663300;
     /* border-radius: 0px 10px 10px 0px; */
-    position:fixed;
+    position: fixed;
 }
 
 .boxMenuAdminSub {
@@ -460,6 +508,7 @@ a:hover {
     border-radius: 0px 10px 10px 0px;
     color: #663300;
 }
+
 .boxMenuAdminSubDown {
     background: rgba(255, 255, 255, 0.4);
     /* box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 ); */
@@ -467,14 +516,4 @@ a:hover {
     -webkit-backdrop-filter: blur(4px);
     border-radius: 0px 0px 10px 10px;
     color: #663300;
-}
-
-.productCategoryText {
-    text-shadow: 2px 7px 5px rgba(0, 0, 0, 0.3),
-        0px -4px 10px rgba(255, 255, 255, 0.3);
-}
-
-.titleText {
-    text-shadow: 2px 7px 5px rgba(255, 255, 255, 0.3),
-        0px -4px 10px rgba(0, 0, 0, 0.3);
 }

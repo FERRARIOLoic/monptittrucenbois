@@ -1,12 +1,13 @@
 <main class="container-fluid">
-    <div class="row titlePage">
-        <div class="col-12 text-center align-self-center">
+    <div class="row titlePage pt-3 px-4">
+        <div class=" col-12 offset-md-3 col-md-6 px-4 py-3 text-center border-bottom border-1">
             <h1><?= $pageTitle; ?></h1>
         </div>
     </div>
 
+    <!---
     <div class="row">
-        <!------------- BOX LISTE DES NOMS DE PRODUITS --------->
+        <!------------- BOX LISTE DES NOMS DE PRODUITS ---------
         <div class="col-12">
             <div class="row boxContact boxProductVue my-3 mx-md-5">
                 <?php
@@ -20,16 +21,17 @@
             </div>
         </div>
     </div>
+    --->
     <div class="row">
         <!------------- BOX BOITE --------->
         <?php foreach ($products_list_category as $productInfo) : ?>
             <div class="col-12 col-md-4 py-4" id='<?= $productInfo->id_product; ?>'>
-                <div class="row boxContact boxProductVue my-3 mx-md-2">
-                    <div class="col-12 text-center align-self-center fs-3 py-2 border-bottom border-1">
-                        <h4><?= $productInfo->products_name; ?></h4>
-                    </div>
+                <div class="row boxSubCategoryWhite boxProductVue my-3 mx-md-2">
                     <div class="col-12 text-center boxProductImg d-flex">
                         <img class="productImg align-self-center" src="/public/assets/img/products/<?= $pageTitle ?>/<?= $productInfo->id_product; ?>.jpg" alt='<?= $productInfo->products_name; ?>' title='<?= $productInfo->products_name; ?>'>
+                    </div>
+                    <div class="col-12 text-center align-self-center fs-3 pt-3">
+                        <h4><?= $productInfo->products_name; ?></h4>
                     </div>
                     <div class="col-12 py-2 px-4 boxProductDescription">
                         <?= $productInfo->products_description; ?>
@@ -69,7 +71,7 @@
                             </form>
                         </div>
                     <?php } else { ?>
-                        <div class="col-12 py-3 text-center align-self-end productCategoryText border-top border-1">
+                        <div class="col-12 py-3 text-center align-self-end  border-top border-1">
                             <span class='text-danger fw-bold'><a href='inscription.html'>S'inscrire</a> ou <a href='connexion.html'>Se connecter</a> pour commander</span></a>
                         </div>
                     <?php } ?>

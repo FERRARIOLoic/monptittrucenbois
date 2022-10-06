@@ -35,7 +35,7 @@ btnInscriptionModal.addEventListener('click', () => {
     btnInscriptionModal.classList.add('bigifyTextSelected');
     btnInscriptionModal.classList.add('boxSubCategoryWhite');
     connectVueModal.innerHTML = `
-    <form action="inscription.html" method="post">
+    <form action="inscription.html" method="post" class=' fadeInTop'>
         <div id="cartVueModal">
             <div class="form-floating">
                 <input type="email" autocomplete="email" class="form-control <?= isset($errors['email']) ? 'is-invalid' : '' ?>" id="email" name="email" required placeholder="email" />
@@ -69,7 +69,7 @@ btnConnexionModal.addEventListener('click', () => {
     btnInscriptionModal.classList.remove('boxSubCategoryWhite');
     connectVueModal.innerHTML = `
     <div id="cartVueModal">
-    <form class="mb-5" method="POST" action="connexion.html">
+    <form class="mb-5 fadeInTop" method="POST" action="connexion.html">
 
         <div class="error"><?= $errors['global'] ?? '' ?></div>
 

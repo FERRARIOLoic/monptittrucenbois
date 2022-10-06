@@ -39,18 +39,18 @@
                         <div class="col-12 pb-4 border-bottom border-1">
                             <div class="row text-center d-flex justify-content-center">
 
-                                <div id="btnInscriptionModal" class="col-5 text-center align-self-center p-3 boxContact">
+                                <div id="btnInscriptionModal" class="col-5 text-center align-self-center p-3 fadeInTop boxContact">
                                     Inscription
                                 </div>
                                 <div class="col-1"></div>
-                                <div id="btnConnexionModal" class="col-5 text-center align-self-center p-3 boxContact bigifyTextSelected boxSubCategoryWhite">
+                                <div id="btnConnexionModal" class="col-5 text-center align-self-center p-3 fadeInTop boxContact bigifyTextSelected boxSubCategoryWhite">
                                     Connexion
                                 </div>
                             </div>
                         </div>
                         <div class="offset-1 col-10 py-3 pb-4">
                             <div id="connectVueModal">
-                                <form class="mb-5" method="POST" action="connexion.html">
+                                <form class="mb-5 fadeInTop" method="POST" action="connexion.html">
 
                                     <div class="error"><?= $errors['global'] ?? '' ?></div>
 
