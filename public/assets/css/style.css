@@ -124,12 +124,10 @@ h1 {
     font-weight: 700;
 }
 
-.nav-link:hover {
+.nav-link:hover,
+.nav-link:focus {
     text-shadow: 0 5px 5px rgb(255, 250, 234, 0.5);
-    color: #1D0902;
-}
-.navLinkSub {
-    right:-10px;
+    color: #EA9999;
 }
 
 
@@ -166,6 +164,10 @@ h4:hover {
 }
 
 .boxProfileOrderPending {background: linear-gradient(90deg, rgba(204,204,204,0.2) 0%, rgba(255,255,255,0) 20%, rgba(255,255,255,0) 80%, rgba(204,204,204,0.2) 100%);
+}
+.profileImg {
+    max-width:30px;
+    max-height:30px;
 }
 
 
@@ -222,42 +224,34 @@ h4:hover {
 
 .boxSubCategoryNOK {
     background-color: rgba(255, 0, 0, 0.2);
-    border-radius: 10px;
 }
 
 .boxSubCategoryOK {
     background-color: rgba(0, 128, 0, 0.2);
-    border-radius: 10px;
 }
 
 .boxSubCategoryHS {
     background-color: rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
 }
 
 .boxSubCategoryDownNOK {
     background-color: rgba(255, 0, 0, 0.2);
-    border-radius: 0px 0px 10px 10px;
 }
 
 .boxSubCategoryDownOK {
     background-color: rgba(0, 128, 0, 0.2);
-    border-radius: 0px 0px 10px 10px;
 }
 
 .boxSubCategoryDownHS {
     background-color: rgba(0, 0, 0, 0.2);
-    border-radius: 0px 0px 10px 10px;
 }
 
 .boxSubCategoryUp {
     background-color: #66330050;
-    /* border-radius: 10px 10px 0px 0px; */
 }
 
 .boxSubCategoryDown {
     background-color: lightgrey;
-    /* border-radius: 0px 0px 10px 10px; */
     color:#663300;
 }
 
@@ -514,4 +508,8 @@ a:hover {
     -webkit-backdrop-filter: blur(4px);
     border-radius: 0px 0px 10px 10px;
     color: #663300;
+}
+
+.lord-icon {
+    width:20px;
 }

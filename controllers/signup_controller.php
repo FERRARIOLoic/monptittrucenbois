@@ -22,43 +22,49 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (!$isOk) {
             $errors['email'] = "L'adresse n'est pas valide";
         }
-        if(User::isMailExists($email)){
+        if (User::isMailExists($email)) {
             $errors['email'] = "Erreur, l'adresse mail existe déjà";
-        } 
+        }
     }
     /***********************************************************/
 
     $password = $_POST['password'];
     $password_verif = $_POST['password_verif'];
 
-    if($password!==$password_verif){
+    if ($password !== $password_verif) {
         $errors['password'] = 'Les mots de passe ne sont pas identiques';
     } else {
         $password = password_hash($password, PASSWORD_DEFAULT);
     }
 
 
-    if(empty($errors)){
+    if (empty($errors)) {
         $user = new User();
         $user->setEmail($email);
         $user->setPassword($password);
         $isUserRegistered = $user->save();
-        
-        if($isUserRegistered){
+
+        if ($isUserRegistered) {
             //envoi d'un mail avec lien contenant un jwt
             $subject = "Validez votre inscription";
-            $payload = array('email'=> $email, 'exp'=>(time() + 3600));
+            $payload = array('email' => $email, 'exp' => (time() + 3600));
             $token = JWT::generate($payload);
-            $message = 'Merci de valider votre compte en cliquant sur ce lien: <a href="'.$_SERVER['HTTP_ORIGIN'].'/controllers/signup_validate_Controller.php?token='.$token.'">Cliquez-ici</a>';
+            $message = '
+            Bonjour, 
+
+            Merci de votre inscription sur notre site
+
+            Afin de finaliser votre inscription, valider votre compte en cliquant sur ce lien: <a href="' . $_SERVER['HTTP_ORIGIN'] . '/controllers/signup_validate_Controller.php?token=' . $token . '">Valider mon compte</a>
+            
+            A bientôt sur notre site';
             mail($email, $subject, $message);
             header('location: /connexion.html');
             exit;
         } else {
             $errors['email'] = 'Un problème est survenu';
         }
-
     }
-    
+
     /*************************************************************/
 }
 

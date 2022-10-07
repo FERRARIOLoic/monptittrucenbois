@@ -49,8 +49,8 @@
                             <div class="col-12 col-md-6 py-3">
                                 <?= $productInfo->woods_name ?? '' ?>
                             </div>
-                            <div class="col-12 py-3">
-                                <i><?= !empty($productInfo->products_description) ? $productInfo->products_description : "<span class='textUnknown'>Non renseignée</span>"; ?></i>
+                            <div class="col-12 py-3 fst-italic">
+                                <?= !empty($productInfo->products_description) ? $productInfo->products_description : "<span class='textUnknown'>Non renseignée</span>"; ?>
                             </div>
                             <div class="col-4 text-center align-self-center py-1">
                                 <?= $productInfo->products_price ?? '' ?> €
@@ -60,7 +60,7 @@
                             </div>
                             <div class="col-4">
                                 <div class="row px-3 my-2 text-end"><a class='text-black' href='informations_produit.html?id_product=<?= $productInfo->id_product; ?>' alt='Afficher les informations du produit' title='Afficher les informations du produit'>
-                                        <lord-icon src="https://cdn.lordicon.com/dnmvmpfk.json" trigger="hover" colors="primary:#663300">
+                                        <lord-icon src="https://cdn.lordicon.com/dnmvmpfk.json" trigger="hover" colors="primary:#663300" style="width:25px;height:25px">
                                         </lord-icon>
                                     </a>
                                 </div>
@@ -77,80 +77,44 @@
                 <div class="col-12 text-center align-self-center fs-3 py-3 boxSubCategoryWhite">
                     <h2>&Eacute;vènements</h2>
                 </div>
-                <div class="col-12 py-2 px-4">
-                    <!------------- BOX EVENT --------->
+                <!------------- BOX EVENT --------->
+                <div class="col-12 py-2">
                     <?php foreach ($eventsPending as $eventInfo) :
-                        $event_start_date = strtotime($eventInfo->events_start_date);
-                        $event_end_date = strtotime($eventInfo->events_end_date); ?>
-                        <div class="row boxContact mt-4">
-                            <div class="col-12">
-                                <div class="row px-3 my-2">
-                                    <div class="col-12 boxSubCategoryUp">
-                                        Titre de l'évènement<br>
-                                    </div>
-                                    <div class="col-12 boxSubCategoryDownGrey fs-4">
-                                        <?= $eventInfo->events_name ?? '' ?>
-                                    </div>
-                                </div>
+                        $start_date = new DateTime($eventInfo->events_start_date);
+                        $start_date = $start_date->format('d-m-Y');
+                        $end_date = new DateTime($eventInfo->events_end_date);
+                        $end_date = $end_date->format('d-m-Y'); ?>
+                        <div class="row mt-4 boxSubCategoryWhite">
+                            <div class="col-12 fs-4 boxSubCategoryUp text-black py-2">
+                                <?= $eventInfo->events_name ?? '' ?>
                             </div>
-                            <?php if ($event_start_date > time()) { ?>
-                                <div class="col-12 col-md-6">
-                                    <div class="row px-3 my-2">
-                                        <div class="col-12 boxSubCategoryUp">
-                                            Date de début<br>
-                                        </div>
-                                        <div class="col-12 boxSubCategoryDownGrey py-1">
-                                            <?= $eventInfo->events_start_date ?? '' ?>
-                                        </div>
-                                    </div>
+                            <?php
+                            if ($start_date > date('d-m-Y')) { ?>
+                                <div class="col-12 boxSubCategoryDownNOK py-1 text-center">
+                                    <span class=''>&Eacute;vènement à venir</span>
                                 </div>
-                            <?php } else { ?>
-                                <div class="col-12 col-md-6">
-                                    <div class="row px-3 my-2">
-                                        <div class="col-12 boxSubCategoryUp">
-                                            Date de début<br>
-                                        </div>
-                                        <?php
-                                        if ($event_start_date > time()) { ?>
-                                            <div class="col-12 boxSubCategoryDownNOK py-1 text-center">
-                                                <span class=''>&Eacute;vènement à venir</span>
-                                            </div>
-                                        <?php } elseif ($event_start_date <= time() and $event_end_date >= time()) { ?>
-                                            <div class="col-12 boxSubCategoryDownOK py-1 text-center">
-                                                <span class=''>&Eacute;vènement en cours</span>
-                                            </div>
-                                        <?php } elseif ($event_end_date < time()) { ?>
-                                            <div class="col-12 boxSubCategoryDownHS py-1 text-center">
-                                                <span class=''>&Eacute;vènement terminé</span>
-                                            </div>
-                                        <?php } ?>
-                                    </div>
+                            <?php } elseif ($start_date <= date('d-m-Y') and $end_date >= date('d-m-Y')) { ?>
+                                <div class="col-12 boxSubCategoryDownOK py-1 text-center">
+                                    <span class=''>&Eacute;vènement en cours</span>
+                                </div>
+                            <?php } elseif ($end_date < date('d-m-Y')) { ?>
+                                <div class="col-12 boxSubCategoryDownHS py-1 text-center">
+                                    <span class=''>&Eacute;vènement terminé</span>
                                 </div>
                             <?php } ?>
-                            <div class="col-12 col-md-6">
-                                <div class="row px-3 my-2">
-                                    <div class="col-12 boxSubCategoryUp">
-                                        Date de fin<br>
-                                    </div>
-                                    <div class="col-12 boxSubCategoryDownGrey py-1">
-                                        <?= $eventInfo->events_end_date ?? '' ?>
-                                    </div>
-                                </div>
+                            <div class="col-6 py-3 text-end">
+                                Du <?= $start_date ?? '' ?>
                             </div>
-                            <div class="col-12">
-                                <div class="row px-3 my-2">
-                                    <div class="col-12 boxSubCategoryUp">
-                                        Description de l'évènement<br>
-                                    </div>
-                                    <div class="col-12 boxSubCategoryDownGrey py-1">
-                                        <?= $eventInfo->events_description ?? '' ?>
-                                    </div>
-                                </div>
+                            <div class="col-6 py-3">
+                                Au <?= $end_date ?? '' ?>
+                            </div>
+                            <div class="col-12 py-3 text-center fst-italic">
+                                <?= $eventInfo->events_description ?? '' ?>
                             </div>
                             <?php
                             if (isset($eventInfo->id_product)) { ?>
                                 <div class="col-12">
-                                    <div class="row px-3 my-2">
+                                    <div class="row my-2">
                                         <div class="col-12 boxSubCategoryUp">
                                             Produit concerné<br>
                                         </div>

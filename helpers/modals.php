@@ -3,13 +3,19 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div id="CartVueTitle" class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel"></h5>
+                <h5 class="modal-title" id="staticBackdropLabel">Recherche</h5>
             </div>
             <div id="cartVueModal">
-            </div>
-            <div id="cartFooterPrice" class="modal-footer">
-            </div>
-            <div id="cartFooterVue" class="modal-footer">
+                <div class="col-12 text-center align-self-center py-5 boxContact">
+                    <h4>Vous nous quittez ?</h4>
+                </div>
+                <div class="col-12 text-center align-self-center py-5">
+                    <a href="deconnexion.html" class="stretched-link">
+                        <button class="btn btnValid">
+                            <h4>Se déconnecter</h4>
+                        </button>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -21,9 +27,7 @@
         <div class="modal-content navbarImgBackground">
             <div id="cartVueModal">
                 <div class="row mt-2 pt-5 px-md-5">
-                    <?php
-                    if (isset($_SESSION['user'])) {
-                    ?>
+                    <?php if (isset($_SESSION['user'])) { ?>
                         <div class="col-12 text-center align-self-center py-5 boxContact">
                             <h4>Vous nous quittez ?</h4>
                         </div>
@@ -34,8 +38,7 @@
                                 </button>
                             </a>
                         </div>
-                    <?php
-                    } else { ?>
+                    <?php } else { ?>
                         <div class="col-12 pb-4 border-bottom border-1">
                             <div class="row text-center d-flex justify-content-center">
 
@@ -69,9 +72,9 @@
                                 </form>
                             </div>
                         </div>
+                    <?php } ?>
                 </div>
             </div>
-        <?php } ?>
         </div>
     </div>
 </div>

@@ -62,7 +62,7 @@
                                     <div class="col-12 col-md-4">
                                         <div class="row">
                                             <div class="col-9 text-end">Poids total de la commande :</div>
-                                            <div class="col-3"><strong><?= $order_weight / 1000 ?? '' ?> kg</strong></div>
+                                            <div class="col-3"><strong><?= ($order_weight / 1000) ?? '' ?> kg</strong></div>
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-4">

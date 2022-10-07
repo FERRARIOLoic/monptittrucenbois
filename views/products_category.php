@@ -5,23 +5,6 @@
         </div>
     </div>
 
-    <!---
-    <div class="row">
-        <!------------- BOX LISTE DES NOMS DE PRODUITS ---------
-        <div class="col-12">
-            <div class="row boxContact boxProductVue my-3 mx-md-5">
-                <?php
-                foreach ($products_list_category as $productName) : ?>
-                    <div id="btnProductInfo" data-product="<?= $productName->products_name; ?>" class="col-6 col-md-2 text-center align-self-center fs-3 py-2">
-                        <a href='#<?= $productName->id_product; ?>'>
-                            <h4 class='productCategoryText'><?= $productName->products_name; ?></h4>
-                        </a>
-                    </div>
-                <?php endforeach; ?>
-            </div>
-        </div>
-    </div>
-    --->
     <div class="row">
         <!------------- BOX BOITE --------->
         <?php foreach ($products_list_category as $productInfo) : ?>

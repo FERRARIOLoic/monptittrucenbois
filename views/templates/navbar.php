@@ -62,17 +62,40 @@
                     <div class="col-12 col-md-2 py-2">
                         <a class="nav-link" href="contact.html">Contacts</a>
                     </div>
+                    <div class="col-12 col-md-2 py-2">
+                        <a class="nav-link" href="a_propos.html">&Agrave; propos</a>
+                    </div>
                     <div class="col-12 col-md-2 py-2 nav-item dropdown">
-                        <a class="nav-link dropdown-toggle  <?= (($_SESSION['admin'] ?? '') == 1) ? '' : 'd-md-none'; ?>" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Administrateur
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <div class="col-12 ">
-                                <span class='nav-link boxSubCategoryWhite'>Commandes</span>
-                                <a href="administrateur.html?display=ordersPending">Payées</a>
-                                <br><a href="administrateur.html?display=ordersShip">Attente de livraison</a>
-                            </div>
-                        </ul>
+                        <?php if (($_SESSION['admin'] ?? '') == 1) { ?>
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Administrateur
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <div class="col-12 ">
+                                    <span class='nav-link boxSubCategoryWhite'><a href="profil.html">Mon profil</a></span>
+                                </div>
+                                <div class="col-12 ">
+                                    <span class='nav-link boxSubCategoryWhite'>Commandes</span>
+                                    <a href="administrateur.html?display=ordersPending">Payées</a>
+                                    <br><a href="administrateur.html?display=ordersShip">Attente de livraison</a>
+                                </div>
+                            </ul>
+                        <?php } elseif (isset($_SESSION['user'])) { ?>
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Profil
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <div class="col-12 ">
+                                    <span class='nav-link boxSubCategoryWhite'><a href="profil.html">Mon profil</a></span>
+                                </div>
+                                <div class="col-12 ">
+                                    <span class='nav-link boxSubCategoryWhite'><a href="profil.html">Mes commandes</a></span>
+                                </div>
+                                <div class="offset-10 col-2 align-self-center">
+                                    <img id="btnModalLogin" type="button" class="profileImg" data-bs-toggle="modal" data-bs-target="#modalLogin" src="../public/assets/img/icons/logout.svg" alt="Déconnexion" title="Déconnexion">
+                                </div>
+                            </ul>
+                        <?php } ?>
                     </div>
                 </div>
             </div>

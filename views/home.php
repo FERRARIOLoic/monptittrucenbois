@@ -24,14 +24,14 @@
         foreach ($categories_list as $infoCategory) { ?>
             <div class=" col-12 col-md px-4 py-3 p-md-5">
                 <!------------- BOX CATEGORY --------->
-                <div class="row">
-                    <img class="productImgHome" src="../public/assets/img/icons/<?= $infoCategory->categories_name ?>.jpg" alt="<?= $infoCategory->categories_name ?>">
-                    <div class="col-12  text-center align-self-center py-3 boxSubCategoryWhite">
-                        <a href="produits.html?category_id=<?= $infoCategory->id_category; ?>">
+                <a href="produits.html?category_id=<?= $infoCategory->id_category; ?>">
+                    <div class="row">
+                        <img class="productImgHome" src="../public/assets/img/icons/<?= $infoCategory->categories_name ?>.jpg" alt="<?= $infoCategory->categories_name ?>">
+                        <div class="col-12  text-center align-self-center py-3 boxSubCategoryWhite">
                             <h4><?= $infoCategory->categories_name ?></h4>
-                        </a>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
         <?php }
         ?>
@@ -108,7 +108,7 @@
         </div>
     </div>
     <div class="row descriptionPage">
-        <div class="col-12 text-center align-self-center fs-5 ">
+        <div class="col-12 text-center align-self-center">
             <p>Le travail du bois est une passion qui m'anime depuis déjà de nombreuses années</p>
             <p>Découvrez comment je travaille</p>
         </div>

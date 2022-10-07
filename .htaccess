@@ -32,5 +32,6 @@ RewriteRule ^administrateur.html$ controllers/admin_controller.php [L]
 RewriteRule ^liste_utilisateurs.html$ controllers/user_controller.php [L] 
 RewriteRule ^foire_questions.html$ controllers/faq_controller.php [L] 
 RewriteRule ^mentions_legales.html$ controllers/legal_notices_controller.php [L] 
+RewriteRule ^a_propos.html$ controllers/about_controller.php [L] 
 
 ErrorDocument 404 /controllers/error-controller.php

@@ -273,39 +273,17 @@
                                     $order_price_total = ($order_price_total ?? 0) + $order_price_product;
                                 ?>
                                     <div class="col-12  px-3 py-2 px-md-4">
-                                        <div class="row py-1 ">
-                                            <div class="col-10 py-1 align-self-center">
+                                        <div class="row py-1 <?= ($order_info->orders_status == NULL) ? 'boxSubCategoryNOK' : 'boxSubCategoryOK'; ?>">
+                                            <div class="col-6 py-1 align-self-center">
                                                 <?= $order_info->products_name ?>
                                             </div>
-                                            <div class="col-2 align-self-center">
+                                            <div class="col-2 align-self-center text-end">
                                                 <?= $order_info->orders_quantity ?>
                                             </div>
-                                            <?php if (($order_info->orders_payed == 1 and $order_info->orders_status == NULL)) { ?>
-                                                <div class="col-12 text-center boxSubCategoryNOK">En cours</div>
-                                            <?php } elseif (($order_info->orders_payed == 1 and $order_info->orders_status == 1)) { ?>
-                                                <div class=" col-12 text-center boxSubCategoryOK">Fabriqué</div>
-                                            <?php } ?>
+                                            <div class="col-4 text-center align-self-center">
+                                                <?= ($order_info->orders_status == NULL) ? 'En cours' : 'Fabriqué'; ?>
+                                            </div>
                                         </div>
-                                        <span id="update_<?= $order_info->id_order ?>" style="display:none;">
-                                            <form action='' method='post' class='col-9 boxSubCategoryDown p-2 pe-3'>
-                                                <input type='hidden' name='id_order' value='<?= $order_info->id_order; ?>'>
-                                                <div class="row">
-                                                    <div class="col-4 text-center align-self-center">
-                                                        Quantité souhaitée
-                                                    </div>
-                                                    <div class="col-3 text-end align-self-center">
-                                                        <select class='selectQuantity' name='quantity'>
-                                                            <?php for ($i = 1; $i <= 10; $i++) : ?>
-                                                                <option <?= ($order_info->orders_quantity == $i) ? 'selected' : ''; ?>><?= $i ?></option>
-                                                            <?php endfor ?>
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-5 text-end align-self-center">
-                                                        <button type='submit' class='btn btnValidSmallX' name='action_profile' value='modify'>Enregistrer les modifications</button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </span>
                                     </div>
                                 <?php
                                     $order_carrier_price = Carrier::getByID($order_info->id_carrier_price);
@@ -318,7 +296,7 @@
                         </div>
 
                         <!------------- TOTAL PRODUCTS / WEIGHT --------->
-                        <div class="col-12 pt-1 boxProfileOrderPending">
+                        <div class="col-12 pt-1 border-top border-1 boxProfileOrderPending">
                             <div class="row p-2">
                                 <div class="col-12">
                                     <div class="row">
