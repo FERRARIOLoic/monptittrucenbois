@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 require_once __DIR__ . '/../helpers/modals.php';
 require_once __DIR__ . '/../models/Users.php';
 require_once __DIR__ . '/../helpers/JWT.php';

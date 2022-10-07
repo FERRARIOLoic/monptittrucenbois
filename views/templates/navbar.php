@@ -43,7 +43,7 @@
                     </div>
                 </div>
                 <div class="collapse navbar-collapse col-6 col-md-7 text-md-center" id="navbarNavAltMarkup" id="fixBtn">
-                    <div class="col-12 col-md-2 py-2">
+                    <div class="col-12 offset-md-2 col-md-2 py-2">
                         <a class="nav-link" href="actualites.html">Actualités</a>
                     </div>
                     <div class="col-12 col-md-2 py-2 nav-item dropdown">
@@ -62,11 +62,17 @@
                     <div class="col-12 col-md-2 py-2">
                         <a class="nav-link" href="contact.html">Contacts</a>
                     </div>
-                    <div class="col-12 col-md-2 py-2 border-2 border-top border-secondary d-md-none">
-                        <a class="nav-link" href="administrateur.html">Menu administrateur</a>
-                    </div>
-                    <div class="col-12 col-md-2 py-2 d-md-none">
-                        <a class="nav-link" href="orders.html">Gestion des commandes</a>
+                    <div class="col-12 col-md-2 py-2 nav-item dropdown">
+                        <a class="nav-link dropdown-toggle  <?= (($_SESSION['admin'] ?? '') == 1) ? '' : 'd-md-none'; ?>" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Administrateur
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <div class="col-12 ">
+                                <span class='nav-link boxSubCategoryWhite'>Commandes</span>
+                                <a href="administrateur.html?display=ordersPending">Payées</a>
+                                <br><a href="administrateur.html?display=ordersShip">Attente de livraison</a>
+                            </div>
+                        </ul>
                     </div>
                 </div>
             </div>

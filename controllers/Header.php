@@ -1,4 +1,9 @@
-<?php 
+<?php
+
+if (!isset($_SESSION)) {
+    header('location: /accueil.html');
+    exit;
+}
 
 //------------- DATABASE CONNECT ---------//
 

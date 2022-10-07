@@ -1,25 +1,25 @@
 <main class="container-fluid">
-    <div class="row titlePage">
-        <div class="col-12 text-center align-self-center">
+    <div class="row titlePage pt-3 px-4">
+        <div class=" col-12 offset-md-3 col-md-6 px-4 py-3 text-center border-bottom border-1">
             <h1>Actualités</h1>
         </div>
     </div>
 
     <div class="row descriptionPage">
-        <div class="col-12 text-center align-self-center fs-4">
+        <div class="col-12 text-center align-self-center fs-4 py-3">
             Retrouvez les actualités, les dernières nouveautés, les derniers évènements...
             et les prochains !
         </div>
     </div>
 
     <div class="row">
+        <!------------- BOX NEW THINGS--------->
         <div class="col-12 col-md-4 px-5 py-4">
-            <!------------- BOX NEW THINGS--------->
-            <div class="row boxContact">
-                <div class="col-12 text-center align-self-center fs-3 py-3">
+            <div class="row">
+                <div class="col-12 text-center align-self-center fs-3 py-3 boxSubCategoryWhite">
                     <h2>Nouveautés</h2>
                 </div>
-                <div class="col-12 border-1 border-secondary border-top py-3">
+                <div class="col-12 py-3">
                     <div class="row">
                         <div class="col-12 py-2">Nouveauté 1</div>
                         <div class="col-12 py-2">Nouveauté 2</div>
@@ -32,79 +32,36 @@
 
         <!------------- BOX NEW PRODUCT --------->
         <div class="col-12 col-md-4 px-5 py-4">
-            <div class="row boxContact">
-                <div class="col-12 text-center align-self-center fs-3 py-3">
+            <div class="row">
+                <div class="col-12 text-center align-self-center fs-3 py-3 boxSubCategoryWhite">
                     <h2>Derniers ajouts</h2>
                 </div>
-                <div class="col-12 border-1 border-secondary border-top py-2 px-4">
-                    <!------------- BOX EVENT --------->
+                <!------------- BOX EVENT --------->
+                <div class="col-12 py-2">
                     <?php foreach ($ProductsLast as $productInfo) : ?>
-                        <div class="row boxContact mt-4">
-                            <div class="col-12">
-                                <div class="row px-3 my-2">
-                                    <div class="col-12 boxSubCategoryUp">
-                                        Nom du produit<br>
-                                    </div>
-                                    <div class="col-12 boxSubCategoryDownWhite fs-4">
-                                        <?= $productInfo->products_name ?? '' ?>
-                                    </div>
-                                </div>
+                        <div class="row mt-4 boxSubCategoryWhite">
+                            <div class="col-12 fs-4 boxSubCategoryUp text-black py-2">
+                                <?= $productInfo->products_name ?? '' ?>
                             </div>
-                            <div class="col-12 col-md-6">
-                                <div class="row px-3 my-2">
-                                    <div class="col-12 boxSubCategoryUp">
-                                        Catégorie<br>
-                                    </div>
-                                    <div class="col-12 boxSubCategoryDownWhite py-1">
-                                        <?= $productInfo->categories_name ?? '' ?>
-                                    </div>
-                                </div>
+                            <div class="col-12 col-md-6 py-3">
+                                <?= $productInfo->categories_name ?? '' ?>
                             </div>
-                            <div class="col-12 col-md-6">
-                                <div class="row px-3 my-2">
-                                    <div class="col-12 boxSubCategoryUp">
-                                        Bois utilisé<br>
-                                    </div>
-                                    <div class="col-12 boxSubCategoryDownWhite py-1">
-                                        <?= $productInfo->woods_name ?? '' ?>
-                                    </div>
-                                </div>
+                            <div class="col-12 col-md-6 py-3">
+                                <?= $productInfo->woods_name ?? '' ?>
                             </div>
-                            <div class="col-12">
-                                <div class="row px-3 my-2">
-                                    <div class="col-12 boxSubCategoryUp">
-                                        Description<br>
-                                    </div>
-                                    <div class="col-12 boxSubCategoryDownWhite py-1">
-                                        <?= !empty($productInfo->products_description) ? $productInfo->products_description : "<span class='textUnknown'>Non renseignée</span>"; ?>
-                                    </div>
-                                </div>
+                            <div class="col-12 py-3">
+                                <i><?= !empty($productInfo->products_description) ? $productInfo->products_description : "<span class='textUnknown'>Non renseignée</span>"; ?></i>
+                            </div>
+                            <div class="col-4 text-center align-self-center py-1">
+                                <?= $productInfo->products_price ?? '' ?> €
+                            </div>
+                            <div class="col-4 text-center align-self-center py-1">
+                                <?= ($productInfo->products_weight / 1000) ?? '' ?> Kg
                             </div>
                             <div class="col-4">
-                                <div class="row px-3 my-2">
-                                    <div class="col-12 boxSubCategoryUp">
-                                        Prix<br>
-                                    </div>
-                                    <div class="col-12 boxSubCategoryDownWhite py-1">
-                                        <?= $productInfo->products_price ?? '' ?> €
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="row px-3 my-2">
-                                    <div class="col-12 boxSubCategoryUp">
-                                        Poids<br>
-                                    </div>
-                                    <div class="col-12 boxSubCategoryDownWhite py-1">
-                                        <?= $productInfo->products_weight ?? '' ?> Kg
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="row px-3 my-2 text-center"><a class='text-black' href='informations_produit.html?id_product=<?= $productInfo->id_product; ?>'>
-                                        <div class="col-12 boxSubCategoryWhite py-1">
-                                            Fiche produit
-                                        </div>
+                                <div class="row px-3 my-2 text-end"><a class='text-black' href='informations_produit.html?id_product=<?= $productInfo->id_product; ?>' alt='Afficher les informations du produit' title='Afficher les informations du produit'>
+                                        <lord-icon src="https://cdn.lordicon.com/dnmvmpfk.json" trigger="hover" colors="primary:#663300">
+                                        </lord-icon>
                                     </a>
                                 </div>
                             </div>
@@ -116,11 +73,11 @@
 
         <!------------- BOX NEXT EVENT --------->
         <div class="col-12 col-md-4 px-5 py-4">
-            <div class="row boxContact">
-                <div class="col-12 text-center align-self-center fs-3 py-3">
-                    <h2>Prochains évènements</h2>
+            <div class="row">
+                <div class="col-12 text-center align-self-center fs-3 py-3 boxSubCategoryWhite">
+                    <h2>&Eacute;vènements</h2>
                 </div>
-                <div class="col-12 border-1 border-secondary border-top py-2 px-4">
+                <div class="col-12 py-2 px-4">
                     <!------------- BOX EVENT --------->
                     <?php foreach ($eventsPending as $eventInfo) :
                         $event_start_date = strtotime($eventInfo->events_start_date);

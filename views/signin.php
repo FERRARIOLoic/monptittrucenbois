@@ -1,12 +1,12 @@
 <main class='container-fluid text-center'>
     <div class="row titlePage">
-        <div class="col-12 offset-md-6 col-md-6 ">
+        <div class="col-12 py-3">
             <h1>Connexion</h1>
         </div>
     </div>
     <div class="row px-2">
         <div class="col-6"></div>
-        <div class="col-12 offset-md-1 col-md-4 py-4 boxContact">
+        <div class="col-12 offset-md-1 col-md-4 py-4">
 
             <form class="row" method="POST" action="<?= htmlspecialchars($_SERVER["PHP_SELF"]) ?>">
 

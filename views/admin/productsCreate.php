@@ -8,10 +8,10 @@
                 <div class="col-12 py-4 text-center">
                     <h1><?= $pageTitle; ?></h1>
                 </div>
-                <div class=" col-12 px-4 py-3 p-md-5">
+                <div class=" col-12 px-4">
                     <!------------- BOX CATEGORY --------->
                     <div class="row">
-                        <form class="col-12" action="<?= isset($_POST['id_product']) ? 'administrateur.html?display=productsModify' : '' ?>" method="post" enctype="multipart/form-data">
+                        <form novalidate class="col-12" action="<?= isset($_POST['id_product']) ? 'administrateur.html?display=productsModify' : '' ?>" method="post" enctype="multipart/form-data">
                             <input type='hidden' name='id_product' value='<?= $id_product ?>'>
                             <div class="row boxContact">
                                 <div class="col-12 col-md-6">
@@ -25,7 +25,7 @@
                                                     <?php
                                                     // var_dump($productsListCategories);die;
                                                     foreach ($productsListCategories as $categories) : ?>
-                                                        <option value="<?= $categories->id_category; ?>" <?= ($categoryInfo ?? '' == $categories->id_category) ? 'selected' : '' ?>><?= $categories->categories_name; ?></option>
+                                                        <option value="<?= $categories->id_category; ?>" <?= (($categoryInfo ?? '') == $categories->id_category) ? 'selected' : '' ?>><?= $categories->categories_name; ?></option>
                                                     <?php endforeach; ?>
                                                 </select>
                                             </div>
@@ -44,7 +44,7 @@
                                                     <option value=""></option>
                                                     <?php
                                                     foreach ($woodList as $woodType) : ?>
-                                                        <option value="<?= $woodType->id_wood; ?>" <?= ($woodInfo ?? '' == $woodType->id_wood) ? 'selected' : '' ?>><?= $woodType->woods_name; ?></option>
+                                                        <option value="<?= $woodType->id_wood; ?>" <?= (($woodInfo ?? '') == $woodType->id_wood) ? 'selected' : '' ?>><?= $woodType->woods_name; ?></option>
                                                     <?php endforeach; ?>
                                                 </select>
                                             </div>

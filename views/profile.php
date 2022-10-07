@@ -36,7 +36,7 @@
 
 
                     if (empty($orders_list)) { ?>
-                        <div class="col-12 p-4 fs-6 text-center">
+                        <div class="col-12 p-4 fs-6 text-center boxProfileOrderPending">
                             Aucune commande en cours
                         </div>
                     <?php } else { ?>
@@ -170,15 +170,15 @@
                         <!------------- TOTAL PRICE --------->
                         <div class="col-12 border-top border-1 py-3 boxProfileOrderPending">
                             <div class="row p-2 px-md-5">
-                                <div class="col-12 col-md-6">
+                                <div class="col-12 col-md-5">
                                     <div class="row">
-                                        <div class="col-9 text-end">Prix du transport : </div>
-                                        <div class="col-3">
-                                            <strong><?= $carriers_price->carriers_price ?? '' ?></strong>
+                                        <div class="col-8 text-end">Prix du transport : </div>
+                                        <div class="col-4">
+                                            <strong><?= $carriers_price->carriers_price ?? '' ?> €</strong>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 col-md-6">
+                                <div class="col-12 col-md-7">
                                     <div class="row">
                                         <div class="col-9 text-end">Montant total de la commande : </div>
                                         <div class="col-3">
@@ -239,8 +239,8 @@
     <div class="col-12 col-md-4">
         <div class="row p-2 px-md-2">
             <div class="col-12">
-                <div class='row boxContact'>
-                    <div class="col-12 py-3 boxContactTitle text-center border-bottom border-1">
+                <div class='row'>
+                    <div class="col-12 py-3 boxSubCategoryWhite text-center">
                         <h4>Commande en préparation</h4>
                     </div>
 
@@ -248,12 +248,12 @@
                     <?php
                     // var_dump($orders_made);die;
                     if (empty($orders_made)) { ?>
-                        <div class="col-12 p-4 fs-6 text-center">
+                        <div class="col-12 p-4 fs-6 text-center boxProfileOrderPending">
                             Aucune commande en préparation
                         </div>
                     <?php } else { ?>
-                        <div class="col-12 px-4 pt-3">
-                            <div class="row boxSubCategory">
+                        <div class="col-12 px-4 pt-3 boxProfileOrderPending">
+                            <div class="row">
 
                                 <?php
                                 //------------- UNSET TOTALS ---------//
@@ -273,7 +273,7 @@
                                     $order_price_total = ($order_price_total ?? 0) + $order_price_product;
                                 ?>
                                     <div class="col-12  px-3 py-2 px-md-4">
-                                        <div class="row py-1 boxContact">
+                                        <div class="row py-1 ">
                                             <div class="col-10 py-1 align-self-center">
                                                 <?= $order_info->products_name ?>
                                             </div>
@@ -318,7 +318,7 @@
                         </div>
 
                         <!------------- TOTAL PRODUCTS / WEIGHT --------->
-                        <div class="col-12 pt-1">
+                        <div class="col-12 pt-1 boxProfileOrderPending">
                             <div class="row p-2">
                                 <div class="col-12">
                                     <div class="row">
@@ -336,7 +336,7 @@
                         </div>
 
                         <!------------- TOTAL PRICE --------->
-                        <div class="col-12 border-top border-1 py-3">
+                        <div class="col-12 border-top border-1 py-3 boxProfileOrderPending">
                             <div class="row">
                                 <div class="col-12">
                                     <div class="row">
@@ -356,40 +356,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <?php if (isset($order_info->orders_ship_number)) { ?>
-                            <input type='hidden' name='id_order' value='<?= $order_info->id_order; ?>'>
-                            <!------------- ORDER SHIP NUMBER --------->
-                            <div class="col-12 border-top border-1 py-2">
-                                <div class="row px-md-5">
-                                    <div class="col-12">
-                                        <div class="row">
-                                            <div class="col-6 text-end">Numéro de colis :</div>
-                                            <div class="col-6"><strong><?= ($order_info->orders_ship_number) ?></strong></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="row">
-                                            <div class="col-12 text-center py-2"><a href=''><button class='btn btnValidSmall'>Suivre mon colis</button></a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <form action='' method='post' class="row p-2 px-md-5 border-top border-1">
-                                    <input type='hidden' name='orders_number' value='<?= $orders_number ?? ''; ?>'>
-                                    <div class="col-12 text-center">
-                                        <button type='submit' class='btn btnValid' name='action_profile' value='ship_received'>J'ai bien reçu mon colis</button>
-                                    </div>
-                                </form>
-                            </div>
-                        <?php } else { ?>
-                            <div class="col-12 border-top border-1 py-2">
-                                <div class="row px-md-5">
-                                    <div class="col-12">
-                                        Colis en cours de préparation
-                                    </div>
-                                </div>
-                            </div>
-                        <?php } ?>
                     <?php } ?>
                 </div>
             </div>
@@ -404,7 +370,7 @@
         <div class="row p-2 px-md-5">
             <div class="col-12">
                 <div class='row boxContact'>
-                    <div class="col-12 py-3 boxContactTitle text-center border-bottom border-1">
+                    <div class="col-12 py-3 boxSubCategoryWhite text-center">
                         <h4>Commande en livraison</h4>
                     </div>
 
@@ -412,12 +378,12 @@
                     <?php
                     // var_dump($orders_made);die;
                     if (empty($orders_shipped)) { ?>
-                        <div class="col-12 p-4 fs-6 text-center">
+                        <div class="col-12 p-4 fs-6 text-center boxProfileOrderPending">
                             Aucune commande en livraison
                         </div>
                     <?php } else { ?>
                         <div class="col-12 px-4">
-                            <div class="row boxSubCategory">
+                            <div class="row boxProfileOrderPending">
 
                                 <?php
                                 //------------- UNSET TOTALS ---------//
@@ -499,7 +465,7 @@
         <div class="row p-2">
             <div class="col-12">
                 <form action='' method='post' class='row boxProfileOrderPending'>
-                    <div class="col-12 py-3 boxContactTitle text-center border-bottom border-1">
+                    <div class="col-12 py-3 boxSubCategoryWhite text-center">
                         <h4>Mes informations de profil</h4>
                     </div>
                     <!------------- CATEGORY --------->

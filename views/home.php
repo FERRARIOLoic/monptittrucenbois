@@ -27,7 +27,7 @@
                 <div class="row">
                     <img class="productImgHome" src="../public/assets/img/icons/<?= $infoCategory->categories_name ?>.jpg" alt="<?= $infoCategory->categories_name ?>">
                     <div class="col-12  text-center align-self-center py-3 boxSubCategoryWhite">
-                        <a href="produits.html?category_id=<?= $infoCategory->id_category; ?>" class="stretched-link">
+                        <a href="produits.html?category_id=<?= $infoCategory->id_category; ?>">
                             <h4><?= $infoCategory->categories_name ?></h4>
                         </a>
                     </div>
@@ -45,11 +45,12 @@
             <h2>Comment je travaille</h2>
         </div>
     </div>
+    <!------------- CHANTOURNAGE --------->
     <div class="row descriptionPage pt-4">
-        <div class="offset-md-1 col-3 text-end">
+        <div class="order-2 order-md-1 col-12 offset-md-1 col-md-3 text-end">
             <img src="../public/assets/img/machines/chantournage.jpg" alt="Chantournage" class="productImgWorking">
         </div>
-        <div class="col-8">
+        <div class="order-1 order-md-2 col-12 col-md-8">
             <div class="row">
                 <div class="col-12 col-md-10 fs-5 pt-1 titleSite fs-1">
                     <strong>Le chantournage</strong>
@@ -62,8 +63,9 @@
             </div>
         </div>
     </div>
+    <!------------- TORNAGE SUR BOIS --------->
     <div class="row descriptionPage pt-2">
-        <div class="offset-md-1 col-7">
+        <div class="order-2 order-md-1 col-12 offset-md-1 col-md-7">
             <div class="row ">
                 <div class="col-12 offset-md-1 col-md-11 fs-5 pt-1 text-end titleSite fs-1">
                     <strong>Le tournage sur bois</strong>
@@ -76,20 +78,21 @@
                 </div>
             </div>
         </div>
-        <div class="col-3 text-start">
+        <div class="order-2 order-md-1 col-12 col-md-3 text-start">
             <img src="../public/assets/img/machines/tournage.jpg" alt="Tournage sur bois" class="productImgWorking">
         </div>
     </div>
-    <div class="row descriptionPage pt-2">
-        <div class="offset-md-1 col-3 text-end">
+    <!------------- PYROGRAVURE --------->
+    <div class="row descriptionPage pt-4">
+        <div class="order-2 order-md-1 col-12 offset-md-1 col-md-3 text-end">
             <img src="../public/assets/img/machines/pyrogravure.jpg" alt="Pyrogravure" class="productImgWorking">
         </div>
-        <div class="col-8">
+        <div class="order-1 order-md-2 col-12 col-md-8">
             <div class="row">
-                <div class="col-12 col-md-10 fs-1 pt-1 titleSite">
+                <div class="col-12 col-md-10 fs-5 pt-1 titleSite fs-1">
                     <strong>La pyrogravure</strong>
                 </div>
-                <div class="col-12 col-md-10 pt-4">
+                <div class="col-12 col-md-10 pt-3">
                     <p>Technique de gravure consistant à dessiner ou imprimer un motif sur un objet en brûlant sa surface
                         <br>Comme pour la gravure, il désigne également la technique et le résultat obtenu
                     </p>
@@ -116,7 +119,7 @@
             <div class="row boxContact">
                 <img src="../public/assets/img/icons/tournage_machinery_01.jpg" alt="Tournage" class="productImgLeft">
                 <div class="col-12 col-md-6  text-center align-self-center py-3">
-                    <a href="" class="stretched-link">
+                    <a href="">
                         <h4>Tournage sur bois</h4>
                     </a>
                 </div>
@@ -127,7 +130,7 @@
             <div class="row boxContact">
                 <img src="../public/assets/img/icons/tournage_machinery_02.jpg" alt="Tournage" class="productImgLeft">
                 <div class="col-12 col-md-6  text-center align-self-center py-3">
-                    <a href="" class="stretched-link">
+                    <a href="">
                         <h4>Tournage</h4>
                     </a>
                 </div>

@@ -1,6 +1,6 @@
 <main class="container-fluid">
     <div class="row titlePage">
-        <div class="col-12 text-center align-self-center">
+        <div class="col-12 offset-md-3 col-md-6 text-center align-self-center border-bottom border-1">
             <h1><?= $product_info->products_name; ?></h1>
         </div>
     </div>
@@ -8,7 +8,7 @@
     <div class="row">
         <!------------- BOX BOITE --------->
         <div class="col-12 col-md-6 py-4" id='<?= $product_info->id_product; ?>'>
-            <div class="row boxContact boxProductVue my-3 mx-md-2">
+            <div class="row  boxProductVue my-3 mx-md-2">
                 <div class="col-12 text-center align-self-center boxProductImg d-flex">
                     <img class="productImg align-self-center" src="/public/assets/img/products/<?= $pageTitle ?>/<?= $product_info->id_product; ?>.jpg">
                 </div>
@@ -70,9 +70,9 @@
                         </form>
                     </div>
                 <?php } else { ?>
-                    <div class="col-12 py-3 text-center align-self-end productCategoryText border-top border-1">
-                        <a href='inscription.html'><span class='text-black'>S'inscrire ou se connecter pour commander</span></a>
-                    </div>
+                        <div class="col-12 py-3 text-center align-self-end  border-top border-1">
+                            <span class='text-danger fw-bold'><a href='inscription.html'>S'inscrire</a> ou <a href='connexion.html'>Se connecter</a> pour commander</span></a>
+                        </div>
                 <?php } ?>
             </div>
         </div>

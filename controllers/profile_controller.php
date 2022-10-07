@@ -183,6 +183,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and $action_profile == 'order_validate'
     //------------- ADD DATA ---------//
     $resultUpdate = Order::validate($_SESSION['user']->user_id, $orders_number);
     $orders_pending = Order::getPending($_SESSION['user']->user_id);
+    $orders_made = Order::getPending($_SESSION['user']->user_id, 1, 0, 0, 0);
     // var_dump($resultUpdate);die;
 }
 
