@@ -91,7 +91,7 @@
                                 <div class="col-12 ">
                                     <span class='nav-link boxSubCategoryWhite'><a href="profil.html">Mes commandes</a></span>
                                 </div>
-                                <div class="offset-10 col-2 align-self-center">
+                                <div class="offset-10 col-2 align-self-center pt-2">
                                     <img id="btnModalLogin" type="button" class="profileImg" data-bs-toggle="modal" data-bs-target="#modalLogin" src="../public/assets/img/icons/logout.svg" alt="Déconnexion" title="Déconnexion">
                                 </div>
                             </ul>
