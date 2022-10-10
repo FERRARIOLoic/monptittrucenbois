@@ -12,8 +12,8 @@
     <link rel='icon' type='image/x-icon' href='../public/assets/img/icons/favicon.ico'>
     <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css' rel='stylesheet'>
     <link rel='stylesheet' href='../public/assets/css/style.css'>
-    <link rel='stylesheet' href='../public/assets/css/sm.css' media="screen and (max-width:576px)">
-    <link rel='stylesheet' href='../public/assets/css/md.css' media="screen and (min-width:576px)">
+    <link rel='stylesheet' href='../public/assets/css/sm.css' media="screen and (max-width:991px)">
+    <link rel='stylesheet' href='../public/assets/css/md.css' media="screen and (min-width:991px)">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
     <title>Mon P'tit Truc En Bois - <?= $pageTitle; ?></title>
 </head>

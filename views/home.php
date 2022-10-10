@@ -22,7 +22,7 @@
     <div class="row py-4">
         <?php
         foreach ($categories_list as $infoCategory) { ?>
-            <div class=" col-12 col-md px-4 py-3 p-md-5">
+            <div class=" col-12 col-md-6 col-lg-3 px-md-4 py-3 p-md-5">
                 <!------------- BOX CATEGORY --------->
                 <a href="produits.html?category_id=<?= $infoCategory->id_category; ?>">
                     <div class="row">

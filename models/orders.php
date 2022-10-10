@@ -206,7 +206,8 @@ class Order
             SET `orders_ship_number`=:ship_number 
             WHERE (`iduser`=:id_user 
             AND `orders_payed`!=NULL 
-            AND `orders_status`!=NULL) ; ";
+            AND `orders_status`!=NULL 
+            AND `orders_ship_number`!=NULL) ; ";
             $sth = $pdo->prepare($sql);
             $sth->bindValue(':id_order', $id_order, PDO::PARAM_STR);
             $sth->bindValue(':ship_number', $ship_number, PDO::PARAM_STR);
@@ -354,7 +355,7 @@ AND (`orders`.`orders_delivered`=1)
                                 AND (`orders`.`orders_ship_number` IS NOT NULL) 
                                 AND (`orders`.`orders_delivered`=1) 
                                 ) 
-                                ORDER BY `orders`.`orders_date`";
+                                ORDER BY `orders`.`orders_number`";
                             } else {
                                 $sql .= " WHERE (`id_user` = :id_user 
                                 AND (`orders`.`id_carrier_price` IS NOT NULL) 
@@ -363,7 +364,7 @@ AND (`orders`.`orders_delivered`=1)
                                 AND (`orders`.`orders_ship_number` IS NOT NULL) 
                                 AND ISNULL(`orders`.`orders_delivered`) 
                                 ) 
-                                ORDER BY `orders`.`orders_date`";
+                                ORDER BY `orders`.`orders_number`";
                             }
                         } else {
                             $sql .= " WHERE (`id_user` = :id_user 
@@ -422,7 +423,7 @@ AND (`orders`.`orders_delivered`=1)
                             $sql .= " WHERE (
                                 (`orders`.`id_carrier_price` IS NOT NULL) 
                             AND (`orders`.`orders_payed`=1) 
-                            AND (ISNULL(`orders`.`orders_status`) OR (`orders`.`orders_status`=1)) 
+                            AND (`orders`.`orders_status`=1) 
                             AND ISNULL(`orders`.`orders_ship_number`) 
                             AND ISNULL(`orders`.`orders_delivered`) 
                             ) 
@@ -432,7 +433,7 @@ AND (`orders`.`orders_delivered`=1)
                         $sql .= " WHERE (
                             (`orders`.`id_carrier_price` IS NOT NULL) 
                         AND (`orders`.`orders_payed`=1) 
-                        AND (ISNULL(`orders`.`orders_status`) OR (`orders`.`orders_status`=1)) 
+                        AND (ISNULL(`orders`.`orders_status`)) 
                         AND ISNULL(`orders`.`orders_ship_number`) 
                         AND ISNULL(`orders`.`orders_delivered`) 
                         ) 
@@ -470,20 +471,27 @@ AND (`orders`.`orders_delivered`=1)
 
 
 
-    //------------- SHIP RECEIVED ---------//
-    public static function shipReceived(string $orders_number)
+    //------------- GET BY ORDER NUMBER ---------//
+    public static function getByNumber(int $id_user = 0)
     {
         try {
             $pdo = Database::DBconnect();
-            $sql = "UPDATE `orders` SET `orders_delivered`=1 WHERE `orders_number` = :orders_number";
+            $sql = "SELECT * FROM `orders`";
+            if ($id_user != 0) {
+                $sql .= " WHERE `id_user`=:id_user";
+            }
+            $sql .= " GROUP BY `orders_number` ";
             $sth = $pdo->prepare($sql);
-            $sth->bindValue(':orders_number', $orders_number, PDO::PARAM_STR);
+            $sth->bindValue(':id_user', $id_user, PDO::PARAM_INT);
             if ($sth->execute()) {
-                return true;
+                $orders_list = $sth->fetchAll();
+                return $orders_list;
             } else {
                 return false;
             }
-        } catch (PDOException $ex) {
+        } catch (PDOException $e) {
+            var_dump($e);
+            die;
             return false;
         }
     }
@@ -511,7 +519,27 @@ AND (`orders`.`orders_delivered`=1)
                 return false;
             }
         } catch (PDOException $e) {
-            var_dump($e);die;
+            var_dump($e);
+            die;
+            return false;
+        }
+    }
+
+
+    //------------- SHIP RECEIVED ---------//
+    public static function shipReceived(string $orders_number)
+    {
+        try {
+            $pdo = Database::DBconnect();
+            $sql = "UPDATE `orders` SET `orders_delivered`=1 WHERE `orders_number` = :orders_number";
+            $sth = $pdo->prepare($sql);
+            $sth->bindValue(':orders_number', $orders_number, PDO::PARAM_STR);
+            if ($sth->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (PDOException $ex) {
             return false;
         }
     }
@@ -575,7 +603,8 @@ AND (`orders`.`orders_delivered`=1)
                 return false;
             }
         } catch (PDOException $e) {
-            var_dump($e);die;
+            var_dump($e);
+            die;
             return false;
         }
     }

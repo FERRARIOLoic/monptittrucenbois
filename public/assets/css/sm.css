@@ -6,9 +6,12 @@
         flex-grow:0;
     }
     .titleSite {
-        font-size: 15px;
+        font-size: 20px;
     }
 
+    .searchImg {
+        
+    }
 
     .boxCategory {
         margin: 5px 0px 10px 0px;
@@ -35,17 +38,6 @@
         height: 10px;
     }
 
-    .menuImg {
-        width: 70%;
-    }
-
-    .searchImg {
-        width: 350%;
-    }
-
-    .profileImg {
-        width: 350%;
-    }
     .productNew {
         width: 500%;
     }

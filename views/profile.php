@@ -19,11 +19,11 @@
 <?php } ?>
 <div class="row">
     <!------------- BOX ORDER PENDING NOT PAYED NOT MADE --------->
-    <div class="col-12 col-md-8">
-        <div class="row p-2 px-md-5">
+    <div class="col-12 col-lg-8">
+        <div class="row p-2 px-lg-5">
             <div class="col-12">
                 <div class='row '>
-                    <div class="col-12 py-3 boxSubCategoryWhite text-center">
+                    <div class="col-12 py-3 boxSubCategoryWhite text-center border-bottom border-1">
                         <h4>Commande en cours</h4>
                     </div>
 
@@ -150,8 +150,8 @@
                                 <form action='' method='post' class='row'>
                                     <input type='hidden' name='id_order' value='<?= $order_info->id_order; ?>'>
                                     <input type='hidden' name='order_weight' value='<?= ceil($order_weight / 1000); ?>'>
-                                    <div class="col-4 text-center align-self-center">Choix du transporteur :</div>
-                                    <div class="col-4">
+                                    <div class="col-12 col-md-4 py-2 text-center align-self-center">Choisir le transporteur :</div>
+                                    <div class="col-12 col-md-4 py-2">
                                         <select class='form-select' name='id_carrier'>
                                             <option></option>
                                             <?php
@@ -160,7 +160,7 @@
                                             <?php endforeach ?>
                                         </select>
                                     </div>
-                                    <div class="col-4 text-center">
+                                    <div class="col-12 col-md-4 py-2 text-center">
                                         <button type='submit' class='btn btnValidSmall' name='action_profile' value='carrier_choice'>Enregistrer</button>
                                     </div>
                                 </form>
@@ -236,11 +236,11 @@
 
 
     <!------------- BOX ORDER PENDING PAYED OR/AND MADE --------->
-    <div class="col-12 col-md-4">
-        <div class="row p-2 px-md-2">
+    <div class="col-12 col-lg-4">
+        <div class="row p-2 px-lg-5">
             <div class="col-12">
                 <div class='row'>
-                    <div class="col-12 py-3 boxSubCategoryWhite text-center">
+                    <div class="col-12 py-3 boxSubCategoryWhite text-center  border-bottom border-1">
                         <h4>Commande en préparation</h4>
                     </div>
 
@@ -291,25 +291,6 @@
                                 endforeach;
                                 $order_weight = $order_weight ?? 0 / 100;
                                 ?>
-
-                            </div>
-                        </div>
-
-                        <!------------- TOTAL PRODUCTS / WEIGHT --------->
-                        <div class="col-12 pt-1 border-top border-1 boxProfileOrderPending">
-                            <div class="row p-2">
-                                <div class="col-12">
-                                    <div class="row">
-                                        <div class="col-9 text-end">Nombre total d'articles :</div>
-                                        <div class="col-3"><strong><?= $order_number ?? '' ?></strong></div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="row">
-                                        <div class="col-9 text-end">Poids total de la commande :</div>
-                                        <div class="col-3"><strong><?= $order_weight / 1000 ?? '' ?> kg</strong></div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
 
@@ -318,18 +299,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="row">
-                                        <div class="col-9 text-end">Prix du transport : </div>
-                                        <div class="col-3">
-                                            <strong><?= $order_carrier_price->carriers_price ?? '' ?></strong>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="row">
-                                        <div class="col-9 text-end">Montant total de la commande : </div>
-                                        <div class="col-3">
-                                            <strong><?= ($order_price_total ?? 0) + ($order_carrier_price->carriers_price ?? 0) ?? '' ?> €</strong>
-                                        </div>
+                                        <div class="col-12 text-center"><strong>Commande en cours de fabrication</strong></div>
                                     </div>
                                 </div>
                             </div>
@@ -342,13 +312,13 @@
 </div>
 
 
-<div class="row">
+<div class="row mt-5">
     <!------------- BOX ORDER SHIPPING --------->
-    <div class="col-12 col-md-6">
-        <div class="row p-2 px-md-5">
+    <div class="col-12 col-lg-6">
+        <div class="row p-2 px-lg-5">
             <div class="col-12">
-                <div class='row boxContact'>
-                    <div class="col-12 py-3 boxSubCategoryWhite text-center">
+                <div class='row '>
+                    <div class="col-12 py-3 boxSubCategoryWhite text-center  border-bottom border-1">
                         <h4>Commande en livraison</h4>
                     </div>
 
@@ -359,179 +329,159 @@
                         <div class="col-12 p-4 fs-6 text-center boxProfileOrderPending">
                             Aucune commande en livraison
                         </div>
-                    <?php } else { ?>
-                        <div class="col-12 px-4">
-                            <div class="row boxProfileOrderPending">
+                    <?php
+                    } else { ?>
+                        <div class="col-12 boxProfileOrderPending">
+                            <?php
+                            //------------- UNSET TOTALS ---------//
 
-                                <?php
-                                //------------- UNSET TOTALS ---------//
+                            unset($order_number);
+                            unset($order_weight);
+                            unset($order_price_product);
+                            unset($order_price_total);
 
-                                unset($order_number);
-                                unset($order_weight);
-                                unset($order_price_product);
-                                unset($order_price_total);
+                            foreach ($orders_number_list as $order_info) : ?>
 
-                                if (!empty($orders_shipped)) {
-                                    $orders_list = $orders_shipped;
-                                }
-                                foreach ($orders_list as $order_info) :
-                                    $order_number = ($order_number ?? 0) + ($order_info->orders_quantity);
-                                    $order_weight = ($order_weight ?? 0) + ($order_info->orders_weight * $order_info->orders_quantity);
-                                    $order_price_product = $order_info->orders_quantity * $order_info->orders_price;
-                                    $order_price_total = ($order_price_total ?? 0) + $order_price_product;
-                                    $order_carrier_price = Carrier::getByID($order_info->id_carrier_price);
-                                    $orders_order = $order_info->orders_number;
-                                endforeach;
-                                $order_weight = $order_weight ?? 0 / 100;
-                                ?>
-
-                            </div>
+                                <!------------- TOTAL PRODUCTS / WEIGHT --------->
+                                <div class="row p-2">
+                                    <div class="col-12 bg-white">
+                                        <div class="row p-2">
+                                            <div class="col-12 col-md-5">
+                                                <div class="row">
+                                                    <div class="col-5 col-md-4 text-end">Colis :</div>
+                                                    <div class="col-7 col-md-8"><strong><?= $order_info->orders_ship_number ?? '' ?></strong></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-md-7">
+                                                <div class="row">
+                                                    <div class="col-5 text-end">Commande :</div>
+                                                    <div class="col-7"><strong><?= $order_info->orders_number ?? '' ?></strong></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!------------- ORDER SHIP NUMBER --------->
+                                    <div class="col-12 bg-white">
+                                        <div class="row px-md-5 py-3 border-top border-1">
+                                            <div class="col-6 text-center align-self-center">
+                                                <a href=''><button class='btn btnValidSmall'>Suivre mon colis</button></a>
+                                            </div>
+                                            <form action='' method='post' class="col-6 text-center align-self-center">
+                                                <input type='hidden' name='orders_number' value='<?= $orders_order ?? ''; ?>'>
+                                                <button type='submit' class='btn btnValid boxSubCategoryOK' name='action_profile' value='ship_received'>J'ai bien reçu mon colis</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endforeach ?>
                         </div>
-
-                        <!------------- TOTAL PRODUCTS / WEIGHT --------->
-                        <div class="col-12 ">
-                            <div class="row p-2">
-                                <div class="col-12 col-md-6">
-                                    <div class="row">
-                                        <div class="col-5 text-end">Commande :</div>
-                                        <div class="col-7"><strong><?= $orders_ship ?? '' ?></strong></div>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-md-6">
-                                    <div class="row">
-                                        <div class="col-9 text-end">Nombre total d'articles :</div>
-                                        <div class="col-3"><strong><?= $order_number ?? '' ?></strong></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!------------- ORDER SHIP NUMBER --------->
-                        <div class="col-12 border-top border-1 py-3">
-                            <div class="row px-md-5">
-                                <div class="col-12 col-md-8 align-self-center">
-                                    <div class="row">
-                                        <div class="col-6 text-end">Numéro de colis :</div>
-                                        <div class="col-6"><strong><?= ($order_info->orders_ship_number) ?></strong></div>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-md-4 align-self-center">
-                                    <div class="row">
-                                        <div class="col-12 text-center py-2"><a href=''><button class='btn btnValidSmall'>Suivre mon colis</button></a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <form action='' method='post' class="row p-2 px-md-5 border-top border-1">
-                                <input type='hidden' name='orders_number' value='<?= $orders_order ?? ''; ?>'>
-                                <div class="col-12 pt-2 text-center">
-                                    <button type='submit' class='btn btnValid' name='action_profile' value='ship_received'>J'ai bien reçu mon colis</button>
-                                </div>
-                            </form>
-                        </div>
-
                     <?php } ?>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
 
 
-<div class="row my-5 px-2 px-md-5">
+<div class="row mt-5">
     <!------------- BOX PROFILE INFO --------->
-    <div class="col-12 col-md-4">
-        <div class="row p-2">
+    <div class="col-12 col-lg-4">
+        <div class="row p-2 px-lg-5">
             <div class="col-12">
-                <form action='' method='post' class='row boxProfileOrderPending'>
-                    <div class="col-12 py-3 boxSubCategoryWhite text-center">
+                <form action='' method='post' class='row'>
+                    <div class="col-12 py-3 boxSubCategoryWhite text-center border-bottom border-1">
                         <h4>Mes informations de profil</h4>
                     </div>
-                    <!------------- CATEGORY --------->
-                    <div class="col-12 px-4 py-3">
-                        <div class="row boxSubCategory py-2">
+                    <div class="col-12 boxProfileOrderPending">
+                        <div class="row">
+                            <!------------- CATEGORY --------->
+                            <div class="col-12 px-4 py-3">
+                                <div class="row boxSubCategory py-2">
+                                    <div class="col-6">
+                                        <input id="particulier" type="radio" name="category" value="1" <?= ($user_info->users_type == 1) ? 'checked' : ''; ?>>
+                                        <label for="particulier">Particulier</label>
+                                    </div>
+                                    <div class="col-6">
+                                        <input id="professionnel" type="radio" name="category" value="2" <?= ($user_info->users_type == 2) ? 'checked' : ''; ?>>
+                                        <label for="professionnel">Professionnel</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!------------- GENDER --------->
+                            <div class="col-12 px-4">
+                                <div class="row boxSubCategory py-2">
+                                    <div class="col-6">
+                                        <input id="miss" type="radio" class="<?= ($user_info->users_gender == 3) ? 'is-invalid' : ''; ?>" name="gender" value="1" <?= ($user_info->users_gender == 1) ? 'checked' : ''; ?>>
+                                        <label for="miss">Madame</label>
+                                    </div>
+                                    <div class="col-6">
+                                        <input id="mister" type="radio" name="gender" value="2" <?= ($user_info->users_gender == 2) ? 'checked' : ''; ?>>
+                                        <label for="mister">Monsieur</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!------------- LASTNAME --------->
+                            <div class="col-12 col-md-6 pt-3">
+                                <div class="row py-2">
+                                    <div class="col-12 align-self-center">
+                                        <strong><label for="lastname">Nom</label></strong>
+                                    </div>
+                                    <div class="col-12 text-start align-self-center">
+                                        <input class="form-control <?= empty($user_info->users_lastname) ? 'is-invalid' : ''; ?>" id="lastname" type="text" name="lastname" value="<?= ($user_info->users_lastname) ?? ''; ?>" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                            <!------------- FIRSTNAME --------->
+                            <div class="col-12 col-md-6 pt-3">
+                                <div class="row py-2">
+                                    <div class="col-12 align-self-center">
+                                        <strong><label for="firstname">Prénom</label></strong>
+                                    </div>
+                                    <div class="col-12 align-self-center">
+                                        <input class="form-control <?= empty($user_info->users_firstname) ? 'is-invalid' : ''; ?>" id="firstname" type="text" name="firstname" value="<?= ($user_info->users_firstname) ?? ''; ?>" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                            <!------------- EMAIL --------->
+                            <div class="col-12 pt-3">
+                                <div class="row py-2">
+                                    <div class="col-12 align-self-center">
+                                        <strong><label for="email">Adresse Email</label></strong>
+                                    </div>
+                                    <div class="col-12 align-self-center">
+                                        <input class="form-control <?= empty($user_info->users_email) ? 'is-invalid' : ''; ?>" id="email" type="text" name="email" value="<?= ($user_info->users_email) ?? ''; ?>" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                            <!------------- PHONE --------->
                             <div class="col-6">
-                                <input id="particulier" type="radio" name="category" value="1" <?= ($user_info->users_type == 1) ? 'checked' : ''; ?>>
-                                <label for="particulier">Particulier</label>
+                                <div class="row py-2">
+                                    <div class="col-12 align-self-center">
+                                        <strong><label for="phoneNumber">Téléphone</label></strong>
+                                    </div>
+                                    <div class="col-12 align-self-center">
+                                        <input class="form-control <?= empty($user_info->users_phone) ? 'is-invalid' : ''; ?>" id="phoneNumber" type="tel" name="phone" value="<?= ($user_info->users_phone) ?? ''; ?>" placeholder="">
+                                    </div>
+                                </div>
                             </div>
+                            <!------------- BIRTHDATE --------->
                             <div class="col-6">
-                                <input id="professionnel" type="radio" name="category" value="2" <?= ($user_info->users_type == 2) ? 'checked' : ''; ?>>
-                                <label for="professionnel">Professionnel</label>
+                                <div class="row py-2">
+                                    <div class="col-12 align-self-center">
+                                        <strong><label for="birthdate">Date de naissance</label></strong>
+                                    </div>
+                                    <div class="col-12 align-self-center">
+                                        <input class="form-control <?= empty($user_info->users_birthdate) ? 'is-invalid' : ''; ?>" id="birthdate" type="date" name="birthdate" value="<?= ($user_info->users_birthdate) ?? ''; ?>" placeholder="">
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <!------------- GENDER --------->
-                    <div class="col-12 px-4">
-                        <div class="row boxSubCategory py-2">
-                            <div class="col-6">
-                                <input id="miss" type="radio" class="<?= ($user_info->users_gender == 3) ? 'is-invalid' : ''; ?>" name="gender" value="1" <?= ($user_info->users_gender == 1) ? 'checked' : ''; ?>>
-                                <label for="miss">Madame</label>
-                            </div>
-                            <div class="col-6">
-                                <input id="mister" type="radio" name="gender" value="2" <?= ($user_info->users_gender == 2) ? 'checked' : ''; ?>>
-                                <label for="mister">Monsieur</label>
-                            </div>
-                        </div>
-                    </div>
-                    <!------------- LASTNAME --------->
-                    <div class="col-12 pt-3">
-                        <div class="row py-2">
-                            <div class="col-12 align-self-center">
-                                <strong><label for="lastname">Nom</label></strong>
-                            </div>
-                            <div class="col-12 text-start align-self-center">
-                                <input class="form-control <?= empty($user_info->users_lastname) ? 'is-invalid' : ''; ?>" id="lastname" type="text" name="lastname" value="<?= ($user_info->users_lastname) ?? ''; ?>" placeholder="">
-                            </div>
-                        </div>
-                    </div>
-                    <!------------- FIRSTNAME --------->
-                    <div class="col-12">
-                        <div class="row py-2">
-                            <div class="col-12 align-self-center">
-                                <strong><label for="firstname">Prénom</label></strong>
-                            </div>
-                            <div class="col-12 align-self-center">
-                                <input class="form-control <?= empty($user_info->users_firstname) ? 'is-invalid' : ''; ?>" id="firstname" type="text" name="firstname" value="<?= ($user_info->users_firstname) ?? ''; ?>" placeholder="">
-                            </div>
-                        </div>
-                    </div>
-                    <!------------- EMAIL --------->
-                    <div class="col-12 pt-3">
-                        <div class="row py-2">
-                            <div class="col-12 align-self-center">
-                                <strong><label for="email">Adresse Email</label></strong>
-                            </div>
-                            <div class="col-12 align-self-center">
-                                <input class="form-control <?= empty($user_info->users_email) ? 'is-invalid' : ''; ?>" id="email" type="text" name="email" value="<?= ($user_info->users_email) ?? ''; ?>" placeholder="">
-                            </div>
-                        </div>
-                    </div>
-                    <!------------- PHONE --------->
-                    <div class="col-6">
-                        <div class="row py-2">
-                            <div class="col-12 align-self-center">
-                                <strong><label for="phoneNumber">Téléphone</label></strong>
-                            </div>
-                            <div class="col-12 align-self-center">
-                                <input class="form-control <?= empty($user_info->users_phone) ? 'is-invalid' : ''; ?>" id="phoneNumber" type="tel" name="phone" value="<?= ($user_info->users_phone) ?? ''; ?>" placeholder="">
-                            </div>
-                        </div>
-                    </div>
-                    <!------------- BIRTHDATE --------->
-                    <div class="col-6">
-                        <div class="row py-2">
-                            <div class="col-12 align-self-center">
-                                <strong><label for="birthdate">Date de naissance</label></strong>
-                            </div>
-                            <div class="col-12 align-self-center">
-                                <input class="form-control <?= empty($user_info->users_birthdate) ? 'is-invalid' : ''; ?>" id="birthdate" type="date" name="birthdate" value="<?= ($user_info->users_birthdate) ?? ''; ?>" placeholder="">
-                            </div>
-                        </div>
-                    </div>
-                    <!------------- BUTTON VALID --------->
-                    <div class="col-12">
-                        <div class="row py-4">
-                            <div class="col-12 boxBtn text-center">
-                                <button type="submit" class="btn btnValid" name='action_profile' value='profile_info'><strong>Enregistrer les modifications</strong></button>
+                            <!------------- BUTTON VALID --------->
+                            <div class="col-12">
+                                <div class="row py-4">
+                                    <div class="col-12 boxBtn text-center">
+                                        <button type="submit" class="btn btnValid" name='action_profile' value='profile_info'><strong>Enregistrer les modifications</strong></button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -540,23 +490,88 @@
         </div>
     </div>
     <!------------- BOX PROFILE ADDRESSES --------->
-    <div class="col-12 col-md-8">
+    <div class="col-12 col-lg-8">
         <div class="row p-2">
-            <div class="col-12 boxContact">
+            <div class="col-12">
                 <div class='row'>
-                    <div class="col-12 py-3 boxContactTitle text-center border-bottom border-1">
+                    <div class="col-12 py-3 boxSubCategoryWhite text-center border-bottom border-1">
                         <h4>Mes adresses</h4>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-12 col-md-6 px-4">
-                        <div class="row py-3">
+                <div class="row p-2 boxProfileOrderPending">
+                    <div class="col-12">
+                        <form action='' method='post' class='row bg-white border-start border-end border-bottom border-1'>
                             <div class="col-12 py-3 boxSubCategoryUp boxContactTitle text-center border-bottom border-1">
                                 Adresse principale
                             </div>
-                            <div class="col-12 py-3 px-4 boxSubCategoryDown">
-                                <form action='' method='post'>
-                                    <div class="row boxContact">
+                            <!------------- ADRESS --------->
+                            <div class="col-12 pt-3">
+                                <div class="row py-2">
+                                    <div class="col-12 align-self-center">
+                                        <strong><label for="address">Adresse postale</label></strong>
+                                    </div>
+                                    <div class="col-12 align-self-center">
+                                        <input class="form-control <?= empty($address_first->addresses_address) ? 'is-invalid' : ''; ?>" id="address" type="text" name="address" value="<?= ($address_first->addresses_address) ?? ''; ?>" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <?php
+                            if (isset($address_first->addresses_address_more)) { ?>
+                                <!------------- ADRESS MORE --------->
+                                <div class="col-12">
+                                    <div class="row py-2">
+                                        <div class="col-12 align-self-center">
+                                            <strong><label for="adressMore">Complément d'adresse</label></strong>
+                                        </div>
+                                        <div class="col-12 align-self-center">
+                                            <input class="form-control" id="adress_more" type="text" name="adress_more" value="<?= ($address_first->addresses_address_more) ?? ''; ?>" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php } ?>
+                            <!------------- POSTAL CODE --------->
+                            <div class="col-12 col-md-6">
+                                <div class="row py-2">
+                                    <div class="col-12 align-self-center">
+                                        <strong><label for="postalCode">Code Postal</label></strong>
+                                    </div>
+                                    <div class="col-12 align-self-center">
+                                        <input class="form-control <?= empty($address_first->addresses_postal_code) ? 'is-invalid' : ''; ?>" id="postal_code" type="number" name="postal_code" value="<?= ($address_first->addresses_postal_code) ?? ''; ?>" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                            <!------------- CITY --------->
+                            <div class="col-12 col-md-6">
+                                <div class="row py-2">
+                                    <div class="col-12 align-self-center">
+                                        <strong><label for="city">Ville</label></strong>
+                                    </div>
+                                    <div class="col-12 align-self-center">
+                                        <input class="form-control <?= empty($address_first->addresses_city) ? 'is-invalid' : ''; ?>" id="city" type="text" name="city" value="<?= ($address_first->addresses_city) ?? ''; ?>" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                            <!------------- BUTTON VALID --------->
+                            <div class="col-12">
+                                <div class="row py-4">
+                                    <div class="col-12 boxBtn text-center">
+                                        <button type="submit" class="btn btnValid" name='action_profile' value='address'><strong>Enregistrer les modifications</strong></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row p-2 boxProfileOrderPending">
+                    <div class="col-12">
+                        <div class="row py-3">
+                            <div class="col-12 py-3 boxSubCategoryUp boxContactTitle text-center border-bottom border-1">
+                                Autres adresses de livraison
+                            </div>
+                            <div class="col-12 py-3">
+                                <div class="row">
+                                    <div class="col-12">
                                         <!------------- ADRESS --------->
                                         <div class="col-12 pt-3">
                                             <div class="row py-2">
@@ -568,17 +583,21 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <!------------- ADRESS MORE --------->
-                                        <div class="col-12">
-                                            <div class="row py-2">
-                                                <div class="col-12 align-self-center">
-                                                    <strong><label for="adressMore">Complément d'adresse</label></strong>
-                                                </div>
-                                                <div class="col-12 align-self-center">
-                                                    <input class="form-control" id="adress_more" type="text" name="adress_more" value="<?= ($address_first->addresses_address_more) ?? ''; ?>" placeholder="">
+
+                                        <?php
+                                        if (isset($address_first->addresses_address_more)) { ?>
+                                            <!------------- ADRESS MORE --------->
+                                            <div class="col-12">
+                                                <div class="row py-2">
+                                                    <div class="col-12 align-self-center">
+                                                        <strong><label for="adressMore">Complément d'adresse</label></strong>
+                                                    </div>
+                                                    <div class="col-12 align-self-center">
+                                                        <input class="form-control" id="adress_more" type="text" name="adress_more" value="<?= ($address_first->addresses_address_more) ?? ''; ?>" placeholder="">
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        <?php } ?>
                                         <!------------- POSTAL CODE --------->
                                         <div class="col-12 col-md-6">
                                             <div class="row py-2">
@@ -598,39 +617,6 @@
                                                 </div>
                                                 <div class="col-12 align-self-center">
                                                     <input class="form-control <?= empty($address_first->addresses_city) ? 'is-invalid' : ''; ?>" id="city" type="text" name="city" value="<?= ($address_first->addresses_city) ?? ''; ?>" placeholder="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!------------- BUTTON VALID --------->
-                                        <div class="col-12">
-                                            <div class="row py-4">
-                                                <div class="col-12 boxBtn text-center">
-                                                    <button type="submit" class="btn btnValid" name='action_profile' value='address'><strong>Enregistrer les modifications</strong></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-12 col-md-6 px-4">
-                        <div class="row py-3">
-                            <div class="col-12 py-3 boxSubCategoryUp boxContactTitle text-center border-bottom border-1">
-                                Autres adresses de livraison
-                            </div>
-                            <div class="col-12 py-3 boxSubCategoryDown">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <!------------- ADRESS --------->
-                                        <div class="col-12  p-3 boxContact">
-                                            <div class="row py-2">
-                                                <div class="col-12 align-self-center">
-                                                    <strong><label for="adress">Adresse postale</label></strong>
-                                                </div>
-                                                <div class="col-12 align-self-center">
-                                                    <input class="form-control <?= empty($user_info->users_address) ? 'is-invalid' : ''; ?>" id="adress" type="text" name="adress" value="<?= ($user_info->users_address) ?? ''; ?>" placeholder="">
                                                 </div>
                                             </div>
                                         </div>

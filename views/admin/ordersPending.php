@@ -29,7 +29,7 @@
                                     </div>
                                     <div class="col-1 align-self-center">
                                         <?php if(!isset($order_info->orders_status)) { ?>
-                                            <button type='submit' class='btn btnValidSmallX' name='action_order' value='made'>Terminé</button>
+                                            <button type='submit' class='btn btnValidSmallX' name='action_order' value='made'>Fabriqué</button>
                                         <?php } ?>
                                     </div>
                                 </form>

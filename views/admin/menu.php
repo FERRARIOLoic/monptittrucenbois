@@ -7,7 +7,7 @@
         display: none;
     }
 
-    @media screen and (max-width: 576px) {
+    @media screen and (max-width: 991px) {
         #desktop {
             display: none;
         }
@@ -23,14 +23,7 @@
     <!------------- MENU ADMINISTRATEUR --------->
     <div class="col-2 boxMenuAdmin">
         <div class="row">
-            <!-------------
-            <div class="col-12 py-3 text-center border-bottom border-2">
-                <a href='administrateur.html'>
-                    <h5 class='text-white'>Menu administrateur</h5>
-                </a>
-            </div>
-            --------->
-            <div class=" col-11 py-2 pt-3">
+            <div class="col-11 py-2 pt-3">
                 <!------------- BOX USERS --------->
                 <div id="admin_0" class="row boxMenuAdminSub" onclick="toggle_text('users_desktop');">
                     <div class="col-12 align-self-center py-2">
@@ -57,7 +50,7 @@
                             <div class="col-12 px-2 py-2"><a href="administrateur.html?display=ordersNew">En cours</a></div>
                         </div>
                         <div class="row">
-                            <div class="col-12 px-2 py-2"><a href="administrateur.html?display=ordersPending">Payées</a></div>
+                            <div class="col-12 px-2 py-2"><a href="administrateur.html?display=ordersPending">&Agrave; fabriquer</a></div>
                         </div>
                         <div class="row">
                             <div class="col-12 px-2 py-2"><a href="administrateur.html?display=ordersShip">En attente de livraison</a></div>
@@ -180,9 +173,9 @@
 <!------------- MOBILE ADMIN MENU --------->
 <div id='mobile' class="row">
     <!------------- MENU ADMINISTRATEUR --------->
-    <div class="col-12 boxMenuAdmin">
+    <div class="col-12">
         <div class="row">
-            <div class=" col-2">
+            <div class="col-2">
                 <!------------- BOX USERS --------->
                 <div id="admin_0" class="row boxMenuAdminSubDown" onclick="toggle_text('users');">
                     <div class="col-12 text-center align-self-center py-2">
@@ -259,7 +252,7 @@
                             <a href="administrateur.html?display=ordersNew">En cours</a>
                         </div>
                         <div class="col-3 px-2 py-2">
-                            <a href="administrateur.html?display=ordersPending">Payées</a>
+                            <a href="administrateur.html?display=ordersPending">&Agrave; fabriquer</a>
                         </div>
                         <div class="col-3 px-2 py-2">
                             <a href="administrateur.html?display=ordersShip">En attente</a>
@@ -324,10 +317,10 @@
                 </span>
             </div>
             <div class=" col-6 text-center">
-                <a href='profil.html' class='text-white'>Voir mon profil</a>
+                <a href='profil.html' class='text-black'>Voir mon profil</a>
             </div>
             <div class=" col-6 text-center">
-                <a href='accueil.html' class='text-white'>Retourner au site</a>
+                <a href='accueil.html' class='text-black'>Retourner au site</a>
             </div>
         </div>
     </div>

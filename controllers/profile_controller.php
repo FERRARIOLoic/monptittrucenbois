@@ -1,5 +1,12 @@
 <?php
 session_start();
+
+if(!isset($_SESSION['user']))
+{
+header('location: /accueil.html');
+exit;
+}
+
 //------------- REGEX ---------//
 require_once(__DIR__ . '/../helpers/regex.php');
 
@@ -13,6 +20,7 @@ require_once(__DIR__ . '/../models/Products.php');
 $pageTitle = 'Profil utilisateur';
 
 // $error = intval(filter_input(INPUT_GET, 'error', FILTER_SANITIZE_NUMBER_INT));
+
 
 $user_info = User::getAll($_SESSION['user']->user_id);
 $address_first = Address::getAddressInfo($_SESSION['user']->user_id, 1);
@@ -41,6 +49,9 @@ $orders_delivered = Order::getPending($_SESSION['user']->user_id, 1, 1, 1, 1);
 
 //?------------- GET CARRIERS ---------//
 $carriers_list = Carrier::getCarrier();
+
+//?------------- GET BY NUMBER ---------//
+$orders_number_list = Order::getByNumber($_SESSION['user']->user_id);
 
 
 $action_profile = filter_input(INPUT_POST, 'action_profile', FILTER_SANITIZE_FULL_SPECIAL_CHARS);

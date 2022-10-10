@@ -69,7 +69,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and $admin_view == "ordersPending" and 
 //!------------- ORDER MADE ---------//
 
 $ordersShip = Order::getShip();
-// var_dump($ordersShip);die;
 
 //?------------- MODIFY STATUS ---------//
 if ($_SERVER['REQUEST_METHOD'] == 'POST' and $admin_view == "ordersPending" and $action_order == "made") {
@@ -664,7 +663,7 @@ if ($_SESSION['user']->users_admin == '1') {
 
     //------------- ORDER PENDING ---------//
     elseif ($admin_view == "ordersPending") {
-        $pageTitle = "Commandes payées";
+        $pageTitle = "Commandes à fabriquer";
         include(__DIR__ . '/../views/admin/ordersPending.php');
     }
 

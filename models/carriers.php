@@ -198,7 +198,7 @@ class Carrier
         // var_dump('order_weight',$order_weight);die;
         try {
             $pdo = Database::DBconnect();
-            $sql = "SELECT `carriers_price` FROM `prices` WHERE (`id_price` = :id_carrier_price); ";
+            $sql = "SELECT * FROM `prices` WHERE (`id_price` = :id_carrier_price); ";
             $sth = $pdo->prepare($sql);
             $sth->bindValue(':id_carrier_price', $id_carrier_price, PDO::PARAM_INT);
 
