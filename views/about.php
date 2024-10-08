@@ -21,6 +21,7 @@
                 </div>
                 <div class="col-12 col-md-10 pt-1">
                     Je suis auto-entrepreneur depuis 2012
+                    <br>Je suis actuellement de seul tourneur sur bois du territoire, je travaille à l'ancienne et j'ai déjà présenté des produits fabriqués de mes mains aus salons de l'artisanat.
                 </div>
             </div>
         </div>
@@ -55,10 +56,11 @@
                 </div>
                 <div class="col-12 col-md-10 pt-3">
 
-                    J'ai commencé mon activité de travail sur le bois suite à mon licenciement en 2012.
-                    <br>Car comme j'aime à le dire "Mon licenciement était un mal pour un bien".
-                    <br>Je suis actuellement de seul tourneur sur bois du territoire, je travaille à l'ancienne et j'ai déjà présenté des produits fabriqués de mes mains aus salons de l'artisanat.
-                </div>
+                    J'ai commencé mon activité de travail sur le bois suite à mon licenciement en 2012 et comme j'aime à le dire "Mon licenciement était un mal pour un bien".
+                    <P>
+                        Suite à cela, j'ai décidé de devenir mon propre patron et de faire une activité qui était une passion pour moi depuis des années
+                    </P>
+                </>
             </div>
         </div>
     </div>
