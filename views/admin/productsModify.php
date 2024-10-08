@@ -9,25 +9,20 @@
                     <h1><?= $pageTitle; ?></h1>
                 </div>
 
-                <form class="col-12 px-md-5" action="administrateur.html?display=productsCreate" method="post" enctype="multipart/form-data">
-                    <div class="row boxContact">
-                        <div class="col-12 col-md-6 py-3">
-                            <div class="row">
-                                <div class="col-6">
-                                    <label for="name">Sélectionner un produit</label>
-                                    <select class="form-select" name="id_product">
-                                        <?php
-                                        // var_dump($ProductsList);die;
-                                        foreach ($ProductsList as $product) :
-                                        ?>
-                                            <option value="<?= $product->id_product; ?>"><?= $product->products_name; ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
-                                <div class="col-6 align-self-center">
-                                    <button type="submit" class="btn btnValid">Modifier</button>
-                                </div>
-                            </div>
+                <form class="col-12 px-md-5" action="administrateur_creation_produit" method="post" enctype="multipart/form-data">
+                    <div class="row boxContact py-3">
+                        <div class="col-4 align-self-center text-center">
+                            <label for="name">Sélectionner un produit</label>
+                        </div>
+                        <div class='col-5'>
+                            <select class="form-select" name="id_product">
+                                <?php foreach ($ProductsList as $product) : ?>
+                                    <option value="<?= $product->id_product; ?>"><?= $product->products_name; ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="col-3 align-self-center text-center">
+                            <button type="submit" class="btn btnValidSmall">Modifier</button>
                         </div>
                     </div>
                 </form>

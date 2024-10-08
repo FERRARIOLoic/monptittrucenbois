@@ -23,7 +23,7 @@
                     <?php
                     // var_dump(isset($_SESSION['user']->users_admin));die;
                     if (isset($_SESSION['user']->users_admin)) { ?>
-                        <form action="administrateur.html?display=productsCreate" method="post">
+                        <form action="administrateur_creation_produit" method="post">
                             <input type='hidden' name='id_product' value='<?= $product_info->id_product; ?>'>
                             <button type="submit" class="btn btnValidSmallX" alt='Modifier les informations du produit' title='Modifier les informations du produit'>
                                 <lord-icon src="https://cdn.lordicon.com/iiixgoqp.json" trigger="hover" colors="primary:#663300" style="width:20px;height:20px">
@@ -45,7 +45,31 @@
                     Prix : <br><strong><?= $product_info->products_price; ?> €</strong>
                 </div>
                 <div class="col-4 py-2 px-4">
-                    Temps de fabrication : <br><strong><?= ($product_info->products_time != NULL) ? $product_info->products_time . '  minutes' : 'Information inconnue'; ?></strong>
+                    Dimensions (L x l x h) :
+                    <br>
+                    <strong>
+                        <?= ($product_info->products_width != NULL) ? $product_info->products_width : '...'; ?> x
+                        <?= ($product_info->products_lenght != NULL) ? $product_info->products_lenght : '...'; ?> x
+                        <?= ($product_info->products_height != NULL) ? $product_info->products_height : '...'; ?>
+                    </strong>
+                </div>
+                <div class="col-4 py-2 px-4">
+                    Personnalisable :
+                    <br>
+                    <strong>
+                        <?php
+
+                        if (($product_info->products_custom_text == NULL) AND ($product_info->products_custom_draw == NULL)) {
+                            echo 'Non';
+                        } else {
+                            echo (($product_info->products_custom_text == 1) ? ' Texte ' : '');
+                            echo (($product_info->products_custom_draw) ? ' Dessin ' : '');
+                        }
+                        ?>
+                    </strong>
+                </div>
+                <div class="col-4 py-2 px-4">
+                    Temps de fabrication : <br><strong><?= ($product_info->products_time != NULL) ? $product_info->products_time . '  minutes' : '...'; ?></strong>
                 </div>
                 <?php
                 if (isset($_SESSION['user'])) { ?>
@@ -70,9 +94,9 @@
                         </form>
                     </div>
                 <?php } else { ?>
-                        <div class="col-12 py-3 text-center align-self-end  border-top border-1">
-                            <span class='text-danger fw-bold'><a href='inscription.html'>S'inscrire</a> ou <a href='connexion.html'>Se connecter</a> pour commander</span></a>
-                        </div>
+                    <div class="col-12 py-3 text-center align-self-end  border-top border-1">
+                        <span class='text-danger fw-bold'><a href='inscription.html'>S'inscrire</a> ou <a href='connexion.html'>Se connecter</a> pour commander</span></a>
+                    </div>
                 <?php } ?>
             </div>
         </div>

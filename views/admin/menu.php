@@ -25,57 +25,57 @@
         <div class="row">
             <div class="col-11 py-2 pt-3">
                 <!------------- BOX USERS --------->
-                <div id="admin_0" class="row boxMenuAdminSub" onclick="toggle_text('users_desktop');">
+                <div id="admin_users" class="row boxMenuAdminSub">
                     <div class="col-12 align-self-center py-2">
                         <h5>Utilisateurs</h5><i class="fa-solid fa-sort-down"></i>
                     </div>
-                    <span id="users_desktop" style="display:none;">
+                    <div id="users_desktop" class='slide_out_top'>
                         <div class="row border-1 border-top border-secondary">
-                            <div class="col-12 px-2 py-2"><a href="administrateur.html?display=usersList">Liste des utilisateurs</a></div>
+                            <div class="col-12 px-2 py-2"><a href="administrateur_liste_utilisateurs">Liste des utilisateurs</a></div>
                         </div>
                         <div class="row">
-                            <div class="col-12 px-2 py-2"><a href="administrateur.html?display=usersNew">Créer un utilisateur</a></div>
+                            <div class="col-12 px-2 py-2"><a href="administrateur_nouvel_utilisateur">Créer un utilisateur</a></div>
                         </div>
-                    </span>
+                    </div>
                 </div>
             </div>
             <div class=" col-11 py-2">
                 <!------------- BOX ORDERS --------->
-                <div id="admin_1" class="row boxMenuAdminSub" onclick="toggle_text('orders_desktop');">
+                <div id="admin_orders" class="row boxMenuAdminSub">
                     <div class="col-12 align-self-center py-2">
                         <h5>Commandes</h5>
                     </div>
-                    <span id="orders_desktop" style="display:none;">
+                    <span id="orders_desktop" class='slide_out_top'>
                         <div class="row border-1 border-top border-secondary">
-                            <div class="col-12 px-2 py-2"><a href="administrateur.html?display=ordersNew">En cours</a></div>
+                            <div class="col-12 px-2 py-2"><a href="administrateur_nouvelles_commandes">En cours</a></div>
                         </div>
                         <div class="row">
-                            <div class="col-12 px-2 py-2"><a href="administrateur.html?display=ordersPending">&Agrave; fabriquer</a></div>
+                            <div class="col-12 px-2 py-2"><a href="administrateur_commandes_attente">&Agrave; fabriquer</a></div>
                         </div>
                         <div class="row">
-                            <div class="col-12 px-2 py-2"><a href="administrateur.html?display=ordersShip">En attente de livraison</a></div>
+                            <div class="col-12 px-2 py-2"><a href="administrateur_commandes_livraison">En attente de livraison</a></div>
                         </div>
                         <div class="row">
-                            <div class="col-12 px-2 py-2"><a href="administrateur.html?display=ordersEnded">Terminées</a></div>
+                            <div class="col-12 px-2 py-2"><a href="administrateur_commandes_finies">Terminées</a></div>
                         </div>
                     </span>
                 </div>
             </div>
             <div class=" col-11 py-2">
                 <!------------- BOX EVENTS --------->
-                <div id="admin_2" class="row boxMenuAdminSub" onclick="toggle_text('events_desktop');">
+                <div id="admin_events" class="row boxMenuAdminSub">
                     <div class="col-12 align-self-center py-2">
                         <h5>Evénements</h5>
                     </div>
-                    <span id="events_desktop" style="display:none;">
+                    <span id="events_desktop" class='slide_out_top'>
                         <div class="row border-1 border-top border-secondary">
-                            <div class="col-12 px-2 py-2"><a href="administrateur.html?display=eventsCreate">Créer un évènement</a></div>
+                            <div class="col-12 px-2 py-2"><a href="administrateur_evenement_nouveau">Créer un évènement</a></div>
                         </div>
                         <div class="row">
-                            <div class="col-12 px-2 py-2"><a href="administrateur.html?display=eventsPending">&Eacute;vènements en cours</a></div>
+                            <div class="col-12 px-2 py-2"><a href="administrateur_evenement_en_cours">&Eacute;vènements en cours</a></div>
                         </div>
                         <div class="row">
-                            <div class="col-12 px-2 py-2"><a href="administrateur.html?display=eventsEnded">&Eacute;vènements terminés</a></div>
+                            <div class="col-12 px-2 py-2"><a href="administrateur_evenement_termine">&Eacute;vènements terminés</a></div>
                         </div>
                     </span>
                 </div>
@@ -83,19 +83,19 @@
 
             <div class=" col-11 py-2">
                 <!------------- BOX PRODUCTS --------->
-                <div id="admin_3" class="row boxMenuAdminSub" onclick="toggle_text('products_desktop');">
+                <div id="admin_products" class="row boxMenuAdminSub">
                     <div class="col-12 align-self-center py-2">
                         <h5>Produits</h5>
                     </div>
-                    <span id="products_desktop" style="display:none;">
+                    <span id="products_desktop" class='slide_out_top'>
                         <div class="row border-1 border-top border-secondary">
-                            <div class="col-12 px-2 py-2"><a href="administrateur.html?display=productsCreate">Créer un produit</a></div>
+                            <div class="col-12 px-2 py-2"><a href="administrateur_creation_produit">Créer un produit</a></div>
                         </div>
                         <div class="row">
-                            <div class="col-12 px-2 py-2"><a href="administrateur.html?display=products">Gérer les produits</a></div>
+                            <div class="col-12 px-2 py-2"><a href="administrateur_liste_produits">Gérer les produits</a></div>
                         </div>
                         <div class="row">
-                            <div class="col-12 px-2 py-2"><a href="administrateur.html?display=productsModify">Modifier un produit</a></div>
+                            <div class="col-12 px-2 py-2"><a href="administrateur_modifier_produit">Modifier un produit</a></div>
                         </div>
                     </span>
                 </div>
@@ -103,11 +103,11 @@
 
             <div class=" col-11 py-2">
                 <!------------- BOX COMMENTS --------->
-                <div id="admin_3" class="row boxMenuAdminSub" onclick="toggle_text('comments_desktop');">
+                <div id="admin_comments" class="row boxMenuAdminSub">
                     <div class="col-12 align-self-center py-2">
                         <h5>Commentaires</h5>
                     </div>
-                    <span id="comments_desktop" style="display:none;">
+                    <span id="comments_desktop" class='slide_out_top'>
                         <div class="row border-1 border-top border-secondary">
                             <div class="col-12 px-2 py-2"><a href="administrateur.html?display=productsCreate">Nouveaux</a></div>
                         </div>
@@ -119,32 +119,32 @@
             </div>
 
             <div class=" col-11 py-2">
-                <!------------- BOX INFOS --------->
-                <div id="admin_3" class="row boxMenuAdminSub" onclick="toggle_text('infos_desktop');">
+                <!------------- BOX DATA --------->
+                <div id="admin_data" class="row boxMenuAdminSub">
                     <div class="col-12 align-self-center py-2">
                         <h5>Informations</h5>
                     </div>
-                    <span id="infos_desktop" style="display:none;">
+                    <span id="data_desktop" class='slide_out_top'>
                         <div class="row border-1 border-top border-secondary">
-                            <div class="col-12 px-2 py-2"><a href="administrateur.html?display=woods">Bois</a></div>
+                            <div class="col-12 px-2 py-2"><a href="administrateur_bois">Bois</a></div>
                         </div>
                         <div class="row">
-                            <div class="col-12 px-2 py-2"><a href="administrateur.html?display=carriers">Transporteurs</a></div>
+                            <div class="col-12 px-2 py-2"><a href="administrateur_transporteur">Transporteurs</a></div>
                         </div>
                         <div class="row">
-                            <div class="col-12 px-2 py-2"><a href="administrateur.html?display=categoryCreateModify">Catégories</a></div>
+                            <div class="col-12 px-2 py-2"><a href="administrateur_categories">Catégories</a></div>
                         </div>
                     </span>
                 </div>
             </div>
 
             <div class=" col-11 py-2 border-top border-1">
-                <!------------- BOX INFOS --------->
-                <div id="admin_3" class="row boxMenuAdminSub" onclick="toggle_text('infos_money');">
+                <!------------- BOX MONEY --------->
+                <div id="admin_money" class="row boxMenuAdminSub">
                     <div class="col-12 align-self-center py-2">
                         <h5>Comptabilité</h5>
                     </div>
-                    <span id="infos_money" style="display:none;">
+                    <span id="money_desktop" class='slide_out_top'>
                         <div class="row border-1 border-top border-secondary">
                             <div class="col-12 px-2 py-2"><a href="administrateur.html?display=">Semaine</a></div>
                         </div>

@@ -9,6 +9,11 @@ class Product
     private int $id_category;
     private string $product_name;
     private int $id_wood;
+    private int $product_width;
+    private int $product_lenght;
+    private int $product_height;
+    private int $product_custom_text;
+    private int $product_custom_draw;
     private string $product_description;
     private int $product_weight;
     private int $product_price;
@@ -38,6 +43,26 @@ class Product
     public function setIdWood(int $id_wood): void
     {
         $this->id_wood = $id_wood;
+    }
+    public function setWidth(int $product_width): void
+    {
+        $this->product_width = $product_width;
+    }
+    public function setLenght(int $product_lenght): void
+    {
+        $this->product_lenght = $product_lenght;
+    }
+    public function setHeight(int $product_height): void
+    {
+        $this->product_height = $product_height;
+    }
+    public function setCustomText(int $product_custom_text): void
+    {
+        $this->product_custom_text = $product_custom_text;
+    }
+    public function setCustomDraw(int $product_custom_draw): void
+    {
+        $this->product_custom_draw = $product_custom_draw;
     }
     public function setDescription(string $product_description): void
     {
@@ -76,6 +101,26 @@ class Product
     public function getIdWood(): int
     {
         return $this->id_wood;
+    }
+    public function getWidth(): int
+    {
+        return $this->product_width;
+    }
+    public function getLenght(): int
+    {
+        return $this->product_lenght;
+    }
+    public function getHeight(): int
+    {
+        return $this->product_height;
+    }
+    public function getCustomText(): int
+    {
+        return $this->product_custom_text;
+    }
+    public function getCustomDraw(): int
+    {
+        return $this->product_custom_draw;
     }
     public function getDescription(): string
     {
@@ -149,7 +194,7 @@ class Product
     public function update(): int
     {
         $productNew = Product::isProductExist($this->product_name);
-        // var_dump($productNew);die;
+        // var_dump($this->product_custom_text);die;
         if ($productNew == 1) {
             try {
                 $sql = "UPDATE 
@@ -160,6 +205,11 @@ class Product
                 `products_price`=:product_price,
                 `products_weight`=:product_weight,
                 `products_time`=:product_time,
+                `products_width`=:product_width,
+                `products_lenght`=:product_lenght,
+                `products_height`=:product_height,
+                `products_custom_text`=:product_custom_text,
+                `products_custom_draw`=:product_custom_draw,
                 `id_category`=:id_category,
                 `id_wood`=:id_wood 
                 WHERE `id_product`=:product_id";
@@ -170,6 +220,11 @@ class Product
                 $sth->bindValue(':product_description', $this->product_description, PDO::PARAM_STR);
                 $sth->bindValue(':product_weight', $this->product_weight, PDO::PARAM_INT);
                 $sth->bindValue(':product_price', $this->product_price, PDO::PARAM_INT);
+                $sth->bindValue(':product_width', $this->product_width, PDO::PARAM_INT);
+                $sth->bindValue(':product_lenght', $this->product_lenght, PDO::PARAM_INT);
+                $sth->bindValue(':product_height', $this->product_height, PDO::PARAM_INT);
+                $sth->bindValue(':product_custom_text', $this->product_custom_text, PDO::PARAM_INT);
+                $sth->bindValue(':product_custom_draw', $this->product_custom_draw, PDO::PARAM_INT);
                 $sth->bindValue(':product_time', $this->product_time, PDO::PARAM_INT);
                 $sth->bindValue(':product_id', $this->product_id, PDO::PARAM_INT);
                 $result = $sth->execute();
@@ -220,6 +275,11 @@ class Product
             `products`.`products_price`,
             `products`.`products_weight`,
             `products`.`products_time`,
+            `products`.`products_width`,
+            `products`.`products_lenght`,
+            `products`.`products_height`,
+            `products`.`products_custom_text`,
+            `products`.`products_custom_draw`,
             `categories`.`id_category`,
             `categories`.`categories_name`,
             `woods`.`id_wood`,

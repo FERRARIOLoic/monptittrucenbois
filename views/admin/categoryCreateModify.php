@@ -27,10 +27,10 @@
                                                         <input type="text" class="form-control" name="category_name" value="<?= $category->categories_name; ?>">
                                                     </div>
                                                     <div class="col-3 align-self-center">
-                                                        <button type="submit" class="btn btnModify" name="action_category" value="modify">Modifier</button>
+                                                        <button type="submit" class="btn btnValidSmallX" name="action_category" value="modify" alt='Enregistrer les modifications' title='Enregistrer les modifications'>Modifier</button>
                                                     </div>
                                                     <div class="col-2 align-self-center">
-                                                        <button type="submit" class="btn btnModify" name="action_category" value="delete">X</button>
+                                                        <button type="submit" class="btn btnValidSmallX" name="action_category" value="delete" alt='Supprimer la catégorie' title='Supprimer la catégorie'>X</button>
                                                     </div>
                                                 </div>
                                             </form>
@@ -54,19 +54,22 @@
                                             <h3>Informations de la catégorie</h3>
                                         </div>
                                         <?php
-                                        if ($resultCategory == 0) { ?>
-                                            <div class="col-12 my-2 text-center align-self-center errorBox d-flex justify-content-center justify-self-center">
-                                                <span class="align-self-center errorForm">Erreur, la catégorie n'a pas été enregistrée</span>
-                                            </div>
-                                        <?php } elseif ($resultCategory == 1) { ?>
-                                            <div class="col-12 my-2 text-center align-self-center validBox d-flex justify-content-center justify-self-center">
-                                                <span class="align-self-center validForm">La catégorie à bien été enregistrée</span>
-                                            </div>
-                                        <?php } elseif ($resultCategory == 2) { ?>
-                                            <div class="col-12 my-2 text-center align-self-center validBox d-flex justify-content-center justify-self-center">
-                                                <span class="align-self-center validForm">La catégorie à bien été supprimée</span>
-                                            </div>
+                                        if (isset($resultCategory)) {
+
+                                            if ($resultCategory == 0) { ?>
+                                                <div class="col-12 my-2 text-center align-self-center errorBox d-flex justify-content-center justify-self-center">
+                                                    <span class="align-self-center errorForm">Erreur, la catégorie n'a pas été enregistrée</span>
+                                                </div>
+                                            <?php } elseif ($resultCategory == 1) { ?>
+                                                <div class="col-12 my-2 text-center align-self-center validBox d-flex justify-content-center justify-self-center">
+                                                    <span class="align-self-center validForm">La catégorie à bien été enregistrée</span>
+                                                </div>
+                                            <?php } elseif ($resultCategory == 2) { ?>
+                                                <div class="col-12 my-2 text-center align-self-center validBox d-flex justify-content-center justify-self-center">
+                                                    <span class="align-self-center validForm">La catégorie à bien été supprimée</span>
+                                                </div>
                                         <?php }
+                                        }
                                         unset($resultCategory); ?>
                                         <div class="col-12 py-2">
                                             <input type='text' class='form-control' name='categories' placeholder='Nom de la catégorie' value='<?= $category_info->categories ?? '' ?>'>

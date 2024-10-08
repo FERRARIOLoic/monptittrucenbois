@@ -27,6 +27,81 @@ function toggle_text(id) {
 }
 
 
+//!------------- ADMIN VIEW MENU ---------//
+
+//?------------- USERS ---------//
+admin_users.addEventListener('mouseover', () => {
+    document.getElementById("users_desktop").classList.remove('slide_out_top');
+    document.getElementById("users_desktop").classList.add('slide_in_left');
+});
+admin_users.addEventListener('mouseout', () => {
+    document.getElementById("users_desktop").classList.remove('slide_in_left');
+    document.getElementById("users_desktop").classList.add('slide_out_top');
+});
+
+//?------------- ORDERS ---------//
+admin_orders.addEventListener('mouseover', () => {
+    document.getElementById("orders_desktop").classList.remove('slide_out_top');
+    document.getElementById("orders_desktop").classList.add('slide_in_left');
+});
+admin_orders.addEventListener('mouseout', () => {
+    document.getElementById("orders_desktop").classList.remove('slide_in_left');
+    document.getElementById("orders_desktop").classList.add('slide_out_top');
+});
+
+//?------------- EVENTS ---------//
+admin_events.addEventListener('mouseover', () => {
+    document.getElementById("events_desktop").classList.remove('slide_out_top');
+    document.getElementById("events_desktop").classList.add('slide_in_left');
+});
+admin_events.addEventListener('mouseout', () => {
+    document.getElementById("events_desktop").classList.remove('slide_in_left');
+    document.getElementById("events_desktop").classList.add('slide_out_top');
+});
+
+//?------------- PRODUCTS ---------//
+admin_products.addEventListener('mouseover', () => {
+    document.getElementById("products_desktop").classList.remove('slide_out_top');
+    document.getElementById("products_desktop").classList.add('slide_in_left');
+});
+admin_products.addEventListener('mouseout', () => {
+    document.getElementById("products_desktop").classList.remove('slide_in_left');
+    document.getElementById("products_desktop").classList.add('slide_out_top');
+});
+
+//?------------- COMMENTS ---------//
+admin_comments.addEventListener('mouseover', () => {
+    document.getElementById("comments_desktop").classList.remove('slide_out_top');
+    document.getElementById("comments_desktop").classList.add('slide_in_left');
+});
+admin_comments.addEventListener('mouseout', () => {
+    document.getElementById("comments_desktop").classList.remove('slide_in_left');
+    document.getElementById("comments_desktop").classList.add('slide_out_top');
+});
+
+//?------------- DATA ---------//
+admin_data.addEventListener('mouseover', () => {
+    document.getElementById("data_desktop").classList.remove('slide_out_top');
+    document.getElementById("data_desktop").classList.add('slide_in_left');
+});
+admin_data.addEventListener('mouseout', () => {
+    document.getElementById("data_desktop").classList.remove('slide_in_left');
+    document.getElementById("data_desktop").classList.add('slide_out_top');
+});
+
+//?------------- MONEY ---------//
+admin_money.addEventListener('mouseover', () => {
+    document.getElementById("money_desktop").classList.remove('slide_out_top');
+    document.getElementById("money_desktop").classList.add('slide_in_left');
+});
+admin_money.addEventListener('mouseout', () => {
+    document.getElementById("money_desktop").classList.remove('slide_in_left');
+    document.getElementById("money_desktop").classList.add('slide_out_top');
+});
+
+
+
+//!------------- MODAL INSCRIPTION / CONNEXION ---------//
 
 //------------- INSCRIPTION ---------//
 btnInscriptionModal.addEventListener('click', () => {
@@ -126,4 +201,6 @@ btnProductInfo.addEventListener('click', () => {
         </div>
     </div>`;
 });
+
+
 

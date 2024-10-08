@@ -28,10 +28,45 @@ RewriteRule ^produits.html$ controllers/products_category_controller.php [L]
 RewriteRule ^informations_produit.html$ controllers/product_info_controller.php [L] 
 RewriteRule ^profil.html$ controllers/profile_controller.php [L] 
 RewriteRule ^informations.html$ controllers/workingInfo_controller.php [L] 
-RewriteRule ^administrateur.html$ controllers/admin_controller.php [L] 
 RewriteRule ^liste_utilisateurs.html$ controllers/user_controller.php [L] 
 RewriteRule ^foire_questions.html$ controllers/faq_controller.php [L] 
 RewriteRule ^mentions_legales.html$ controllers/legal_notices_controller.php [L] 
 RewriteRule ^a_propos.html$ controllers/about_controller.php [L] 
+
+#------------- ADMIN VUE ---------#
+RewriteRule ^administrateur$ controllers/admin_controller.php [L] 
+#------------- ADMIN USERS LIST ---------#
+RewriteRule ^administrateur_liste_utilisateurs$ controllers/admin_users_list_controller.php [L] 
+#------------- ADMIN NEW USER ---------#
+RewriteRule ^administrateur_nouvel_utilisateur$ controllers/admin_users_new_controller.php [L] 
+#------------- ADMIN ORDERS NEW ---------#
+RewriteRule ^administrateur_nouvelles_commandes$ controllers/admin_order_new_controller.php [L] 
+#------------- ADMIN ORDERS PENDING ---------#
+RewriteRule ^administrateur_commandes_attente$ controllers/admin_order_pending_controller.php [L] 
+#------------- ADMIN ORDERS SHIP ---------#
+RewriteRule ^administrateur_commandes_livraison$ controllers/admin_order_ship_controller.php [L] 
+#------------- ADMIN ORDERS ENDED ---------#
+RewriteRule ^administrateur_commandes_finies$ controllers/admin_order_ended_controller.php [L] 
+#------------- ADMIN EVENT NEW ---------#
+RewriteRule ^administrateur_evenement_nouveau$ controllers/admin_event_new_controller.php [L] 
+#------------- ADMIN EVENT PENDING ---------#
+RewriteRule ^administrateur_evenement_en_cours$ controllers/admin_event_pending_controller.php [L] 
+#------------- ADMIN EVENT ENDED ---------#
+RewriteRule ^administrateur_evenement_termine$ controllers/admin_event_ended_controller.php [L] 
+#------------- ADMIN PRODUCT CREATE ---------#
+RewriteRule ^administrateur_creation_produit$ controllers/admin_product_create_controller.php [L] 
+#------------- ADMIN PRODUCTS LIST ---------#
+RewriteRule ^administrateur_liste_produits$ controllers/admin_products_list_controller.php [L] 
+#------------- ADMIN PRODUCTS MODIFY ---------#
+RewriteRule ^administrateur_modifier_produit$ controllers/admin_product_modify_controller.php [L] 
+#------------- ADMIN WOODS ---------#
+RewriteRule ^administrateur_bois$ controllers/admin_woods_controller.php [L] 
+#------------- ADMIN CARRIERS ---------#
+RewriteRule ^administrateur_transporteur$ controllers/admin_carriers_controller.php [L] 
+#------------- ADMIN CATEGORIES ---------#
+RewriteRule ^administrateur_categories$ controllers/admin_categories_controller.php [L] 
+
+
+
 
 ErrorDocument 404 /controllers/error-controller.php

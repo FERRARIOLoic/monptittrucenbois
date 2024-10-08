@@ -17,10 +17,10 @@
                     <strong>Qui suis-je ?</strong>
                 </div>
                 <div class="col-12 col-md-10 pt-3">
-                    Une petite description de moi
+                    Je m'appelle M. VUE Gérard
                 </div>
                 <div class="col-12 col-md-10 pt-1">
-                    Une petite description de moi
+                    Je suis auto-entrepreneur depuis 2012
                 </div>
             </div>
         </div>
@@ -34,10 +34,7 @@
                     <strong>Où je travaille ?</strong>
                 </div>
                 <div class="col-12 offset-md-1 col-md-11 pt-3 text-end">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet alias vitae adipisci delectus laborum autem molestias eligendi nam tenetur eos? Blanditiis aperiam tenetur rem fugit. Facilis aperiam maxime temporibus distinctio.
-                </div>
-                <div class="col-12 offset-md-1 col-md-11 pt-1 text-end">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Error, illo fugiat officia odio rerum atque pariatur placeat accusamus amet, temporibus similique doloremque repellat rem ipsa optio quia, impedit itaque voluptatum!
+                    Je travaille à Hallencourt dans un petit atelier d'où sortent toutes mes créations
                 </div>
             </div>
         </div>
@@ -57,7 +54,10 @@
                     <strong>Comment j'en suis arrivé là ?</strong>
                 </div>
                 <div class="col-12 col-md-10 pt-3">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum, quam. Quas expedita, maxime inventore esse assumenda voluptate amet pariatur natus nostrum, aliquam sed cum tenetur molestias culpa, provident harum ut.
+
+                    J'ai commencé mon activité de travail sur le bois suite à mon licenciement en 2012.
+                    <br>Car comme j'aime à le dire "Mon licenciement était un mal pour un bien".
+                    <br>Je suis actuellement de seul tourneur sur bois du territoire, je travaille à l'ancienne et j'ai déjà présenté des produits fabriqués de mes mains aus salons de l'artisanat.
                 </div>
             </div>
         </div>
